@@ -1,4 +1,4 @@
-# shop-web
+# beerbook
 
 ## Project setup
 ```
