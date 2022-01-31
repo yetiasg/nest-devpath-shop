@@ -9,7 +9,7 @@
 //     return data;
 // };
 
-const beers = [
+const products = [
   {id: '1233', name: "Potion #16", browar: "Browar Brokreacja", ocena: 7.5, img: 'https://untappd.akamaized.net/photos/2021_07_16/361456883d46be3a971d0e22574f63c0_640x640.jpg'},
   {id: '1234', name: "Potion #10", browar: "Browar Brokreacja", ocena: 6, img: 'https://piwneopinie.pl/wp-content/uploads/Potion_10_Brokreacja-1024x1024.jpg'},
   {id: '1235', name: "Hazy DiscoWisco", browar: "Pinta", ocena: 8, img: 'https://www.piwaswiata.com/images/hazydiscowisco.jpg'},
@@ -49,11 +49,11 @@ const beers = [
 ]
 
 export default{
-  loadBeers(context){
-    const amountOfBeers = beers.length
-    context.commit('setAmountOfBeers', amountOfBeers)
+  loadProducts(context){
+    const amountOfProducts = products.length
+    context.commit('setAmountOfProducts', amountOfProducts)
     const perPage = context.state.perPage;
-    const amountOfPages = Math.ceil(amountOfBeers / perPage)
+    const amountOfPages = Math.ceil(amountOfProducts / perPage)
     context.commit('setAmountOfPages', amountOfPages)
   }
 }

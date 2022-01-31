@@ -1,18 +1,24 @@
 <template>
   <header>
-    <p><router-link to="/">beerbook</router-link></p>
-    <base-button v-if="((whereAmI !== '/auth') && (whereAmI !== '/beers'))" class="accountBtn" link mode="clearBtn" :to="`${whereAmI}auth`">konto</base-button>
-    <base-button class="accountBtn" v-else-if="whereAmI === '/beers'" @click="logout" mode="clearBTtn" link to="/" >wyloguj</base-button>
-
+    <p><router-link to="/">your-shop-name</router-link></p>
+    <div>
+      <base-button v-show="((whereAmI !== '/auth'))" class="accountBtn" link mode="clearBtn"  :to="`/${whoAmI}/dashboard`">konto</base-button>
+      <base-button class="accountBtn" v-show="((whereAmI !== '/auth'))"  @click="logout" mode="clearBTtn" link to="/" >wyloguj</base-button>
+    </div>
   </header>
 </template>
-
 <script>
 export default {
+
   computed:{
     whereAmI(){
       return this.$route.path;
+    },
+    whoAmI(){
+      console.log(localStorage.getItem('role').toLowerCase())
+      return localStorage.getItem('role').toLowerCase()
     }
+
   }, 
     methods: {
       logout(){
@@ -77,5 +83,13 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
+  }
+
+  div{
+    margin: 2rem;
+  }
+
+  .accountBtn{
+    margin: 0 1rem
   }
 </style>

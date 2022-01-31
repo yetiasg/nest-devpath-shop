@@ -5,7 +5,7 @@ import getters from './getters.js'
 export default{
     state(){
         return{
-            beers: [
+            products: [
                 {id: '1233', name: "Potion #16", browar: "Browar Brokreacja", ocena: 7.5, img: 'https://untappd.akamaized.net/photos/2021_07_16/361456883d46be3a971d0e22574f63c0_640x640.jpg'},
                 {id: '1234', name: "Potion #10", browar: "Browar Brokreacja", ocena: 6, img: 'https://piwneopinie.pl/wp-content/uploads/Potion_10_Brokreacja-1024x1024.jpg'},
                 {id: '1235', name: "Hazy DiscoWisco", browar: "Pinta", ocena: 8, img: 'https://www.piwaswiata.com/images/hazydiscowisco.jpg'},
@@ -46,9 +46,9 @@ export default{
             currentPage: 1,
             perPage: 20,
             amountOfPages: null,
-            amountOfBeers: null,
+            amountOfProducts: null,
 
-            selectedBeer: null,
+            selectedProduct: null,
         }
     },
     mutations,

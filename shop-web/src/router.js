@@ -1,15 +1,19 @@
 import {createRouter, createWebHistory} from 'vue-router'
 
-import IndexPage from './pages/IndexPage.vue'
 import TheAuth from './pages/TheAuth'
-import TheBeers from './pages/TheBeers'
+import TheShop from './pages/TheShop'
+import AdminDashboard  from './pages/AdminDashboard'
+import UserDashboard  from './pages/UserDashboard'
+
 
 const router = createRouter({
     history: createWebHistory(),
     routes: [
-        {path: '/', name: 'rootRoute', component: IndexPage},
-        {path: '/beers', name: 'beers', component: TheBeers, meta: {requireAuth: true}},
+        {path: '/', name: 'rootRoute', redirect: {path: '/shop'}},
+        {path: '/shop', name: 'shop', component: TheShop, meta: {requireUmAuth: true}},
         {path: '/auth', name: 'auth', component: TheAuth, meta: {requireUnAuth: true}},
+        {path: '/user/dashboard', name: 'userDashboard', component: UserDashboard, meta: {requireAuth: true, role: 'USER'}},
+        {path: '/admin/dashboard', name: 'adminDashboard', component: AdminDashboard, meta: {requireAuth: true, role: 'ADMIN'}},
         {path: '/:notFound(.*)', name: 'NotFoundRoute', redirect: '/'}
     ],
     scrollBehavior(){
@@ -18,18 +22,22 @@ const router = createRouter({
 })
 
 router.beforeEach(async(to, from, next) => {
-    
-    // const token = localStorage.getItem('token')
-    const token = "g";
+    localStorage.setItem('role', 'USER')
+    localStorage.setItem('token', 'fjskfy3i4698qtgfvkjsawgfhvWIUEFG')
+
+
+    const token = localStorage.getItem('token')
+    const role = localStorage.getItem('role')
+    // const token = "5";
     const routerAuthCheck = !!token
 
     if(to.matched.some(record => record.meta.requireAuth)){
-        if(routerAuthCheck) {
+        if(routerAuthCheck && to.matched.some(record => record.meta.role === role)) {
             next();
         }else next('/auth')
     }
     else if(to.matched.some(record => record.meta.requireUnAuth)){
-        if(routerAuthCheck) next('/beers')
+        if(routerAuthCheck) next('/')
         else next()
     }
     else next()

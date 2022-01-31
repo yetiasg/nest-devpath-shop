@@ -1,6 +1,6 @@
 export default{
-  setAmountOfBeers(state, payload){
-    state.amountOfBeers = payload;
+  setAmountOfProducts(state, payload){
+    state.amountOfProducts = payload;
   },
   setAmountOfPages(state, payload){
     state.amountOfPages = payload;
@@ -8,7 +8,7 @@ export default{
   setCurrentPage(state, payload){
     state.currentPage = payload
   },
-  setSelectedBeer(state, payload){
-    state.selectedBeer = payload
+  setSelectedProduct(state, payload){
+    state.selectedProduct = payload
   },
 }

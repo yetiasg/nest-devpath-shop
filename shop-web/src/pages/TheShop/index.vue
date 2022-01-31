@@ -4,10 +4,10 @@
         <the-header></the-header>
         <div class="infoBox">
             <sorting-bar></sorting-bar>
-            <beer-list></beer-list>
+            <product-list></product-list>
             <the-paginator></the-paginator>
         </div>
-        <modal-view v-if="selectedBeer"></modal-view>
+        <modal-view v-if="selectedProduct"></modal-view>
         <the-footer></the-footer>
         <the-ellipse class="ellipseBottom"></the-ellipse>
     </section>
@@ -17,26 +17,26 @@
 import TheHeader from '../../components/layout/TheHeader.vue';
 import TheFooter from '../../components/layout/TheFooter.vue';
 import TheEllipse from '../../components/layout/layoutShapes/TheEllipse.vue';
-import BeerList from './components/BeerList.vue';
+import ProductList from './components/ProductsList.vue';
 import ThePaginator from './components/ThePaginator.vue';
 import ModalView from './components/ModalView.vue';
-import SortingBar from './components/SortingBar.vue';
+// import SortingBar from './components/SortingBar.vue';
 export default {
     components:{
         TheHeader,
         TheFooter,
         TheEllipse,
-        BeerList,
+        ProductList,
         ThePaginator,
         ModalView,
-        SortingBar
+        // SortingBar
     },
     mounted(){
-        this.$store.dispatch('loadBeers');
+        this.$store.dispatch('loadProducts');
     },
     computed: {
-        selectedBeer(){
-            const show = this.$store.state.requests.selectedBeer
+        selectedProduct(){
+            const show = this.$store.state.requests.selectedProduct
             return show
         }
     }

@@ -108,7 +108,7 @@ export default {
         } else {
           await this.$store.dispatch('register', actionPayload);
         }
-        if (this.isLoggedIn) this.$router.replace('/beers');
+        if (this.isLoggedIn) this.$router.replace('/shop');
       } catch (error) {
         this.error = error;
         console.log(error);

@@ -1,23 +1,23 @@
 <template>
-  <div class="modalView" @click="backToBeers">
-    <beer-details></beer-details>
+  <div class="modalView" @click="backToProducts">
+    <product-details></product-details>
   </div>
 </template>
 
 <script>
-import BeerDetails from './BeerDetails.vue';
+import ProductDetails from './ProductDetails.vue';
 export default {
   components:{
-    BeerDetails,
+    ProductDetails,
   },
   data(){
     return{
-      selectedBeer: this.$store.state.requests.selectedBeer
+      selectedProduct: this.$store.state.requests.selectedProduct
     }
   },
   methods:{
-    backToBeers(){
-      this.$store.commit('setSelectedBeer', null);
+    backToProducts(){
+      this.$store.commit('setSelectedProduct', null);
       this.$store.commit('setSortingModalMode', 'closed')
 
     }

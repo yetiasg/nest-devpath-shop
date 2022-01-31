@@ -1,7 +1,7 @@
 <template>
     <div class="details-container" @click.stop>
-      <span class="closeModal" @click="backToBeers">x</span>
-      <h3>{{selectedBeer}}</h3>
+      <span class="closeModal" @click="backToProducts">x</span>
+      <h3>{{selectedProduct}}</h3>
     </div>
 </template>
 
@@ -9,12 +9,12 @@
 export default {
   data(){
     return{
-      selectedBeer: this.$store.state.requests.selectedBeer
+      selectedProduct: this.$store.state.requests.selectedProduct
     }
   },
   methods:{
-    backToBeers(){
-      this.$store.commit('setSelectedBeer', null);
+    backToProducts(){
+      this.$store.commit('setSelectedProduct', null);
     }
   }
 }

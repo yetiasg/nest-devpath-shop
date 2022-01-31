@@ -33,7 +33,6 @@
 </template>
 
 <script>
-// import TheCircle from '../components/layout/layoutShapes/TheCircle.vue'
 import TheHeader from '../components/layout/TheHeader.vue';
 import TheFooter from '../components/layout/TheFooter.vue';
 import TheCircle from '../components/layout/layoutShapes/TheCircle.vue';

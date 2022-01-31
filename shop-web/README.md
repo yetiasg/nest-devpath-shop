@@ -1,4 +1,4 @@
-# beerbook
+# mest-shop
 
 ## Project setup
 ```

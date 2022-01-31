@@ -1,8 +1,8 @@
 export default{
-    getBeers(state){
+    getProducts(state){
       const currentPage = state.currentPage;
       const perPage = state.perPage;
       const index = (currentPage - 1) * perPage;
-      return state.beers.slice(index, index + perPage)
+      return state.products.slice(index, index + perPage)
     }
 }

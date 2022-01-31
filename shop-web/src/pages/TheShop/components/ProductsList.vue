@@ -1,14 +1,14 @@
  <template>
   <section>
     <ul>
-      <li v-for="beer in beers" :key="beer.id" @click="selectBeer(beer.id)">
-        <img :src="beer.img" :alt="beer.name">
+      <li v-for="product in products" :key="product.id" @click="selectProduct(product.id)">
+        <img :src="product.img" :alt="product.name">
         <div class="data">
           <span>
-            <p>{{beer.name}}</p>
-            <p>{{beer.browar}}</p>
+            <p>{{product.name}}</p>
+            <p>{{product.browar}}</p>
           </span>
-          <p>{{beer.ocena}}/10</p>
+          <p>{{product.ocena}}/10</p>
         </div>
       </li>
     </ul>
@@ -18,13 +18,13 @@
 <script>
 export default {
   methods: {
-    selectBeer(id){
-      this.$store.commit('setSelectedBeer', id);
+    selectProduct(id){
+      this.$store.commit('setSelectedProduct', id);
     }
   },
   computed:{
-    beers(){
-      return this.$store.getters.getBeers;
+    products(){
+      return this.$store.getters.getProducts;
     }
   }
 }
