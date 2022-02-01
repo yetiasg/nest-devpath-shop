@@ -5,7 +5,6 @@
         <div class="infoBox">
           {{message}}
         </div>
-        <modal-view v-if="selectedProduct"></modal-view>
         <the-footer></the-footer>
         <the-ellipse class="ellipseBottom"></the-ellipse>
     </section>
@@ -29,12 +28,6 @@ export default {
     mounted(){
         this.$store.dispatch('tryLogin')
     },
-    computed: {
-        selectedProduct(){
-            const show = this.$store.state.requests.selectedProduct
-            return show
-        }
-    }
 }
 </script>
 

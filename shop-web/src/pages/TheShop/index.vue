@@ -3,7 +3,7 @@
         <the-ellipse class="ellipseTop"></the-ellipse>
         <the-header></the-header>
         <div class="infoBox">
-            <sorting-bar></sorting-bar>
+            <!-- <sorting-bar></sorting-bar> -->
             <product-list></product-list>
             <the-paginator></the-paginator>
         </div>

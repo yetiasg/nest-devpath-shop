@@ -25,9 +25,6 @@ export default {
         message: 'Cart'
       }
     },
-    // mounted(){
-    //     this.$store.dispatch('tryLogin')
-    // }
 }
 </script>
 
