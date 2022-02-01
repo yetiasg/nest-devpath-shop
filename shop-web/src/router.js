@@ -23,12 +23,11 @@ const router = createRouter({
 
 router.beforeEach(async(to, from, next) => {
     localStorage.setItem('role', 'USER')
-    localStorage.setItem('token', 'fjskfy3i4698qtgfvkjsawgfhvWIUEFG')
+    // localStorage.setItem('token', 'fjskfy3i4698qtgfvkjsawgfhvWIUEFG')
 
 
     const token = localStorage.getItem('token')
     const role = localStorage.getItem('role')
-    // const token = "5";
     const routerAuthCheck = !!token
 
     if(to.matched.some(record => record.meta.requireAuth)){

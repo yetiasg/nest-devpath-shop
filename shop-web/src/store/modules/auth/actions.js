@@ -57,7 +57,7 @@ export default{
       },
 
     async register(context, payload){
-        const {email, password, passwordRepeat} = payload;
+        const {email, password, passwordConfirmation} = payload;
         try{
             const resData = await getJSON(`${config.BASE_URL}/auth/register`, {
                 method: 'POST',
@@ -67,7 +67,7 @@ export default{
                 body: JSON.stringify({
                     email: email,
                     password: password,
-                    repeat_password: passwordRepeat
+                    passwordConfirmation
                 })
             })
 

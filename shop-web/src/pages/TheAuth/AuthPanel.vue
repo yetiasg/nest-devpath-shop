@@ -2,21 +2,21 @@
   <base-badge>
     <div class="container">
       <form @submit.prevent="submitForm">
-        <p v-if="!formIsValid">nieprawidlowe dane</p>
+        <p v-if="!formIsValid">incorrect data</p>
         <div class="optionsBtn">
           <base-button
             @click.prevent
             @focus.prevent="changeLoginMode"
             :mode="loginMode ? 'filledBtn' : 'borderBtn'"
             :disabled="loginMode"
-            >Logowanie</base-button
+            >Log in</base-button
           >
           <base-button
             @click.prevent
             @focus.prevent="changeLoginMode"
             :mode="loginMode ? 'borderBtn' : 'filledBtn'"
             :disabled="!loginMode"
-            >Rejestracja</base-button
+            >Sign in</base-button
           >
         </div>
         <div class="loginInput">
@@ -30,7 +30,7 @@
           />
         </div>
         <div class="passwordInput">
-          <label for="password">hasło</label>
+          <label for="password">password</label>
           <input
             @keydown.enter="submitForm"
             type="password"
@@ -40,14 +40,14 @@
             placeholder="*****"
           />
         </div>
-        <div class="passwordRepeatInput" v-if="!loginMode">
-          <label for="passwordRepeat">powtórz hasło</label>
+        <div class="passwordConfirmationInput" v-if="!loginMode">
+          <label for="passwordConfirmation">repeat password</label>
           <input
             @keydown.enter="submitForm"
             type="password"
-            name="passwordRepeat"
+            name="passwordConfirmation"
             autocomplete="current-password"
-            v-model="passwordRepeat"
+            v-model="passwordConfirmation"
             placeholder="*****"
           />
         </div>
@@ -66,7 +66,7 @@ export default {
       loginMode: true,
       email: '',
       password: '',
-      passwordRepeat: '',
+      passwordConfirmation: '',
       formIsValid: true,
       error: null,
     };
@@ -90,7 +90,7 @@ export default {
         if (
           !this.email.includes('@') ||
           this.password.length < 8 ||
-          this.password !== this.passwordRepeat
+          this.password !== this.passwordConfirmation
         ) {
           this.formIsValid = false;
           return;
@@ -98,7 +98,7 @@ export default {
         actionPayload = {
           email: this.email,
           password: this.password,
-          passwordRepeat: this.passwordRepeat,
+          passwordConfirmation: this.passwordConfirmation,
         };
       }
       try {
@@ -118,9 +118,9 @@ export default {
   computed: {
     submitButtonCaption() {
       if (this.loginMode) {
-        return 'Zaloguj';
+        return 'Log in';
       } else {
-        return 'Zarejestruj';
+        return 'Sign in';
       }
     },
     isLoggedIn() {
@@ -145,7 +145,7 @@ export default {
 
 .loginInput,
 .passwordInput,
-.passwordRepeatInput {
+.passwordConfirmationInput {
   display: flex;
   flex-direction: column;
   justify-content: stretch;
@@ -155,14 +155,14 @@ export default {
 
 .loginInput label,
 .passwordInput label,
-.passwordRepeatInput label {
+.passwordConfirmationInput label {
   position: relative;
   left: 10px;
 }
 
 .loginInput input,
 .passwordInput input,
-.passwordRepeatInput input {
+.passwordConfirmationInput input {
   width: 100%;
   height: 40px;
   border: 2px solid rgb(255, 255, 255);
@@ -176,7 +176,7 @@ export default {
 
 .loginInput input:focus,
 .passwordInput input:focus,
-.passwordRepeatInput input:focus {
+.passwordConfirmationInput input:focus {
   border: 2px solid rgb(246, 227, 193);
 }
 
