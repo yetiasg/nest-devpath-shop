@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { LoginDto, RefreshDto } from './dto/auth.dto';
+import { LoginDto } from './dto/auth.dto';
 import bcrypt from 'bcrypt';
 import { AuthConfig, AuthConfigType } from './auth.config';
 import { UserEntity } from 'src/users/user.entity';
@@ -16,8 +16,8 @@ export class AuthService {
     return loginDto;
   }
 
-  async refresh(refreshDto: RefreshDto) {
-    return refreshDto;
+  async refresh(refreshToken: string) {
+    return refreshToken;
   }
 
   async signAccessToken(user: UserEntity): Promise<string> {

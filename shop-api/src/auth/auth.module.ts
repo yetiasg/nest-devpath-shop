@@ -1,5 +1,5 @@
 import { forwardRef, Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigType } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { UsersModule } from 'src/users/users.module';
@@ -12,10 +12,17 @@ import { LocalStrategy } from './strategies/local.strategy';
 @Module({
   imports: [
     UsersModule,
-    ConfigModule.forFeature(AuthConfig),
     PassportModule,
-    JwtModule,
     forwardRef(() => UsersModule),
+    ConfigModule.forFeature(AuthConfig),
+    JwtModule.registerAsync({
+      imports: [ConfigModule.forFeature(AuthConfig)],
+      inject: [AuthConfig.KEY],
+      useFactory: (authConfig: ConfigType<typeof AuthConfig>) => ({
+        secret: authConfig.secret,
+        signOptions: { expiresIn: authConfig.sessionExpirationTime },
+      }),
+    }),
   ],
   controllers: [AuthController],
   providers: [AuthService, LocalStrategy, JwtAuthGuard],

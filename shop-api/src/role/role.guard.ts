@@ -10,7 +10,7 @@ export const RoleGuard = (
       const { user } = context.switchToHttp().getRequest();
       return (
         roles.includes(user?.role) ||
-        (user?.role === Role.SUPER_ADMIN && canSuperAdmin)
+        (user?.role === Role.ADMIN && canSuperAdmin)
       );
     }
   }
