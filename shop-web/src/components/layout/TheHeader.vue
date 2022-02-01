@@ -2,8 +2,10 @@
   <header>
     <p><router-link to="/">your-shop-name</router-link></p>
     <div>
-      <base-button v-show="((whereAmI !== '/auth'))" class="accountBtn" link mode="clearBtn"  :to="`/${whoAmI}/dashboard`">konto</base-button>
-      <base-button class="accountBtn" v-show="((whereAmI !== '/auth'))"  @click="logout" mode="clearBTtn" link to="/" >wyloguj</base-button>
+      <base-button class="accountBtn" link mode="clearBtn" :to="`/shop`">shop</base-button>
+      <base-button class="accountBtn" link mode="clearBtn" :to="`/cart`">cart</base-button>
+      <base-button v-show="((whereAmI !== '/auth'))" class="accountBtn" link mode="clearBtn"  :to="`/${whoAmI}/dashboard`">account</base-button>
+      <base-button class="accountBtn" v-show="((whereAmI !== '/auth'))"  @click="logout" mode="clearBTtn" link to="/" ><span class="logoutBtn">logout</span></base-button>
     </div>
   </header>
 </template>
@@ -15,7 +17,6 @@ export default {
       return this.$route.path;
     },
     whoAmI(){
-      console.log(localStorage.getItem('role').toLowerCase())
       return localStorage.getItem('role').toLowerCase()
     }
 
@@ -38,6 +39,7 @@ export default {
       padding: 0 0 0 calc(((100% - 92%)/2) + 1%);
     }
     .accountBtn{
+      display: flex;
       padding: 0 calc(((100% - 92%)/2) + 1%) 0 0;
     }
   }
@@ -51,6 +53,7 @@ export default {
       padding: 0 0 0 calc(((100% - 87%)/2) + 1%);
     }
     .accountBtn{
+      display: flex;
       padding: 0 calc(((100% - 88%)/2) + 1%) 0 0;
     }
   }
@@ -63,9 +66,7 @@ export default {
       font-size: 1.2rem;
       padding: 0 0 0 calc(((100% - 85%)/2) + 1%);
     }
-    .accountBtn{
-      padding: 0 calc(((100% - 85%)/2) + 1%) 0 0;
-    }
+
   }
 
   @media screen and (min-width: 1204px){
@@ -85,11 +86,12 @@ export default {
     align-items: center;
   }
 
+  .accountBtn{
+    margin: 0 2rem;
+  }
+
   div{
     margin: 2rem;
   }
 
-  .accountBtn{
-    margin: 0 1rem
-  }
 </style>

@@ -5,13 +5,12 @@
         <div class="infoBox">
           {{message}}
         </div>
-        <modal-view v-if="selectedProduct"></modal-view>
         <the-footer></the-footer>
         <the-ellipse class="ellipseBottom"></the-ellipse>
     </section>
 </template>
 <script>
-
+console.log('cart')
 import TheHeader from '../../components/layout/TheHeader.vue';
 import TheFooter from '../../components/layout/TheFooter.vue';
 import TheEllipse from '../../components/layout/layoutShapes/TheEllipse.vue';
@@ -23,18 +22,12 @@ export default {
     },
     data(){
       return {
-        message: 'User - dashboard'
+        message: 'Cart'
       }
     },
-    mounted(){
-        this.$store.dispatch('tryLogin')
-    },
-    computed: {
-        selectedProduct(){
-            const show = this.$store.state.requests.selectedProduct
-            return show
-        }
-    }
+    // mounted(){
+    //     this.$store.dispatch('tryLogin')
+    // }
 }
 </script>
 
