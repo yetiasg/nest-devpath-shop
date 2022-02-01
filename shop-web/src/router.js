@@ -26,9 +26,9 @@ router.beforeEach(async(to, from, next) => {
     // localStorage.setItem('token', 'fjskfy3i4698qtgfvkjsawgfhvWIUEFG')
 
 
-    const token = localStorage.getItem('token')
+    const access_token = localStorage.getItem('access_token')
     const role = localStorage.getItem('role')
-    const routerAuthCheck = !!token
+    const routerAuthCheck = !!access_token
 
     if(to.matched.some(record => record.meta.requireAuth)){
         if(routerAuthCheck && to.matched.some(record => record.meta.role === role)) {

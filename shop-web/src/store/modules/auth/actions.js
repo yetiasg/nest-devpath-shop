@@ -26,23 +26,22 @@ export default{
               'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-              email: email,
-              password: password
+              email, password
             })
           });
-          let {token, refreshToken, userId} = resData;
+          let {access_token, refreshToken, userId} = resData;
           let expiresIn = expirationTime(resData.expiresIn);
           const expirationDate = new Date().getTime() + expiresIn;
     
           const userPayload = {
-            token,
+            access_token,
             refreshToken,
             userId,
             espiresIn: expirationDate
           }
     
           context.commit('setUserData', userPayload);
-          localStorage.setItem('token', token);
+          localStorage.setItem('access_token', access_token);
           localStorage.setItem('refreshToken', refreshToken);
           localStorage.setItem('userId', userId);
           localStorage.setItem('expiresIn', expirationDate);
@@ -66,24 +65,24 @@ export default{
                 },
                 body: JSON.stringify({
                     email: email,
-                    password: password,
+                    password,
                     passwordConfirmation
                 })
             })
 
-            const {token, refreshToken, userId} = resData;
+            const {access_token, refreshToken, userId} = resData;
             let expiresIn = expirationTime(resData.expiresIn);
             const expirationDate = new Date().getTime() + expiresIn;
 
             const userPayload = {
-                token,
+              access_token,
                 refreshToken,
                 userId,
                 expiresIn: expirationDate
             }
 
             context.commit('setUserData', userPayload);
-            localStorage.setItem('token', token);
+            localStorage.setItem('access_token', access_token);
             localStorage.setItem('refreshToken', refreshToken);
             localStorage.setItem('userId', userId);
             localStorage.setItem('expiresIn', expirationDate);
@@ -111,18 +110,18 @@ export default{
             })
           });
 
-          const {token, refreshToken, userId} = resData;
+          const {access_token, refreshToken, userId} = resData;
           let expiresIn = expirationTime(resData.expiresIn);
           const expirationDate = new Date().getTime() + expiresIn;
 
             const userPayload = {
-                token: token,
-                refreshToken: refreshToken,
-                userId: userId
+                access_token,
+                refreshToken,
+                userId
             }
             
             context.commit('setUserData', userPayload);
-            localStorage.setItem('token', token);
+            localStorage.setItem('access_token', access_token);
             localStorage.setItem('refreshToken', refreshToken);
             localStorage.setItem('userId', userId);
             localStorage.setItem('expiresIn', expirationDate);
@@ -138,7 +137,7 @@ export default{
         }
     },
     tryLogin(context){
-        const token = localStorage.getItem('token')
+        const access_token = localStorage.getItem('access_token')
         const refreshToken = localStorage.getItem('refreshToken')
         const userId = localStorage.getItem('userId')
 
@@ -154,9 +153,9 @@ export default{
         }, expiresIn);
 
 
-        if(token.length > 0 && refreshToken.length > 0 && userId.length > 0){
+        if(access_token.length > 0 && refreshToken.length > 0 && userId.length > 0){
             const userPayload = {
-                token,
+              access_token,
                 refreshToken,
                 userId,
                 expiresIn
@@ -168,7 +167,7 @@ export default{
     },
     logout: (context) =>{
         context.commit('logout');
-        localStorage.removeItem('token');
+        localStorage.removeItem('access_token');
         localStorage.removeItem('refreshToken');
         localStorage.removeItem('userId');
         localStorage.removeItem('expiresIn');

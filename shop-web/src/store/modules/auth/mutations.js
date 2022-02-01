@@ -1,6 +1,6 @@
 export default{
 setUserData(state, payload){
-    state.token = payload.token
+    state.access_token = payload.access_token
     state.refreshToken = payload.refreshToken
     state.userId = payload.userId
     state.expiresIn = payload.expiresIn
@@ -8,7 +8,7 @@ setUserData(state, payload){
   },
 
   logout(state){
-    state.token = null
+    state.access_token = null
     state.refreshToken = null
     state.userId = null
     state.isAuth = false
