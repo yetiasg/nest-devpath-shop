@@ -17,7 +17,12 @@ export class AuthService {
   }
 
   async refresh(refreshToken: string) {
-    return refreshToken;
+    return {
+      access_token: 'refreshToken',
+      refreshToken: 'refreshToken',
+      userId: '5',
+      expiresIn: this.authConfig.sessionExpirationTime,
+    };
   }
 
   async signAccessToken(user: UserEntity): Promise<string> {
