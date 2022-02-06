@@ -1,8 +1,6 @@
 <template>
     <section>
-        <div class="view-name">
-          {{viewName}}
-        </div>
+        {{viewName}}
     </section>
 </template>
 
@@ -20,13 +18,6 @@ export default {
 </script>
 
 <style scoped>
-    .iew-name{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-between;
-    }
-
     section{
         height: 100%;
         width: 100%;

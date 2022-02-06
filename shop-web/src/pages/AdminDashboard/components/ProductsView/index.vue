@@ -2,7 +2,7 @@
   <div class="names">
     <p v-for="name in names" :key="name">{{name}}</p>
   </div>
-  <the-product v-for="product in products" :key="product.id" :product="product"></the-product>
+  <the-product v-for="product in products" :key="product.id" :product="{id: product.id,name: product.name, price: product.price, description: product.description, categories: product.categories, stock: product.stock, archived: product.archived}"></the-product>
 </template>
 
 <script>

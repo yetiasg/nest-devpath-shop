@@ -102,7 +102,6 @@ export default {
         };
       }
       try {
-        console.log(actionPayload);
         if (this.loginMode) {
           await this.$store.dispatch('login', actionPayload);
         } else {

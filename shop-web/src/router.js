@@ -56,7 +56,6 @@ router.beforeEach(async(to, from, next) => {
             }
         else {
             if(routerAuthCheck){
-                console.log({role, aaaa:'sdsdss'})
                 next();
             }
         }
