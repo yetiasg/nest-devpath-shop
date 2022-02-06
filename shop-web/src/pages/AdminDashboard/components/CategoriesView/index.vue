@@ -2,7 +2,9 @@
   <div class="names">
     <p v-for="name in names" :key="name">{{name}}</p>
   </div>
-  <the-category v-for="category in categories" :key="category.id" :category="category"></the-category>
+  <div class="list-view">
+    <the-category  he-category v-for="category in categories" :key="category.id" :category="category"></the-category>
+  </div>
 </template>
 
 <script>
@@ -35,25 +37,17 @@ export default {
     justify-content: flex-start;
     align-items: flex-start;
     border-radius: 10px;
+    width: calc(100% - 17px);
   }
 
   .names > p{
-    width: calc(100%/8);
+    width: calc(100%/4);
     padding: 1rem;
   }
 
-    .details{
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
-    background-color: #F5F5F5;
-    border-radius: 10px;
-    margin: 0.5rem 0;
+  .list-view{
+    height: calc(100% - 4.72rem);
+    overflow-y: scroll;
   }
-
-  .details > p{
-    width: calc(100%/8);
-    padding: 1rem;
-    word-wrap: break-word;
-  }
+  
 </style>

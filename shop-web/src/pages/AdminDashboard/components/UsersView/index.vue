@@ -2,7 +2,9 @@
   <div class="names">
     <p v-for="name in names" :key="name">{{name}}</p>
   </div>
-  <the-user v-for="user in users" :key="user.id" :user="user"></the-user>
+  <div class="list-view">
+    <the-user v-for="user in users" :key="user.id" :user="user"></the-user>
+  </div>
 </template>
 
 <script>
@@ -35,25 +37,16 @@ export default {
     justify-content: flex-start;
     align-items: flex-start;
     border-radius: 10px;
+    width: calc(100% - 17px);
   }
 
   .names > p{
-    width: calc(100%/8);
+    width: calc(100%/5);
     padding: 1rem;
   }
 
-    .details{
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
-    background-color: #F5F5F5;
-    border-radius: 10px;
-    margin: 0.5rem 0;
-  }
-
-  .details > p{
-    width: calc(100%/8);
-    padding: 1rem;
-    word-wrap: break-word;
+  .list-view{
+    height: calc(100% - 4.72rem);
+    overflow-y: scroll;
   }
 </style>

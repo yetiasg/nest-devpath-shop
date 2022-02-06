@@ -25,7 +25,7 @@ export default {
   }
 
   .details > p{
-    width: calc(100%/8);
+    width: calc(100%/4);
     padding: 1rem;
     word-wrap: break-word;
   }
