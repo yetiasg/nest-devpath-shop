@@ -53,28 +53,6 @@ export default {
         background-color:#F5F5F5;
     }
 
-    .lightFontMode{
-        color: white;
-    }
-
-    .lightFontMode .active::after,
-    .lightFontMode li a:hover > span::after,
-    .lightFontMode p a:hover>span::after{
-        content: '';
-        background-color: white;
-        height: 1px;
-        position: absolute;
-        bottom: -5px;
-        left: -3px;
-        width: calc(100% + 6px);
-        z-index: 100;
-    }
-
-    h1{
-        font-size: 1.4rem;
-        letter-spacing: 1px ;
-    }
-
     nav > ul{
         min-width: 40%;
         margin-top:2rem;
@@ -93,6 +71,10 @@ export default {
     }
 
     li, p{
+        font-weight: 400;
+    }
+
+    .active{
         font-weight: 700;
     }
 
@@ -112,7 +94,7 @@ export default {
     }
 
     li:hover a, p:hover{
-        transform: translateY(-5px);
+        transform: translateY(-3px);
         
     }
 
@@ -120,33 +102,4 @@ export default {
         position: relative;
         margin: 0 25px;
     }
-
-    /* .active::after{
-        content: '';
-        background-color: black;
-        height: 1px;
-        position: absolute;
-        bottom: -5px;
-        left: -3px;
-        width: calc(100% + 6px);
-        z-index: 100;
-    } */
-
-
-    /* li a:hover > span::after, p a:hover>span::after{
-        content: '';
-        background-color: black;
-        height: 1px;
-        position: absolute;
-        bottom: -5px;
-        left: -3px;
-        width: calc(100% + 6px);
-        z-index: 100;
-    } */
-
-    /* @media (max-width: 1024px){
-        nav > ul, p{
-            display: none;
-        }
-    } */
 </style>

@@ -28,12 +28,7 @@ export default {
     }
 
     section{
-        background-color: rgb(255, 240, 127);
         height: 100%;
         width: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
     }
 </style>

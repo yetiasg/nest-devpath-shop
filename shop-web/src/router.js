@@ -28,14 +28,14 @@ const router = createRouter({
             {path: '/user/dashboard/user-orders', name: 'UserOrders', component: UserOrders},
             {path: '/user/dashboard/user-details', name: 'UserDetails', component: UserDetails},
         ]},
-        {path: '/admin/dashboard', name: 'adminDashboard', component: AdminDashboard, meta: {requireAuth: true, role: 'ADMIN'}, children: [
+        {path: '/admin/dashboard', name: 'adminDashboard', redirect: '/admin/dashboard/statistics', component: AdminDashboard, meta: {requireAuth: true, role: 'ADMIN'}, children: [
             {path: '/admin/dashboard/statistics', name: 'Statistics', component: TheStatistics, meta: {requireAuth: true, role: 'ADMIN'}},
             {path: '/admin/dashboard/products', name: 'Products', component: TheProducts, meta: {requireAuth: true, role: 'ADMIN'}},
             {path: '/admin/dashboard/categories', name: 'Categories', component: TheCategories, meta: {requireAuth: true, role: 'ADMIN'}},
             {path: '/admin/dashboard/orders', name: 'Orders', component: TheOrders, meta: {requireAuth: true, role: 'ADMIN'}},
             {path: '/admin/dashboard/users', name: 'Users', component: TheUsers, meta: {requireAuth: true, role: 'ADMIN'}},
         ]},
-        // {path: '/:notFound(.*)', name: 'NotFoundRoute', redirect: '/'}
+        {path: '/:notFound(.*)', name: 'NotFoundRoute', redirect: '/'}
     ],
     scrollBehavior(){
         return {top: 0}

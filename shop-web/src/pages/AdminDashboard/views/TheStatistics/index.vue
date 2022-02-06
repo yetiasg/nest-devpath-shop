@@ -28,12 +28,7 @@ export default {
     }
 
     section{
-        background-color: aquamarine;
         height: 100%;
         width: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
     }
 </style>
