@@ -9,36 +9,7 @@
 //     return data;
 // };
 
-const products = [
-  {id: '1233', name: "Potion #16", browar: "Browar Brokreacja", ocena: 7.5, img: 'https://untappd.akamaized.net/photos/2021_07_16/361456883d46be3a971d0e22574f63c0_640x640.jpg'},
-  {id: '1235', name: "Hazy DiscoWisco", browar: "Pinta", ocena: 8, img: 'https://www.piwaswiata.com/images/hazydiscowisco.jpg'},
-  {id: '1236', name: "Potion #16", browar: "Browar Brokreacja", ocena: 9.5, img: 'https://piwnezwiedzanie.pl/wp-content/uploads/2019/12/Fortuna-Komes-Ice-Barley-Wine-2-800x600.jpg'},
-  {id: '1237', name: "Potion #16", browar: "Browar Brokreacja", ocena: 7.5, img: 'https://untappd.akamaized.net/photos/2021_07_16/361456883d46be3a971d0e22574f63c0_640x640.jpg'},
-  {id: '1239', name: "Hazy DiscoWisco", browar: "Pinta", ocena: 8, img: 'https://www.piwaswiata.com/images/hazydiscowisco.jpg'},
-  {id: '1240', name: "Potion #16", browar: "Browar Brokreacja", ocena: 9.5, img: 'https://piwnezwiedzanie.pl/wp-content/uploads/2019/12/Fortuna-Komes-Ice-Barley-Wine-2-800x600.jpg'},
-  {id: '1233', name: "Potion #16", browar: "Browar Brokreacja", ocena: 7.5, img: 'https://untappd.akamaized.net/photos/2021_07_16/361456883d46be3a971d0e22574f63c0_640x640.jpg'},
-  {id: '1235', name: "Hazy DiscoWisco", browar: "Pinta", ocena: 8, img: 'https://www.piwaswiata.com/images/hazydiscowisco.jpg'},
-  {id: '1236', name: "Potion #16", browar: "Browar Brokreacja", ocena: 9.5, img: 'https://piwnezwiedzanie.pl/wp-content/uploads/2019/12/Fortuna-Komes-Ice-Barley-Wine-2-800x600.jpg'},
-  {id: '1237', name: "Potion #16", browar: "Browar Brokreacja", ocena: 7.5, img: 'https://untappd.akamaized.net/photos/2021_07_16/361456883d46be3a971d0e22574f63c0_640x640.jpg'},
-  {id: '1239', name: "Hazy DiscoWisco", browar: "Pinta", ocena: 8, img: 'https://www.piwaswiata.com/images/hazydiscowisco.jpg'},
-  {id: '1240', name: "Potion #16", browar: "Browar Brokreacja", ocena: 9.5, img: 'https://piwnezwiedzanie.pl/wp-content/uploads/2019/12/Fortuna-Komes-Ice-Barley-Wine-2-800x600.jpg'},
-  {id: '1233', name: "Potion #16", browar: "Browar Brokreacja", ocena: 7.5, img: 'https://untappd.akamaized.net/photos/2021_07_16/361456883d46be3a971d0e22574f63c0_640x640.jpg'},
-  {id: '1235', name: "Hazy DiscoWisco", browar: "Pinta", ocena: 8, img: 'https://www.piwaswiata.com/images/hazydiscowisco.jpg'},
-  {id: '1236', name: "Potion #16", browar: "Browar Brokreacja", ocena: 9.5, img: 'https://piwnezwiedzanie.pl/wp-content/uploads/2019/12/Fortuna-Komes-Ice-Barley-Wine-2-800x600.jpg'},
-  {id: '1237', name: "Potion #16", browar: "Browar Brokreacja", ocena: 7.5, img: 'https://untappd.akamaized.net/photos/2021_07_16/361456883d46be3a971d0e22574f63c0_640x640.jpg'},
-  {id: '1239', name: "Hazy DiscoWisco", browar: "Pinta", ocena: 8, img: 'https://www.piwaswiata.com/images/hazydiscowisco.jpg'},
-  {id: '1240', name: "Potion #16", browar: "Browar Brokreacja", ocena: 9.5, img: 'https://piwnezwiedzanie.pl/wp-content/uploads/2019/12/Fortuna-Komes-Ice-Barley-Wine-2-800x600.jpg'},
-  {id: '1239', name: "Hazy DiscoWisco", browar: "Pinta", ocena: 8, img: 'https://www.piwaswiata.com/images/hazydiscowisco.jpg'},
-  {id: '1239', name: "Hazy DiscoWisco", browar: "Pinta", ocena: 8, img: 'https://www.piwaswiata.com/images/hazydiscowisco.jpg'},
-  {id: '1235', name: "Hazy DiscoWisco", browar: "Pinta", ocena: 8, img: 'https://www.piwaswiata.com/images/hazydiscowisco.jpg'},
-  {id: '1236', name: "Potion #16", browar: "Browar Brokreacja", ocena: 9.5, img: 'https://piwnezwiedzanie.pl/wp-content/uploads/2019/12/Fortuna-Komes-Ice-Barley-Wine-2-800x600.jpg'},
-  {id: '1237', name: "Potion #16", browar: "Browar Brokreacja", ocena: 7.5, img: 'https://untappd.akamaized.net/photos/2021_07_16/361456883d46be3a971d0e22574f63c0_640x640.jpg'},
-  {id: '1239', name: "Hazy DiscoWisco", browar: "Pinta", ocena: 8, img: 'https://www.piwaswiata.com/images/hazydiscowisco.jpg'},
-  {id: '1240', name: "Potion #16", browar: "Browar Brokreacja", ocena: 9.5, img: 'https://piwnezwiedzanie.pl/wp-content/uploads/2019/12/Fortuna-Komes-Ice-Barley-Wine-2-800x600.jpg'},
-  {id: '1239', name: "Hazy DiscoWisco", browar: "Pinta", ocena: 8, img: 'https://www.piwaswiata.com/images/hazydiscowisco.jpg'},
-  {id: '1239', name: "Hazy DiscoWisco", browar: "Pinta", ocena: 8, img: 'https://www.piwaswiata.com/images/hazydiscowisco.jpg'},
-
-]
+import { products } from './productsMock'
 
 export default{
   loadProducts(context){

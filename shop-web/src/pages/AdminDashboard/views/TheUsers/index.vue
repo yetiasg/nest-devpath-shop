@@ -1,54 +1,22 @@
 <template>
     <section>
-        <the-ellipse class="ellipseTop"></the-ellipse>
-        <the-header></the-header>
-        <the-menu></the-menu>
         <div class="infoBox">
           {{message}}
         </div>
-        <the-statistics></the-statistics>
-        <the-products></the-products>
-        <the-Categories></the-Categories>
-        <the-orders></the-orders>
-        <the-users></the-users>
-        <the-footer></the-footer>
-        <the-ellipse class="ellipseBottom"></the-ellipse>
     </section>
 </template>
 <script>
 
-import TheHeader from '../../components/layout/TheHeader.vue';
-import TheFooter from '../../components/layout/TheFooter.vue';
-import TheEllipse from '../../components/layout/layoutShapes/TheEllipse.vue';
-
-import TheStatistics from './views/TheStatistics';
-import TheProducts from './views/TheProducts';
-import TheCategories from './views/TheCategories';
-import TheOrders from './views/TheOrders';
-import TheUsers from './views/TheUsers';
-
-import TheMenu from './views/TheMenu'
-
 export default {
-    components:{
-        TheHeader,
-        TheFooter,
-        TheEllipse,
-        TheStatistics,
-        TheProducts,
-        TheCategories,
-        TheOrders,
-        TheUsers,
-        TheMenu
-    },
+
     data(){
       return {
-        message: 'Admin - dashboard'
+        message: 'Users'
       }
     },
     mounted(){
         this.$store.dispatch('tryLogin')
-    },
+    }
 }
 </script>
 

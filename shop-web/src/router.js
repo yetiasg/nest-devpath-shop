@@ -7,6 +7,15 @@ import UserDashboard  from './pages/UserDashboard'
 import TheCart  from './pages/TheCart'
 
 
+import TheStatistics from './pages/AdminDashboard/views/TheStatistics'
+import TheProducts from './pages/AdminDashboard/views/TheProducts'
+import TheCategories from './pages/AdminDashboard/views/TheCategories'
+import TheOrders from './pages/AdminDashboard/views/TheOrders'
+import TheUsers from './pages/AdminDashboard/views/TheUsers'
+
+import UserOrders from './pages/UserDashboard/views/UserOrders'
+import UserDetails from './pages/UserDashboard/views/UserDetails'
+
 
 const router = createRouter({
     history: createWebHistory(),
@@ -15,8 +24,17 @@ const router = createRouter({
         {path: '/shop', name: 'shop', component: TheShop, meta: {requireUmAuth: true}},
         {path: '/auth', name: 'auth', component: TheAuth, meta: {requireUnAuth: true}},
         {path: '/cart', name: 'cart', component: TheCart, meta: {requireUnAuth: true}},
-        {path: '/user/dashboard', name: 'userDashboard', component: UserDashboard, meta: {requireAuth: true, role: 'USER'}},
-        {path: '/admin/dashboard', name: 'adminDashboard', component: AdminDashboard, meta: {requireAuth: true, role: 'ADMIN'}},
+        {path: '/user/dashboard', name: 'userDashboard', component: UserDashboard, meta: {requireAuth: true, role: 'USER'}, children: [
+            {path: '/user/dashboadr/user-orders', name: 'UserOrders', component: UserOrders},
+            {path: '/user/dashboadr/user-details', name: 'UserDetails', component: UserDetails},
+        ]},
+        {path: '/admin/dashboard', name: 'adminDashboard', component: AdminDashboard, meta: {requireAuth: true, role: 'ADMIN'}, children: [
+            {path: '/admin/dashboadr/statistics', name: 'Statistics', component: TheStatistics},
+            {path: '/admin/dashboadr/products', name: 'Products', component: TheProducts},
+            {path: '/admin/dashboadr/categories', name: 'Categories', component: TheCategories},
+            {path: '/admin/dashboadr/orders', name: 'Orders', component: TheOrders},
+            {path: '/admin/dashboadr/users', name: 'Users', component: TheUsers},
+        ]},
         {path: '/:notFound(.*)', name: 'NotFoundRoute', redirect: '/'}
     ],
     scrollBehavior(){
@@ -25,7 +43,7 @@ const router = createRouter({
 })
 
 router.beforeEach(async(to, from, next) => {
-    localStorage.setItem('role', 'USER')
+    localStorage.setItem('role', 'ADMIN')
 
     const access_token = localStorage.getItem('access_token')
     const role = localStorage.getItem('role')

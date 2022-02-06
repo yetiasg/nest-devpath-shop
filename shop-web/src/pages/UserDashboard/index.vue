@@ -2,9 +2,12 @@
     <section>
         <the-ellipse class="ellipseTop"></the-ellipse>
         <the-header></the-header>
+        <the-menu></the-menu>
         <div class="infoBox">
           {{message}}
         </div>
+        <user-details></user-details>
+        <user-orders></user-orders>
         <the-footer></the-footer>
         <the-ellipse class="ellipseBottom"></the-ellipse>
     </section>
@@ -14,11 +17,19 @@
 import TheHeader from '../../components/layout/TheHeader.vue';
 import TheFooter from '../../components/layout/TheFooter.vue';
 import TheEllipse from '../../components/layout/layoutShapes/TheEllipse.vue';
+
+import UserOrders from './views/UserOrders';
+import UserDetails from './views/UserDetails';
+import TheMenu from './views/TheMenu'
+
 export default {
     components:{
         TheHeader,
         TheFooter,
         TheEllipse,
+        UserOrders,
+        UserDetails,
+        TheMenu
     },
     data(){
       return {
