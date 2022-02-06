@@ -9,7 +9,7 @@
             </div>
         </div>
         <teleport to="body" v-if="modal">
-            <add-product-modal></add-product-modal>
+            <add-product-modal @click="hideModal"></add-product-modal>
         </teleport>
         <products-view></products-view>
     </section>

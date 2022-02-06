@@ -6,9 +6,8 @@
         <div class="data">
           <span>
             <p>{{product.name}}</p>
-            <p>{{product.browar}}</p>
           </span>
-          <p>{{product.ocena}}/10</p>
+          <p>{{product.price}}zł</p>
         </div>
       </li>
     </ul>

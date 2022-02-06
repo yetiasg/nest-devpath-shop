@@ -1,11 +1,17 @@
 <template>
     <section>
         {{viewName}}
+    <statistics-view></statistics-view>
     </section>
 </template>
 
 <script>
+import StatisticsView from '../../components/StatisticsView'
+
 export default {
+    components: {
+        StatisticsView
+    },
     data(){
       return {
         viewName: 'Statistics'
