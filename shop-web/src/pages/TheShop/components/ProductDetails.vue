@@ -6,6 +6,8 @@
 </template>
 
 <script>
+
+
 export default {
   data(){
     return{
@@ -16,7 +18,8 @@ export default {
     backToProducts(){
       this.$store.commit('setSelectedProduct', null);
     }
-  }
+  },  
+
 }
 </script>
 

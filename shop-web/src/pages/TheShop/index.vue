@@ -3,7 +3,6 @@
         <the-ellipse class="ellipseTop"></the-ellipse>
         <the-header></the-header>
         <div class="infoBox">
-            <!-- <sorting-bar></sorting-bar> -->
             <product-list></product-list>
             <the-paginator></the-paginator>
         </div>
@@ -20,7 +19,6 @@ import TheEllipse from '../../components/layout/layoutShapes/TheEllipse.vue';
 import ProductList from './components/ProductsList.vue';
 import ThePaginator from './components/ThePaginator.vue';
 import ModalView from './components/ModalView.vue';
-// import SortingBar from './components/SortingBar.vue';
 export default {
     components:{
         TheHeader,
@@ -29,7 +27,6 @@ export default {
         ProductList,
         ThePaginator,
         ModalView,
-        // SortingBar
     },
     mounted(){
         this.$store.dispatch('loadProducts');
