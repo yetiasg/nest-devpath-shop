@@ -1,20 +1,21 @@
 <template>
     <section>
-
-        <div class="infoBox">
-          {{message}}
-        </div>
-
+        {{viewName}}
+        <categories-view></categories-view>
     </section>
 </template>
+
 <script>
 
+import CategoriesView from '../../components/CategoriesView'
 
 export default {
-
+    components: {
+        CategoriesView
+    },
     data(){
       return {
-        message: 'Categories'
+        viewName: 'Categories'
       }
     },
     mounted(){
@@ -24,13 +25,6 @@ export default {
 </script>
 
 <style scoped>
-    .iew-name{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-between;
-    }
-
     section{
         height: 100%;
         width: 100%;

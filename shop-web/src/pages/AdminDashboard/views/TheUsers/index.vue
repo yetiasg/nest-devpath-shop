@@ -1,14 +1,18 @@
 <template>
     <section>
-        <div class="infoBox">
-          {{message}}
-        </div>
+        {{message}}
+        <users-view></users-view>
     </section>
 </template>
+
 <script>
 
-export default {
+import UsersView from '../../components/UsersView'
 
+export default {
+    components:{
+        UsersView
+    },
     data(){
       return {
         message: 'Users'
@@ -21,13 +25,6 @@ export default {
 </script>
 
 <style scoped>
-    .iew-name{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-between;
-    }
-
     section{
         height: 100%;
         width: 100%;

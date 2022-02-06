@@ -1,13 +1,18 @@
 <template>
     <section>
-        <div class="view-name">
-          {{viewName}}
-        </div>
+        {{viewName}}
+        <products-view class="products-view"></products-view>
     </section>
 </template>
 
 <script>
+
+import ProductsView from '../../components/ProductsView'
+
 export default {
+    components:{
+        ProductsView
+    },
     data(){
       return {
         viewName: 'Products'
@@ -20,15 +25,9 @@ export default {
 </script>
 
 <style scoped>
-    .iew-name{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-between;
-    }
-
     section{
         height: 100%;
         width: 100%;
+        overflow-y: scroll;
     }
 </style>

@@ -1,17 +1,20 @@
 <template>
     <section>
-
         <div class="infoBox">
           {{message}}
         </div>
-
+    <orders-view></orders-view>
     </section>
 </template>
+
 <script>
 
+import OrdersView from '../../components/OrdersView'
 
 export default {
-
+    components: {
+        OrdersView
+    },
     data(){
       return {
         message: 'Orders'
