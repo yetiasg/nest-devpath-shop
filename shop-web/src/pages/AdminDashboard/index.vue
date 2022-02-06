@@ -1,44 +1,43 @@
 <template>
     <section>
-        <the-ellipse class="ellipseTop"></the-ellipse>
-        <the-header></the-header>
-        <the-menu></the-menu>
-        <div class="infoBox">
-          {{message}}
-        </div>
-        <the-statistics></the-statistics>
+        <admin-header class="admin-header"></admin-header>
+        <the-menu class="admin-menu"></the-menu>
+        <content-box>
+            <div class="infoBox">
+                {{message}}
+            </div>
+        </content-box>
+
+        <!-- <the-statistics v-show="whereAmI === 'statistics'"></the-statistics>
         <the-products></the-products>
         <the-Categories></the-Categories>
         <the-orders></the-orders>
-        <the-users></the-users>
-        <the-footer></the-footer>
-        <the-ellipse class="ellipseBottom"></the-ellipse>
+        <the-users></the-users> -->
     </section>
 </template>
 <script>
 
-import TheHeader from '../../components/layout/TheHeader.vue';
-import TheFooter from '../../components/layout/TheFooter.vue';
-import TheEllipse from '../../components/layout/layoutShapes/TheEllipse.vue';
+import AdminHeader from './components/AdminHeader'
 
-import TheStatistics from './views/TheStatistics';
-import TheProducts from './views/TheProducts';
-import TheCategories from './views/TheCategories';
-import TheOrders from './views/TheOrders';
-import TheUsers from './views/TheUsers';
+// import TheStatistics from './views/TheStatistics';
+// import TheProducts from './views/TheProducts';
+// import TheCategories from './views/TheCategories';
+// import TheOrders from './views/TheOrders';
+// import TheUsers from './views/TheUsers';
 
-import TheMenu from './views/TheMenu'
+import TheMenu from './components/TheMenu'
+
+import ContentBox from './components/ContentBox'
 
 export default {
     components:{
-        TheHeader,
-        TheFooter,
-        TheEllipse,
-        TheStatistics,
-        TheProducts,
-        TheCategories,
-        TheOrders,
-        TheUsers,
+        AdminHeader,
+        // TheStatistics,
+        // TheProducts,
+        // TheCategories,
+        // TheOrders,
+        // TheUsers,
+        ContentBox,
         TheMenu
     },
     data(){
@@ -49,121 +48,19 @@ export default {
     mounted(){
         this.$store.dispatch('tryLogin')
     },
+    computed: {
+        whereAmI(){
+            return this.$router.path
+        }
+    }
 }
 </script>
 
 <style scoped>
-    .infoBox{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-between;
-    }
-
-    .ellipseBottom, .ellipseTop{
+    .admin-header{
         position: fixed;
-        z-index: -1;
-        overflow: hidden;
-    }
-    
-    @media screen and (max-width: 360px) {
-        .ellipseTop{
-            width: 200%;
-            height: 10rem;
-            top: calc(-10rem + calc((100vh - 85vh)/2) - 2px);
-        }
-
-        .ellipseBottom{
-            width: 200%;
-            height: 10rem;
-            bottom: calc(-10rem + calc((100vh - 85vh)/2) - 2px);
-        }
-
-        .indexPage {
-            font-size: 0.8rem;
-        } 
-
-        .infoBox{
-            width: 92%;
-            min-height: 85vh;
-        }
+        top:0;
+        left: 0;
     }
 
-    @media screen and (min-width: 361px) and (max-width: 768px){
-        .ellipseTop{
-            width: 180%;
-            height: 10rem;
-            top: calc(-10rem + calc((100vh - 84vh)/2) - 2px);
-        }
-
-        .ellipseBottom{
-            width: 180%;
-            height: 10rem;
-            bottom: calc(-10rem + calc((100vh - 84vh)/2) - 2px);
-        }
-
-        .indexPage {
-            font-size: 0.9rem;
-        } 
-
-        .infoBox{
-            width: 88%;
-            min-height: 84vh; 
-        }
-    }
-
-    @media screen and (min-width: 768px) and (max-width: 1024px){
-        .ellipseTop{
-            width: 160%;
-            height: 10rem;
-            top: calc(-10rem + calc((100vh - 83vh)/2) - 2px);
-        }
-
-        .ellipseBottom{
-            width: 160%;
-            height: 10rem;
-            bottom: calc(-10rem + calc((100vh - 83vh)/2) - 2px);
-        }
-
-        .indexPage {
-            font-size: 1rem;
-        } 
-
-        .infoBox{
-            width: 85%;
-            min-height: 83vh;
-        }
-    }
-
-    @media screen and (min-width: 1025px){
-        .ellipseTop{
-            width: 180%;
-            height: 14rem;
-            top: calc(-14rem + calc((100vh - 83vh)/2) - 2px);
-        }
-
-        .ellipseBottom{
-            width: 180%;
-            height: 14rem;
-            bottom: calc(-14rem + calc((100vh - 83vh)/2) - 2px);
-        }
-
-        .indexPage {
-            font-size: 1rem;
-        } 
-
-        .infoBox{
-            width:85%;
-            max-width: 1024px;
-            min-height: 83vh;
-        }
-    }
-
-    section{
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
-    }
 </style>

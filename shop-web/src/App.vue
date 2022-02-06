@@ -13,7 +13,7 @@ export default {
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Khand:wght@300;500&display=swap');
     :root{
-        font-size: 16px;
+        font-size: 14px;
     }
 
     *{

@@ -44,12 +44,13 @@ export default {
 
 <style scoped>
     nav{
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        width:100%;
-        padding: 5rem 4rem 3rem 4rem;
+        position: fixed;
+        top:4.72rem;
+        left: 0;
+        width:18.14rem;
         box-sizing: border-box;
+        height: 100vh;
+        background-color:#F5F5F5;
     }
 
     .lightFontMode{
@@ -76,6 +77,7 @@ export default {
 
     nav > ul{
         min-width: 40%;
+        margin-top:2rem;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
