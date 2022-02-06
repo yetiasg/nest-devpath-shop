@@ -3,29 +3,60 @@
         <div class="options">
             <p>{{viewName}}</p>
             <div class="creation-options">
-                <base-button mode="filledBtn" class="add-product-btn">+ Add product</base-button>
-                <base-button mode="filledBtn" class="import-products-btn">Import products</base-button>
-                <base-button mode="filledBtn" class="export-products-btn">Export products</base-button>
+                <base-button mode="filledBtn" @click="addProduct" class="add-product-btn">+ Add product</base-button>
+                <base-button mode="filledBtn" @click="importProducts" class="import-products-btn">Import products</base-button>
+                <base-button mode="filledBtn" @click="exportProducts" class="export-products-btn">Export products</base-button>
             </div>
         </div>
+        <teleport to="body" v-if="modal">
+            <add-product-modal></add-product-modal>
+        </teleport>
         <products-view></products-view>
     </section>
 </template>
 
 <script>
 import BaseButton from '../../../../components/baseComponents/BaseButton.vue'
-
 import ProductsView from '../../components/ProductsView'
+import AddProductModal from '../../components/AddProductModal'
 
 export default {
     components:{
         ProductsView,
-        BaseButton
+        BaseButton,
+        AddProductModal
     },
     data(){
       return {
-        viewName: 'Products'
+        viewName: 'Products',
+        modal: false
       }
+    },
+    methods: {
+        addProduct(){
+            this.showModal()
+        },
+
+        importProducts(){
+            this.showModal()
+
+        },
+
+        exportProducts(){
+            this.showModal()
+
+        },
+
+        showModal(){
+            this.modal = true
+        },
+
+        hideModal() {
+            this.modal = false
+        }
+    },
+    computed: {
+        
     },
     mounted(){
         this.$store.dispatch('tryLogin')

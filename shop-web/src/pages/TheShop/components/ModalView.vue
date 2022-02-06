@@ -28,7 +28,7 @@ export default {
 <style scoped>
   .modalView{
     width: 100%;
-    min-height: 110vh;
+    min-height: 100vh;
     background-color: rgba(194, 194, 194, 0.705);
     z-index: 5;
     position: fixed;
