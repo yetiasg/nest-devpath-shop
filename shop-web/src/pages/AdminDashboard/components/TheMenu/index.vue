@@ -14,11 +14,11 @@ export default {
     data(){
         return{
             pages: [
-                {path: '/admin/dashboadr/statistics', name: 'Statistics', show: true},
-                {path: '/admin/dashboadr/products', name: 'Products', show: true},
-                {path: '/admin/dashboadr/categories', name: 'Categories', show: true},
-                {path: '/admin/dashboadr/orders', name: 'Orders', show: true},
-                {path: '/admin/dashboadr/users', name: 'Users', show: true},
+                {path: '/admin/dashboard/statistics', name: 'Statistics', show: true},
+                {path: '/admin/dashboard/products', name: 'Products', show: true},
+                {path: '/admin/dashboard/categories', name: 'Categories', show: true},
+                {path: '/admin/dashboard/orders', name: 'Orders', show: true},
+                {path: '/admin/dashboard/users', name: 'Users', show: true},
             ]
         }
     },

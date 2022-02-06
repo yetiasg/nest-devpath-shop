@@ -14,8 +14,8 @@ export default {
     data(){
         return{
             pages: [
-                {path: '/user/dashboadr/orders', name: 'UserOrders', show: true},
-                {path: '/user/dashboadr/user-details', name: 'UserDetails', show: true},
+                {path: '/user/dashboard/orders', name: 'UserOrders', show: true},
+                {path: '/user/dashboard/user-details', name: 'UserDetails', show: true},
             ]
         }
     },

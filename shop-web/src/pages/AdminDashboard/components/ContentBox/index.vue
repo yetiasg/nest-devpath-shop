@@ -1,8 +1,5 @@
 <template>
   <section>
-    <div class="infoBox">
-      {{message}}
-    </div>
     <slot></slot>
   </section>
 </template>

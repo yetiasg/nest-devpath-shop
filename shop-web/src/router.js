@@ -25,17 +25,17 @@ const router = createRouter({
         {path: '/auth', name: 'auth', component: TheAuth, meta: {requireUnAuth: true}},
         {path: '/cart', name: 'cart', component: TheCart, meta: {requireUnAuth: true}},
         {path: '/user/dashboard', name: 'userDashboard', component: UserDashboard, meta: {requireAuth: true, role: 'USER'}, children: [
-            {path: '/user/dashboadr/user-orders', name: 'UserOrders', component: UserOrders},
-            {path: '/user/dashboadr/user-details', name: 'UserDetails', component: UserDetails},
+            {path: '/user/dashboard/user-orders', name: 'UserOrders', component: UserOrders},
+            {path: '/user/dashboard/user-details', name: 'UserDetails', component: UserDetails},
         ]},
         {path: '/admin/dashboard', name: 'adminDashboard', component: AdminDashboard, meta: {requireAuth: true, role: 'ADMIN'}, children: [
-            {path: '/admin/dashboadr/statistics', name: 'Statistics', component: TheStatistics},
-            {path: '/admin/dashboadr/products', name: 'Products', component: TheProducts},
-            {path: '/admin/dashboadr/categories', name: 'Categories', component: TheCategories},
-            {path: '/admin/dashboadr/orders', name: 'Orders', component: TheOrders},
-            {path: '/admin/dashboadr/users', name: 'Users', component: TheUsers},
+            {path: '/admin/dashboard/statistics', name: 'Statistics', component: TheStatistics, meta: {requireAuth: true, role: 'ADMIN'}},
+            {path: '/admin/dashboard/products', name: 'Products', component: TheProducts, meta: {requireAuth: true, role: 'ADMIN'}},
+            {path: '/admin/dashboard/categories', name: 'Categories', component: TheCategories, meta: {requireAuth: true, role: 'ADMIN'}},
+            {path: '/admin/dashboard/orders', name: 'Orders', component: TheOrders, meta: {requireAuth: true, role: 'ADMIN'}},
+            {path: '/admin/dashboard/users', name: 'Users', component: TheUsers, meta: {requireAuth: true, role: 'ADMIN'}},
         ]},
-        {path: '/:notFound(.*)', name: 'NotFoundRoute', redirect: '/'}
+        // {path: '/:notFound(.*)', name: 'NotFoundRoute', redirect: '/'}
     ],
     scrollBehavior(){
         return {top: 0}
