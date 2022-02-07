@@ -3,18 +3,24 @@ import {
   BaseEntity,
   Column,
   CreateDateColumn,
+  Entity,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { OrderI } from './interfaces/order.interface';
 
+@Entity({ name: 'Order' })
 export class OrderEntity extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ unique: true })
+  @Column('text')
   @OneToMany(() => UserEntity, (customer) => customer.id)
   customer: UserEntity;
+
+  @Column('jsonb')
+  productName: OrderI[];
 
   @Column()
   amount: string;

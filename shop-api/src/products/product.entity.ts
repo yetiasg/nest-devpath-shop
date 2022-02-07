@@ -3,11 +3,13 @@ import {
   BaseEntity,
   Column,
   CreateDateColumn,
+  Entity,
   ManyToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
+@Entity({ name: 'Product' })
 export class ProductEntity extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -21,11 +23,11 @@ export class ProductEntity extends BaseEntity {
   @Column({ type: 'text' })
   description: string;
 
-  @Column({ type: 'array' })
+  @Column({ array: true, default: [] })
   @ManyToMany(() => CategoryEntity, (category) => category.id, {
     cascade: true,
   })
-  categories: CategoryEntity[];
+  categories: string;
 
   @Column()
   stock: number;

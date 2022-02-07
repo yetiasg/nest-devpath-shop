@@ -3,23 +3,25 @@ import {
   BaseEntity,
   Column,
   CreateDateColumn,
+  Entity,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
+@Entity({ name: 'Category' })
 export class CategoryEntity extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ type: 'array' })
+  @Column('text', { array: true, default: [] })
   @OneToMany(() => ProductEntity, (product) => product.categories)
-  customer: ProductEntity[];
+  product: ProductEntity[];
 
-  @Column()
-  name: string;
+  @Column('text')
+  name: string[];
 
-  @Column({ type: 'text' })
+  @Column('text')
   description: string;
 
   @CreateDateColumn()
