@@ -32,7 +32,7 @@ export class ProductEntity extends BaseEntity {
   @Column()
   stock: number;
 
-  @Column()
+  @Column({ default: false })
   archived: boolean;
 
   @CreateDateColumn()
