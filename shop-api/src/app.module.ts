@@ -7,6 +7,9 @@ import { AuthModule } from './auth/auth.module';
 import { CategoriesModule } from './categories/categories.module';
 import { MailModule } from './mail/mail.module';
 import { ConfigModule } from '@nestjs/config';
+import { OrdersModule } from './orders/orders.module';
+import { ProductsModule } from './products/products.module';
+import { StatisticsModule } from './statistics/statistics.module';
 
 const ENV = process.env.NODE_ENV;
 @Module({
@@ -24,6 +27,9 @@ const ENV = process.env.NODE_ENV;
     AuthModule,
     CategoriesModule,
     MailModule,
+    OrdersModule,
+    ProductsModule,
+    StatisticsModule,
   ],
 })
 export class AppModule {}
