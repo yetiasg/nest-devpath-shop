@@ -8,12 +8,12 @@ services:
     ports:
       - 5433:5432
 
-  # redis:
-  #   image: redis
-  #   environment:
-  #     REDIS_PASSWORD: redis
-  #   ports:
-  #     - 6379:6379
-  #   volumes:
-  #     - ./.docker/redis/data/:/data/
-  #     - ./.docker/redis/logs/:/var/log/redis/
+  redis:
+    image: redis
+    environment:
+      REDIS_PASSWORD: redis
+    ports:
+      - 6379:6379
+    volumes:
+      - ./.docker/redis/data/:/data/
+      - ./.docker/redis/logs/:/var/log/redis/
