@@ -11,6 +11,10 @@ export class UsersService {
     private readonly userRepository: Repository<UserEntity>,
   ) {}
 
+  async findUser(email: string): Promise<UserEntity> {
+    return this.userRepository.findOne({ email });
+  }
+
   async createUser(userDto: CreateUserDto) {
     return userDto;
   }

@@ -11,15 +11,18 @@ export class ProductsService {
     private readonly productRepository: Repository<ProductEntity>,
   ) {}
   async getAllProducts() {
-    return await this.productRepository.find();
+    return ['s', 'a', 'd'];
+    // return await this.productRepository.find();
   }
 
   async getProductById(id: string) {
-    return await this.productRepository.findOne(id);
+    return { id, product: { name: 'd' } };
+    // return await this.productRepository.findOne(id);
   }
 
   async createProduct(product: CreateProductDto): Promise<ProductEntity> {
-    return this.productRepository.create(product);
+    return product;
+    // return this.productRepository.create(product);
   }
 
   async updateProductById(id: string, product: ProductEntity) {

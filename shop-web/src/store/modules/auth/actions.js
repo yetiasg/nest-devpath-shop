@@ -8,13 +8,8 @@ const getJSON = async(url, options) =>{
     const data = await response.json();
     return data;
 };
-  
-const expirationTime = (time) => {
-    return time * 1000 * 60 * 60;
-}
   //------------------------------------------------------
 
-let timer;
 
 export default{
     login: async (context, payload) => {
@@ -30,25 +25,17 @@ export default{
             })
           });
           let {access_token, refreshToken, userId} = resData;
-          let expiresIn = expirationTime(resData.expiresIn);
-          const expirationDate = new Date().getTime() + expiresIn;
-    
+
           const userPayload = {
             access_token,
             refreshToken,
             userId,
-            espiresIn: expirationDate
           }
     
           context.commit('setUserData', userPayload);
           localStorage.setItem('access_token', access_token);
           localStorage.setItem('refreshToken', refreshToken);
           localStorage.setItem('userId', userId);
-          localStorage.setItem('expiresIn', expirationDate);
-    
-          timer = setTimeout(function(){
-            context.dispatch('refreshAuth');
-          }, expiresIn);
     
         }catch (error){
           console.log(error.message)
@@ -71,26 +58,18 @@ export default{
             })
 
             const {access_token, refreshToken, userId} = resData;
-            let expiresIn = expirationTime(resData.expiresIn);
-            const expirationDate = new Date().getTime() + expiresIn;
 
             const userPayload = {
               access_token,
                 refreshToken,
                 userId,
-                expiresIn: expirationDate
             }
 
             context.commit('setUserData', userPayload);
             localStorage.setItem('access_token', access_token);
             localStorage.setItem('refreshToken', refreshToken);
             localStorage.setItem('userId', userId);
-            localStorage.setItem('expiresIn', expirationDate);
-      
-            timer = setTimeout(function(){
-                context.dispatch('refreshAuth');
-            }, expiresIn);
-            
+
         }catch (error){
             console.log("Can not register now")
         }
@@ -111,8 +90,6 @@ export default{
           });
 
           const {access_token, refreshToken, userId} = resData;
-          let expiresIn = expirationTime(resData.expiresIn);
-          const expirationDate = new Date().getTime() + expiresIn;
 
             const userPayload = {
                 access_token,
@@ -124,11 +101,6 @@ export default{
             localStorage.setItem('access_token', access_token);
             localStorage.setItem('refreshToken', refreshToken);
             localStorage.setItem('userId', userId);
-            localStorage.setItem('expiresIn', expirationDate);
-      
-            timer = setTimeout(function(){
-              context.dispatch('refreshAuth');
-            }, expiresIn);
 
         }catch (error){
             if(error.status === 401){
@@ -147,18 +119,12 @@ export default{
         if(expiresIn < 0){
           return;
         }
-    
-        timer = setTimeout(function(){
-          context.dispatch('refreshAuth');
-        }, expiresIn);
-
 
         if(access_token.length > 0 && refreshToken.length > 0 && userId.length > 0){
             const userPayload = {
               access_token,
                 refreshToken,
                 userId,
-                expiresIn
             }
             context.commit('setUserData', userPayload)
         }else{
@@ -170,8 +136,6 @@ export default{
         localStorage.removeItem('access_token');
         localStorage.removeItem('refreshToken');
         localStorage.removeItem('userId');
-        localStorage.removeItem('expiresIn');
-        clearTimeout(timer);
         router.replace('/auth');
     },
 

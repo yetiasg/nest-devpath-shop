@@ -1,15 +1,22 @@
-import { Inject, Injectable } from '@nestjs/common';
+import {
+  HttpException,
+  Inject,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { LoginDto } from './dto/auth.dto';
 import bcrypt from 'bcrypt';
 import { AuthConfig, AuthConfigType } from './auth.config';
 import { UserEntity } from 'src/users/user.entity';
 import { JwtService } from '@nestjs/jwt';
+import { UsersService } from 'src/users/users.service';
 
 @Injectable()
 export class AuthService {
   constructor(
     @Inject(AuthConfig.KEY) private readonly authConfig: AuthConfigType,
     private readonly jwtService: JwtService,
+    private readonly usersService: UsersService,
   ) {}
 
   async login(loginDto: LoginDto) {
@@ -23,6 +30,16 @@ export class AuthService {
       userId: '5',
       expiresIn: this.authConfig.sessionExpirationTime,
     };
+  }
+
+  async validateUser(
+    email: string,
+    password: string,
+  ): Promise<UserEntity | HttpException> {
+    const user = await this.usersService.findUser(email);
+    const theSame = await this.comparePassword(password, user.password);
+    if (!theSame) throw new UnauthorizedException();
+    return user;
   }
 
   async signAccessToken(user: UserEntity): Promise<string> {

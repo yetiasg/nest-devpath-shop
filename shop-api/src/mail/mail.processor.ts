@@ -17,7 +17,7 @@ export class MailProcessor {
 
   @OnQueueActive()
   onActive(job: Job) {
-    console.log(
+    this.logger.log(
       `Processor:@OnQueueActive - Processing job ${job.id} of type ${
         job.name
       }. Data: ${JSON.stringify(job.data)}`,
@@ -26,14 +26,14 @@ export class MailProcessor {
 
   @OnQueueCompleted()
   onComplete(job: Job) {
-    console.log(
+    this.logger.log(
       `Processor:@OnQueueCompleted - Completed job ${job.id} of type ${job.name}.`,
     );
   }
 
   @OnQueueFailed()
   onError(job: Job<any>, error) {
-    console.log(
+    this.logger.log(
       `Processor:@OnQueueFailed - Failed job ${job.id} of type ${job.name}: ${error.message}`,
       error.stack,
     );
@@ -41,7 +41,7 @@ export class MailProcessor {
 
   @Process('confirmation')
   async sendWelcomeEmail(): Promise<any> {
-    console.log('Processor:@Process - Sending confirmation email.');
+    this.logger.log('Processor:@Process - Sending confirmation email.');
 
     try {
       const result = this.mailService.sendConfirmationEmail();
