@@ -11,4 +11,13 @@ export default{
   setSelectedProduct(state, payload){
     state.selectedProduct = payload
   },
+  handleAddProductModal(state, payload){
+    state.addProductModal = payload
+  },
+  handleImportProductsModal(state, payload){
+    state.importProductsModal = payload
+  },
+  handleExportProductsModal(state, payload){
+    state.exportProductsModal = payload
+  }
 }

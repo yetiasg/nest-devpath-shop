@@ -3,14 +3,15 @@
         <div class="options">
             <p>{{viewName}}</p>
             <div class="creation-options">
-                <base-button mode="filledBtn" @click="addProduct" class="add-product-btn">+ Add product</base-button>
-                <base-button mode="filledBtn" @click="importProducts" class="import-products-btn">Import products</base-button>
-                <base-button mode="filledBtn" @click="exportProducts" class="export-products-btn">Export products</base-button>
+                <base-button mode="filledBtn" @click="openAddProductModal" class="add-product-btn">+ Add product</base-button>
+                <base-button mode="filledBtn" @click="openImportProductsModal" class="import-products-btn">Import products</base-button>
+                <base-button mode="filledBtn" @click="openExportProductsModal" class="export-products-btn">Export products</base-button>
             </div>
         </div>
-        <teleport to="body" v-if="modal">
-            <add-product-modal @click="hideModal"></add-product-modal>
-        </teleport>
+        {{addProductModal}}
+        <add-product-modal v-if="showAddProductModal"></add-product-modal>
+        <import-products-modal v-if="showImportProductsModal"></import-products-modal>
+        <export-products-modal v-if="showExportProductsModal"></export-products-modal>
         <products-view></products-view>
     </section>
 </template>
@@ -19,44 +20,51 @@
 import BaseButton from '../../../../components/baseComponents/BaseButton.vue'
 import ProductsView from '../../components/ProductsView'
 import AddProductModal from '../../components/AddProductModal'
+import ImportProductsModal from '../../components/ImportProductsModal'
+import ExportProductsModal from '../../components/ExportProductsModal'
 
 export default {
     components:{
         ProductsView,
         BaseButton,
-        AddProductModal
+        AddProductModal,
+        ImportProductsModal,
+        ExportProductsModal        
     },
     data(){
       return {
         viewName: 'Products',
-        modal: false
+        addProductModal:  this.$store.state.requests.addProductModal,
+        importProductsModal:  this.$store.state.requests.importProductsModal,
+        exportProductsModal:  this.$store.state.requests.exportProductsModal,
       }
     },
     methods: {
-        addProduct(){
-            this.showModal()
+        openAddProductModal(){
+            this.$store.commit('handleAddProductModal', true)
+            this.addProductModal = !this.addProductModal
         },
 
-        importProducts(){
-            this.showModal()
-
+        openImportProductsModal(){
+            this.$store.commit('handleImportProductsModal', true)
+            this.importProductsModal = !this.importProductsModal
         },
 
-        exportProducts(){
-            this.showModal()
-
+        openExportProductsModal(){
+            this.$store.commit('handleExportProductsModal', true)
+            this.exportProductsModal = !this.exportProductsModal
         },
-
-        showModal(){
-            this.modal = true
-        },
-
-        hideModal() {
-            this.modal = false
-        }
     },
     computed: {
-        
+        showAddProductModal(){
+            return this.$store.state.requests.addProductModal
+        },
+        showImportProductsModal(){
+            return this.$store.state.requests.importProductsModal
+        },
+        showExportProductsModal(){
+            return this.$store.state.requests.exportProductsModal
+        }
     },
     mounted(){
         this.$store.dispatch('tryLogin')

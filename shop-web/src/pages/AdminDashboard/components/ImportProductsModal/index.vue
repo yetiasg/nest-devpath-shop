@@ -4,7 +4,7 @@
    <div class="modalView">
       <div class="add-product">
         <header>
-          <p>Add product</p>
+          <p>Import products</p>
           <span @click="closeModal">X</span>
         </header>
         <label for="name">name</label>
@@ -14,7 +14,7 @@
         <textarea type="text" id="description"></textarea>
 
         <label for="category">categories</label>
-        <select id="category" multiple>
+        <select id="category">
           <option v-for="category in categories" :key="category.id" :value="category.id">{{category.name}}</option>
         </select>
 
@@ -58,7 +58,7 @@ export default {
   },
   methods: {
     closeModal(){
-      this.$store.commit('handleAddProductModal', false)
+      this.$store.commit('handleImportProductsModal', false)
     },
   }
 }
@@ -121,10 +121,6 @@ export default {
   }
 
   textarea{
-    height: 7rem;
-  }
-
-  #category {
     height: 7rem;
   }
 

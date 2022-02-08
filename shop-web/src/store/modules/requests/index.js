@@ -13,6 +13,9 @@ export default{
             amountOfPages: null,
             amountOfProducts: null,
             selectedProduct: null,
+            addProductModal: false,
+            importProductsModal: false,
+            exportProductsModal: false,
         }
     },
     mutations,
