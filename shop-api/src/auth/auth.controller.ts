@@ -1,6 +1,8 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { CurrentUserId } from 'src/common/decorators/currentUserId.decorator';
 import { Public } from 'src/common/decorators/public.decorator';
 import { CreateUserDto } from 'src/users/dto/user.dto';
+import { UserProfileI } from 'src/users/interfaces/user.interface';
 import { UsersService } from 'src/users/users.service';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/auth.dto';
@@ -16,7 +18,7 @@ export class AuthController {
   @Post('login')
   @Public()
   @UseGuards(LocalAuthGuard)
-  async login(@Body() loginDto: LoginDto) {
+  async login(@Body() loginDto: LoginDto): Promise<UserProfileI> {
     return await this.authService.login(loginDto);
   }
 
@@ -30,5 +32,10 @@ export class AuthController {
   async refresh(@Body('refresh_token') refreshToken: string) {
     console.log(refreshToken);
     return await this.authService.refresh(refreshToken);
+  }
+
+  @Get('profile')
+  async getUserProfile(@CurrentUserId() userId: string) {
+    return await this.usersService.getUserProfile(userId);
   }
 }
