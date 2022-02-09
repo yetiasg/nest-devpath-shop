@@ -17,9 +17,6 @@ export default {
       return {
         viewName: 'Categories'
       }
-    },
-    mounted(){
-        this.$store.dispatch('tryLogin')
     }
 }
 </script>

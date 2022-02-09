@@ -1,11 +1,12 @@
 <template>
   <header>
-    <p><router-link to="/">your-shop-name</router-link></p>
+    <p><router-link to="/shop">your-shop-name</router-link></p>
     <div>
       <base-button class="accountBtn" link mode="clearBtn" :to="`/shop`">shop</base-button>
       <base-button class="accountBtn" link mode="clearBtn" :to="`/cart`">cart</base-button>
       <base-button v-show="((whereAmI !== '/auth'))" class="accountBtn" link mode="clearBtn"  :to="`/${whoAmI}/dashboard`">account</base-button>
-      <base-button class="accountBtn" v-show="((whereAmI !== '/auth'))"  @click="logout" mode="clearBTtn" link to="/" ><span class="logoutBtn">logout</span></base-button>
+      <base-button class="accountBtn" v-if="isLoggedIn" v-show="((whereAmI !== '/auth'))"  @click="logout" mode="clearBTtn" link to="/" ><span class="logoutBtn">logout</span></base-button>
+      <base-button class="accountBtn" v-else v-show="((whereAmI !== '/auth'))"  @click="login" mode="clearBTtn" link to="/auth" ><span class="logoutBtn">login</span></base-button>
     </div>
   </header>
 </template>
@@ -17,15 +18,19 @@ export default {
       return this.$route.path;
     },
     whoAmI(){
-      return localStorage.getItem('role').toLowerCase()
+      const role = localStorage.getItem('role')
+      return role?.toLowerCase()
+    },
+    isLoggedIn() {
+      return this.$store.state.auth.isAuth;
     }
 
   }, 
-    methods: {
-      logout(){
-        this.$store.dispatch('logout')
-      }
+  methods: {
+    logout(){
+      this.$store.dispatch('logout')
     }
+  }
 }
 </script>
 

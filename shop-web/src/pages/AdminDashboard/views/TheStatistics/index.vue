@@ -16,9 +16,6 @@ export default {
       return {
         viewName: 'Statistics'
       }
-    },
-    mounted(){
-        this.$store.dispatch('tryLogin')
     }
 }
 </script>

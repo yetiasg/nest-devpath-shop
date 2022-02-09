@@ -42,9 +42,6 @@ export default {
         rootAdminRoute: '/admin/dashboard'
       }
     },
-    mounted(){
-        this.$store.dispatch('tryLogin')
-    },
     methods: {
         whereAmI(direction){
             return this.$route.path === (this.rootAdminRoute+direction)
