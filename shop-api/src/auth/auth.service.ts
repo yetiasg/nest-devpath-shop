@@ -1,15 +1,18 @@
 import {
+  BadRequestException,
   HttpException,
   Inject,
   Injectable,
+  NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
 import { LoginDto } from './dto/auth.dto';
-import bcrypt from 'bcrypt';
+import * as bcrypt from 'bcrypt';
 import { AuthConfig, AuthConfigType } from './auth.config';
 import { UserEntity } from 'src/users/user.entity';
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from 'src/users/users.service';
+import { CreateUserDto } from 'src/users/dto/user.dto';
 
 @Injectable()
 export class AuthService {
@@ -19,8 +22,21 @@ export class AuthService {
     private readonly usersService: UsersService,
   ) {}
 
-  async login(loginDto: LoginDto) {
-    return loginDto;
+  async login({ email }: LoginDto) {
+    const user = await this.usersService.getUserByEmail(email);
+    if (!user) return;
+    return await this.signAccessToken(user);
+  }
+
+  async register({ email, password }: CreateUserDto) {
+    const hashedPassword: string = await this.hashPassword(password);
+    console.log(hashedPassword);
+    const newUser = this.usersService.createUser({
+      email,
+      password: hashedPassword,
+    } as CreateUserDto);
+    if (!newUser) throw new BadRequestException('User already exists');
+    return newUser;
   }
 
   async refresh(refreshToken: string) {
@@ -36,9 +52,11 @@ export class AuthService {
     email: string,
     password: string,
   ): Promise<UserEntity | HttpException> {
-    const user = await this.usersService.findUser(email);
+    const user = await this.usersService.getUserByEmail(email);
+    console.log(user);
+    if (!user) throw new NotFoundException();
     const theSame = await this.comparePassword(password, user.password);
-    if (!theSame) throw new UnauthorizedException();
+    if (!theSame) throw new UnauthorizedException('err');
     return user;
   }
 
@@ -51,6 +69,7 @@ export class AuthService {
   async generateSalt(): Promise<string> {
     return new Promise<string>((resolve, reject) => {
       bcrypt.genSalt(12, (err, salt) => {
+        console.log(salt);
         if (err) reject(err);
         else resolve(salt);
       });

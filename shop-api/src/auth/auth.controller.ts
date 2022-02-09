@@ -4,7 +4,7 @@ import { CreateUserDto } from 'src/users/dto/user.dto';
 import { UsersService } from 'src/users/users.service';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/auth.dto';
-import { LocalGuard } from './guards/local.guard';
+import { LocalAuthGuard } from './guards/local.guard';
 
 @Controller({ path: 'auth', version: '1' })
 export class AuthController {
@@ -15,17 +15,15 @@ export class AuthController {
 
   @Post('login')
   @Public()
-  @UseGuards(LocalGuard)
+  @UseGuards(LocalAuthGuard)
   async login(@Body() loginDto: LoginDto) {
-    console.log(loginDto);
     return await this.authService.login(loginDto);
   }
 
   @Post('register')
   @Public()
   async register(@Body() userDto: CreateUserDto) {
-    console.log(userDto);
-    return await this.usersService.createUser(userDto);
+    return await this.authService.register(userDto);
   }
 
   @Post('refresh')

@@ -1,3 +1,4 @@
+import { Exclude } from 'class-transformer';
 import { Role } from 'src/role/role.type';
 import {
   BaseEntity,
@@ -16,16 +17,17 @@ export class UserEntity extends BaseEntity {
   @Column({ unique: true })
   email: string;
 
-  @Column()
-  firstName: string;
+  @Column({ nullable: true })
+  firstName?: string;
 
-  @Column()
-  lastName: string;
+  @Column({ nullable: true })
+  lastName?: string;
 
+  @Exclude()
   @Column()
   password: string;
 
-  @Column({ type: 'enum', enum: Role, default: Role.ADMIN })
+  @Column({ type: 'enum', enum: Role, default: Role.USER })
   role: Role;
 
   @CreateDateColumn()
