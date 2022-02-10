@@ -20,13 +20,13 @@ import UserDetails from './pages/UserDashboard/views/UserDetails'
 const router = createRouter({
     history: createWebHistory(),
     routes: [
-        {path: '/', name: 'rootRoute', redirect: {path: '/shop'}},
-        {path: '/shop', name: 'shop', component: TheShop, meta: {requireUmAuth: true}},
+        {path: '/', name: 'rootRoute', redirect: {path: '/shop'}, meta: {requireUnAuth: true}},
+        {path: '/shop', name: 'shop', component: TheShop, meta: {requireUnAuth: true}},
         {path: '/auth', name: 'auth', component: TheAuth, meta: {requireUnAuth: true}},
         {path: '/cart', name: 'cart', component: TheCart, meta: {requireUnAuth: true}},
         {path: '/user/dashboard', name: 'userDashboard', component: UserDashboard, meta: {requireAuth: true, role: 'USER'}, children: [
-            {path: '/user/dashboard/user-orders', name: 'UserOrders', component: UserOrders},
-            {path: '/user/dashboard/user-details', name: 'UserDetails', component: UserDetails},
+            {path: '/user/dashboard/user-orders', name: 'UserOrders', component: UserOrders, meta: {requireAuth: true, role: 'USER'}},
+            {path: '/user/dashboard/user-details', name: 'UserDetails', component: UserDetails, meta: {requireAuth: true, role: 'USER'}},
         ]},
         {path: '/admin/dashboard', name: 'adminDashboard', redirect: '/admin/dashboard/statistics', component: AdminDashboard, meta: {requireAuth: true, role: 'ADMIN'}, children: [
             {path: '/admin/dashboard/statistics', name: 'Statistics', component: TheStatistics, meta: {requireAuth: true, role: 'ADMIN'}},
@@ -43,11 +43,9 @@ const router = createRouter({
 })
 
 router.beforeEach(async(to, from, next) => {
-    localStorage.setItem('role', 'ADMIN')
-
     const access_token = localStorage.getItem('access_token')
     const role = localStorage.getItem('role')
-    const routerAuthCheck = !!access_token
+    const routerAuthCheck = !!access_token && !!role
 
     if(to.matched.some(record => record.meta.requireAuth)){
         if(to.matched.some(record => record.meta.role)) {
@@ -59,7 +57,7 @@ router.beforeEach(async(to, from, next) => {
                 next();
             }
         }
-        }else next('/auth')
+        }else next()
     }
     else next()
 })

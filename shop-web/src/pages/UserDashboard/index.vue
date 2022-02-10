@@ -35,9 +35,6 @@ export default {
       return {
         message: 'User - dashboard'
       }
-    },
-    mounted(){
-        this.$store.dispatch('tryLogin')
     }
 }
 </script>

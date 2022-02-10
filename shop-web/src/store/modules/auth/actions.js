@@ -24,16 +24,18 @@ export default{
               email, password
             })
           });
-          let {access_token, refreshToken, userId} = resData;
+          let {access_token, refreshToken, role, userId} = resData;
 
           const userPayload = {
             access_token,
             refreshToken,
             userId,
+            role
           }
     
           context.commit('setUserData', userPayload);
           localStorage.setItem('access_token', access_token);
+          localStorage.setItem('role', role);
           localStorage.setItem('refreshToken', refreshToken);
           localStorage.setItem('userId', userId);
     
@@ -57,16 +59,18 @@ export default{
                 })
             })
 
-            const {access_token, refreshToken, userId} = resData;
+            const {access_token, refreshToken, role, userId} = resData;
 
             const userPayload = {
               access_token,
-                refreshToken,
-                userId,
+              refreshToken,
+              userId,
+              role
             }
-
+      
             context.commit('setUserData', userPayload);
             localStorage.setItem('access_token', access_token);
+            localStorage.setItem('role', role);
             localStorage.setItem('refreshToken', refreshToken);
             localStorage.setItem('userId', userId);
 
@@ -89,18 +93,20 @@ export default{
             })
           });
 
-          const {access_token, refreshToken, userId} = resData;
+          const {access_token, refreshToken, role, userId} = resData;
 
-            const userPayload = {
-                access_token,
-                refreshToken,
-                userId
-            }
-            
-            context.commit('setUserData', userPayload);
-            localStorage.setItem('access_token', access_token);
-            localStorage.setItem('refreshToken', refreshToken);
-            localStorage.setItem('userId', userId);
+          const userPayload = {
+            access_token,
+            refreshToken,
+            userId,
+            role
+          }
+    
+          context.commit('setUserData', userPayload);
+          localStorage.setItem('access_token', access_token);
+          localStorage.setItem('role', role);
+          localStorage.setItem('refreshToken', refreshToken);
+          localStorage.setItem('userId', userId);
 
         }catch (error){
             if(error.status === 401){
@@ -108,35 +114,14 @@ export default{
             }
         }
     },
-    tryLogin(context){
-        const access_token = localStorage.getItem('access_token')
-        const refreshToken = localStorage.getItem('refreshToken')
-        const userId = localStorage.getItem('userId')
-
-        let expiresIn = localStorage.getItem('expiresIn');
-
-        expiresIn = +expiresIn - new Date().getTime();
-        if(expiresIn < 0){
-          return;
-        }
-
-        if(access_token.length > 0 && refreshToken.length > 0 && userId.length > 0){
-            const userPayload = {
-              access_token,
-                refreshToken,
-                userId,
-            }
-            context.commit('setUserData', userPayload)
-        }else{
-            context.dispatch('logout')
-        }
-    },
+    
     logout: (context) =>{
         context.commit('logout');
+        localStorage.removeItem('role');
         localStorage.removeItem('access_token');
-        localStorage.removeItem('refreshToken');
+        // localStorage.removeItem('refreshToken');sssssssssssss
         localStorage.removeItem('userId');
-        router.replace('/auth');
+        router.replace('/shop');
     },
 
     autoLogout: (context) => {

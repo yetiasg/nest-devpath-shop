@@ -16,9 +16,6 @@ export default {
       return {
         message: 'User orders'
       }
-    },
-    mounted(){
-        this.$store.dispatch('tryLogin')
     }
 }
 </script>

@@ -65,9 +65,6 @@ export default {
         showExportProductsModal(){
             return this.$store.state.requests.exportProductsModal
         }
-    },
-    mounted(){
-        this.$store.dispatch('tryLogin')
     }
 }
 </script>

@@ -15,7 +15,8 @@ export default {
       return this.$route.path;
     },
     whoAmI(){
-      return localStorage.getItem('role').toLowerCase()
+      const role = localStorage.getItem('role')
+      return role?.toLowerCase()
     }
 
   }, 

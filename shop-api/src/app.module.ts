@@ -10,6 +10,7 @@ import { ProductsModule } from './products/products.module';
 import { StatisticsModule } from './statistics/statistics.module';
 import { DatabaseModle } from './database/database.module';
 import { BullModule } from '@nestjs/bull';
+import { RoleModule } from './role/role.module';
 
 const ENV = process.env.NODE_ENV;
 @Module({
@@ -35,6 +36,7 @@ const ENV = process.env.NODE_ENV;
     OrdersModule,
     ProductsModule,
     StatisticsModule,
+    RoleModule,
   ],
 })
 export class AppModule {}

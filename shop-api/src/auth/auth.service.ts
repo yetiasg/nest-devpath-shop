@@ -13,6 +13,7 @@ import { UserEntity } from 'src/users/user.entity';
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from 'src/users/users.service';
 import { CreateUserDto } from 'src/users/dto/user.dto';
+import { UserProfileI } from 'src/users/interfaces/user.interface';
 
 @Injectable()
 export class AuthService {
@@ -22,10 +23,13 @@ export class AuthService {
     private readonly usersService: UsersService,
   ) {}
 
-  async login({ email }: LoginDto) {
+  async login({ email }: LoginDto): Promise<UserProfileI> {
     const user = await this.usersService.getUserByEmail(email);
     if (!user) return;
-    return await this.signAccessToken(user);
+    const profile = await this.usersService.getUserProfile(user.id);
+    const token = await this.signAccessToken(user);
+    profile.access_token = token;
+    return profile;
   }
 
   async register({ email, password }: CreateUserDto) {
