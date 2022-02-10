@@ -7,7 +7,6 @@ export default{
       return {
         name: null,
         access_token: null,
-        refreshToken: null,
         userId: '',
         expiresIn: null,
         isAuth: false,

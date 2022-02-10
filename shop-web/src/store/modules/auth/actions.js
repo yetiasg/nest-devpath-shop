@@ -24,11 +24,10 @@ export default{
               email, password
             })
           });
-          let {access_token, refreshToken, role, userId} = resData;
+          let {access_token, role, userId} = resData;
 
           const userPayload = {
             access_token,
-            refreshToken,
             userId,
             role
           }
@@ -36,8 +35,9 @@ export default{
           context.commit('setUserData', userPayload);
           localStorage.setItem('access_token', access_token);
           localStorage.setItem('role', role);
-          localStorage.setItem('refreshToken', refreshToken);
           localStorage.setItem('userId', userId);
+
+          router.replace('/shop')
     
         }catch (error){
           console.log(error.message)
@@ -59,11 +59,10 @@ export default{
                 })
             })
 
-            const {access_token, refreshToken, role, userId} = resData;
+            const {access_token, role, userId} = resData;
 
             const userPayload = {
               access_token,
-              refreshToken,
               userId,
               role
             }
@@ -71,47 +70,10 @@ export default{
             context.commit('setUserData', userPayload);
             localStorage.setItem('access_token', access_token);
             localStorage.setItem('role', role);
-            localStorage.setItem('refreshToken', refreshToken);
             localStorage.setItem('userId', userId);
 
         }catch (error){
             console.log("Can not register now")
-        }
-    },
-    refreshAuth: async context => {
-        const refreshToken = localStorage.getItem('refreshToken')
-        if(refreshToken == '') throw new Error('Unauthorized')
-    
-        try{
-          const resData = await getJSON(`${config.BASE_URL}/auth/refresh`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              refreshToken
-            })
-          });
-
-          const {access_token, refreshToken, role, userId} = resData;
-
-          const userPayload = {
-            access_token,
-            refreshToken,
-            userId,
-            role
-          }
-    
-          context.commit('setUserData', userPayload);
-          localStorage.setItem('access_token', access_token);
-          localStorage.setItem('role', role);
-          localStorage.setItem('refreshToken', refreshToken);
-          localStorage.setItem('userId', userId);
-
-        }catch (error){
-            if(error.status === 401){
-                context.dispatch('logout')
-            }
         }
     },
     
@@ -119,7 +81,6 @@ export default{
         context.commit('logout');
         localStorage.removeItem('role');
         localStorage.removeItem('access_token');
-        // localStorage.removeItem('refreshToken');sssssssssssss
         localStorage.removeItem('userId');
         router.replace('/shop');
     },
