@@ -34,22 +34,12 @@ export class AuthService {
 
   async register({ email, password }: CreateUserDto) {
     const hashedPassword: string = await this.hashPassword(password);
-    console.log(hashedPassword);
     const newUser = this.usersService.createUser({
       email,
       password: hashedPassword,
     } as CreateUserDto);
     if (!newUser) throw new BadRequestException('User already exists');
-    return newUser;
-  }
-
-  async refresh(refreshToken: string) {
-    return {
-      access_token: 'refreshToken',
-      refreshToken: 'refreshToken',
-      userId: '5',
-      expiresIn: this.authConfig.sessionExpirationTime,
-    };
+    return await this.login({ email } as LoginDto);
   }
 
   async validateUser(
@@ -57,7 +47,6 @@ export class AuthService {
     password: string,
   ): Promise<UserEntity | HttpException> {
     const user = await this.usersService.getUserByEmail(email);
-    console.log(user);
     if (!user) throw new NotFoundException();
     const theSame = await this.comparePassword(password, user.password);
     if (!theSame) throw new UnauthorizedException('err');
@@ -73,7 +62,6 @@ export class AuthService {
   async generateSalt(): Promise<string> {
     return new Promise<string>((resolve, reject) => {
       bcrypt.genSalt(12, (err, salt) => {
-        console.log(salt);
         if (err) reject(err);
         else resolve(salt);
       });

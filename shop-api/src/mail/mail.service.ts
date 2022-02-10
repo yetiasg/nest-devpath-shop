@@ -1,6 +1,6 @@
 import { MailerService } from '@nestjs-modules/mailer';
 import { InjectQueue } from '@nestjs/bull';
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { Queue } from 'bull';
 
 export interface User {
@@ -18,7 +18,6 @@ export class MailService {
       this.mailQueue.add('confirmation', {});
       return true;
     } catch (err) {
-      console.log('Error queuing confirmation email to user');
       return false;
     }
   }
@@ -32,11 +31,10 @@ export class MailService {
         html: '<b>EloElo</b>',
       })
       .then((success) => {
-        console.log(success, 'Mail sent successfully');
         return success;
       })
       .catch((err) => {
-        console.log(err);
+        throw new InternalServerErrorException(err);
       });
   }
 }

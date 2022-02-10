@@ -12,7 +12,6 @@ export class RoleService {
   ) {}
 
   async changeUserRole(userId: string, role: Role) {
-    console.log(role, 'aaaa');
     if (role in Role) {
       const updatedUser = await this.userRepository.update(
         { id: userId },

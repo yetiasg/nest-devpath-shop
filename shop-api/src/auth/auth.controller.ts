@@ -6,6 +6,7 @@ import { UserProfileI } from 'src/users/interfaces/user.interface';
 import { UsersService } from 'src/users/users.service';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/auth.dto';
+import { JwtAuthGuard } from './guards/jwt';
 import { LocalAuthGuard } from './guards/local.guard';
 
 @Controller({ path: 'auth', version: '1' })
@@ -28,14 +29,10 @@ export class AuthController {
     return await this.authService.register(userDto);
   }
 
-  @Post('refresh')
-  async refresh(@Body('refresh_token') refreshToken: string) {
-    console.log(refreshToken);
-    return await this.authService.refresh(refreshToken);
-  }
-
   @Get('profile')
-  async getUserProfile(@CurrentUserId() userId: string) {
+  @UseGuards(JwtAuthGuard)
+  async getUserProfile(@CurrentUserId('id') userId: string) {
+    console.log(userId);
     return await this.usersService.getUserProfile(userId);
   }
 }

@@ -13,12 +13,10 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
   ) {
     super();
   }
-
   canActivate(
     context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
     if (this.configService.get<string>('AUTH_ENABLED')) return true; // TODO DEV AUTH ENABLED
-
     const isPublic = this.reflector.getAllAndOverride<boolean>(IS_PUBLIC_KEY, [
       context.getHandler(),
       context.getClass(),

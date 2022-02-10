@@ -16,5 +16,3 @@ module.exports = {
   retryAttempts: 1,
   retryDelay: 3000,
 };
-
-console.log(__dirname);

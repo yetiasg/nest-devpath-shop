@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateUserDto, UpdateUserDto } from './dto/user.dto';
@@ -14,6 +18,7 @@ export class UsersService {
 
   async getUserProfile(userId: string): Promise<UserProfileI> {
     const user = await this.getUserById(userId);
+    if (!user) throw new NotFoundException();
     const profile: UserProfileI = {
       userId: user.id,
       role: user.role,
