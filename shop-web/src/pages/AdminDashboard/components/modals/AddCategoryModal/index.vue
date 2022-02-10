@@ -2,9 +2,9 @@
    <teleport to="body">
 
    <div class="modalView">
-      <div class="add-product">
+      <div class="add-category">
         <header>
-          <p>Import products</p>
+          <p>Add Category</p>
           <span @click="closeModal">X</span>
         </header>
         <label for="name">name</label>
@@ -13,26 +13,10 @@
         <label for="description">description</label>
         <textarea type="text" id="description"></textarea>
 
-        <label for="category">categories</label>
-        <select id="category">
-          <option v-for="category in categories" :key="category.id" :value="category.id">{{category.name}}</option>
-        </select>
-
-        <div class="short-input">
-          <label for="stock">stock
-            <input type="text" id="stock">
-          </label>
-
-          <label for="price">price
-            <input type="text" id="price">
-          </label>
-        </div>
-
         <div class="footer-options">
-          <div class="publicTrigger">Yes/No</div>
           <div class="option-buttons">
             <base-button mode="clearBtn" class="cancelBtn btn">Cancel</base-button>
-            <base-button mode="clearBtn" class="addProductBtn btn">+ Add product</base-button>
+            <base-button mode="clearBtn" class="addCategoryBtn btn">+ Add Category</base-button>
           </div>
         </div>
       </div>
@@ -43,22 +27,9 @@
 
 <script>
 export default {
-  data(){
-    return{
-      categories: [
-        {id: 123, name: 'shoes', description:"swefioswhgfoaqiwhgoiawrhbgo wroi whgfhweirghoqiwregho"},
-        {id: 1253, name: 'shetretoes', description:"swefioswhgfoaqiwhgoiawrhbgo wroi whgfhweirghoqiwregho"},
-        {id: 12453, name: 'shostges', description:"swefioswhgfoaqiwhgoiawrhbgo wroi whgfhweirghoqiwregho"},
-        {id: 17423, name: 'shrgergaeoes', description:"swefioswhgfoaqiwhgoiawrhbgo wroi whgfhweirghoqiwregho"},
-        {id: 1243, name: 'shgergqewrtgewrgwergqwertgqw4etgfoes', description:"swefioswhgfoaqiwhgoiawrhbgo wroi whgfhweirghoqiwregho"},
-        {id: 127643, name: 'shergeoes', description:"swefioswhgfoaqiwhgoiawrhbgo wroi whgfhweirghoqiwregho"},
-        {id: 1523, name: 'shoergers', description:"swefioswhgfoaqiwhgoiawrhbgo wroi whgfhweirghoqiwregho"}
-      ]
-    }
-  },
   methods: {
     closeModal(){
-      this.$store.commit('handleImportProductsModal', false)
+      this.$store.commit('handleAddCategoryModal', false)
     },
   }
 }
@@ -98,12 +69,8 @@ export default {
     color: white;
   }
 
-    header span:hover{
-    background-color: rgb(57, 145, 228);
-    cursor: pointer;
-  }
 
-  .add-product{
+  .add-category{
     width: 40rem;
     min-height: 35rem;
     background-color:#F5F5F5;
@@ -111,7 +78,12 @@ export default {
     padding: 1rem;
   }
 
-  input, select, textarea{
+  header span:hover{
+    background-color: rgb(57, 145, 228);
+    cursor: pointer;
+  }
+
+  input, textarea{
     width: 100%;
     height: 3rem;
     border: none;
@@ -122,11 +94,6 @@ export default {
 
   textarea{
     height: 7rem;
-  }
-
-  .short-input{
-    display: flex;
-    justify-content: space-between;
   }
 
   label {
@@ -148,11 +115,11 @@ export default {
   }
 
 
-  .addProductBtn{
+  .addCategoryBtn{
     background-color: #45CB45;
   }
 
-  .addProductBtn:hover{
+  .addCategoryBtn:hover{
     background-color: #33ae33;
   }
 

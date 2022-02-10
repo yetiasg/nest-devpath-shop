@@ -8,7 +8,6 @@
                 <base-button mode="filledBtn" @click="openExportProductsModal" class="export-products-btn">Export products</base-button>
             </div>
         </div>
-        {{addProductModal}}
         <add-product-modal v-if="showAddProductModal"></add-product-modal>
         <import-products-modal v-if="showImportProductsModal"></import-products-modal>
         <export-products-modal v-if="showExportProductsModal"></export-products-modal>
@@ -19,9 +18,9 @@
 <script>
 import BaseButton from '../../../../components/baseComponents/BaseButton.vue'
 import ProductsView from '../../components/ProductsView'
-import AddProductModal from '../../components/AddProductModal'
-import ImportProductsModal from '../../components/ImportProductsModal'
-import ExportProductsModal from '../../components/ExportProductsModal'
+import AddProductModal from '../../components/modals/AddProductModal'
+import ImportProductsModal from '../../components/modals/ImportProductsModal'
+import ExportProductsModal from '../../components/modals/ExportProductsModal'
 
 export default {
     components:{

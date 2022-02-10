@@ -72,6 +72,8 @@ export default{
             localStorage.setItem('role', role);
             localStorage.setItem('userId', userId);
 
+            router.replace('/shop')
+
         }catch (error){
             console.log("Can not register now")
         }

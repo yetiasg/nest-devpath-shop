@@ -19,5 +19,9 @@ export default{
   },
   handleExportProductsModal(state, payload){
     state.exportProductsModal = payload
+  },
+  handleAddUserModal(state, payload){
+    state.addUserModal = payload
   }
 }
+

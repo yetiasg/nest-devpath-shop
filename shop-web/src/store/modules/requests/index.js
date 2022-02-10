@@ -16,6 +16,8 @@ export default{
             addProductModal: false,
             importProductsModal: false,
             exportProductsModal: false,
+            addUserModal: false,
+            addCategoryModal: false
         }
     },
     mutations,
