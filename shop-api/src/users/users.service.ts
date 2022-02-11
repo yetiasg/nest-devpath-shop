@@ -75,10 +75,8 @@ export class UsersService {
     const { randomBytes } = await import('crypto');
     return new Promise<string>((resolve, reject) => {
       randomBytes(16, (err, data) => {
-        if (err) {
-          console.log(data.toString('hex'));
-          reject(err);
-        } else resolve(data.toString('hex'));
+        if (err) reject(err);
+        else resolve(data.toString('hex'));
       });
     });
   }

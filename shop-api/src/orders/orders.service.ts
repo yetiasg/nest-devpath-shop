@@ -7,9 +7,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { ProductsService } from 'src/products/products.service';
 import { UsersService } from 'src/users/users.service';
 import { Repository } from 'typeorm';
-import { UpdateOrderDto } from './dto/order.dto';
 import { OrderItemI } from './interfaces/order.interface';
 import { OrderItemsService } from './order-items.service';
+import { OrderStatus } from './order-status.type';
 import { OrderEntity } from './order.entity';
 
 @Injectable()
@@ -70,10 +70,7 @@ export class OrdersService {
     return newOrder;
   }
 
-  async updateOrderById(
-    id: string,
-    order: UpdateOrderDto,
-  ): Promise<OrderEntity> {
+  async updateOrderById(id: string, order: unknown): Promise<OrderEntity> {
     const orderExists = await this.getOrderById(id);
     if (!orderExists) throw new NotFoundException();
     return await (
@@ -81,11 +78,13 @@ export class OrdersService {
     ).raw;
   }
 
+  async updateOrderStatusById(orderId: string, status: OrderStatus) {
+    const orderExists = await this.getOrderById(orderId);
+    if (!orderExists) throw new NotFoundException();
+    return await this.ordersRepository.update({ id: orderId }, { status });
+  }
+
   async removeOrderById(id: string) {
     return await this.ordersRepository.delete(id);
   }
 }
-
-// "ab305e29-437f-4647-a730-d302ba069774",
-// "10edf986-a807-46ed-80db-3fa5f6055e0d"
-// "8c86e7ba-c3f0-45b9-aa34-24aa01d13d42"

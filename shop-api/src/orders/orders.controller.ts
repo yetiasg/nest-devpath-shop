@@ -10,7 +10,8 @@ import {
 } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/guards/jwt';
 import { CurrentUserId } from 'src/common/decorators/currentUserId.decorator';
-import { UpdateOrderDto } from './dto/order.dto';
+import { OrderItemI } from './interfaces/order.interface';
+import { OrderStatus } from './order-status.type';
 import { OrderEntity } from './order.entity';
 import { OrdersService } from './orders.service';
 
@@ -37,12 +38,17 @@ export class OrdersController {
   @Patch(':id')
   async updateOrderById(
     @Param('id') id: string,
-    @Body() order: UpdateOrderDto,
+    @Body() order: OrderItemI,
   ): Promise<OrderEntity> {
-    return await this.ordersService.updateOrderById(
-      'ae2c00dd-ef08-4911-8167-54cbfbe9001b',
-      order,
-    );
+    return await this.ordersService.updateOrderById(id, order);
+  }
+
+  @Patch('/status/:id')
+  async updateOrderStatusById(
+    @Param('id') orderId: string,
+    @Body('status') status: OrderStatus,
+  ) {
+    return await this.ordersService.updateOrderStatusById(orderId, status);
   }
 
   @Delete(':id')
