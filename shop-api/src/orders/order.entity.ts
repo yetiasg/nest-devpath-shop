@@ -4,28 +4,25 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  OneToMany,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { OrderI } from './interfaces/order.interface';
+import { OrderStatus } from './order-status.type';
 
 @Entity({ name: 'Order' })
 export class OrderEntity extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column('text')
-  @OneToMany(() => UserEntity, (customer) => customer.id)
-  customer: UserEntity;
-
-  @Column('json')
-  productName: OrderI[];
-
   @Column()
+  @ManyToOne(() => UserEntity, (user) => user.id)
+  userId: string;
+
+  @Column({ type: 'decimal', scale: 2 })
   totalPrice: number;
 
-  @Column({ default: 'pending' })
+  @Column({ default: OrderStatus.NEW })
   status: string;
 
   @CreateDateColumn()

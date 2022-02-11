@@ -34,7 +34,8 @@ export class CreateProductDto {
 
   @IsNotEmpty()
   @IsBoolean()
-  archived: boolean;
+  @IsOptional()
+  archived?: boolean;
 }
 
 export class UpdateProductDto extends CreateProductDto {}
