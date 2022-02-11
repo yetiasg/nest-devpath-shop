@@ -1,21 +1,40 @@
 import { Exclude } from 'class-transformer';
-import { ProductEntity } from '../product.entity';
+import {
+  IsBoolean,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+  ValidateNested,
+} from 'class-validator';
 
-export class CreateProductDto extends ProductEntity {
+export class CreateProductDto {
   @Exclude()
-  id: string;
+  id?: string;
 
-  @Exclude()
+  @IsString()
+  @IsNotEmpty()
+  name: string;
+
+  @IsNumber()
+  @IsNotEmpty()
+  price: number;
+
+  @IsString()
+  @IsNotEmpty()
+  description: string;
+
+  @ValidateNested()
+  @IsOptional()
+  categories: string;
+
+  @IsNumber()
+  @IsNotEmpty()
+  stock: number;
+
+  @IsNotEmpty()
+  @IsBoolean()
   archived: boolean;
-
-  @Exclude()
-  createdAt: Date;
-
-  @Exclude()
-  updatedAt: Date;
 }
 
-export class UpdateProductDto extends ProductEntity {
-  @Exclude()
-  id: string;
-}
+export class UpdateProductDto extends CreateProductDto {}

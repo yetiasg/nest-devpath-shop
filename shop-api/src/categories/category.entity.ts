@@ -19,7 +19,7 @@ export class CategoryEntity extends BaseEntity {
   product: ProductEntity[];
 
   @Column('text')
-  name: string[];
+  name: string;
 
   @Column('text')
   description: string;
