@@ -6,9 +6,7 @@ import {
   Param,
   Patch,
   Post,
-  UseGuards,
 } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/auth/guards/jwt';
 import { CurrentUserId } from 'src/common/decorators/currentUserId.decorator';
 import { OrderItemI } from './interfaces/order.interface';
 import { OrderStatus } from './order-status.type';
@@ -30,7 +28,6 @@ export class OrdersController {
   }
 
   @Post()
-  @UseGuards(JwtAuthGuard)
   async createOrder(@CurrentUserId() id: string, @Body('items') items) {
     return await this.ordersService.createOrder(id, items);
   }
