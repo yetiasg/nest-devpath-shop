@@ -47,3 +47,14 @@ export class UpdatePasswordDto {
   @Match('password')
   readonly passwordConfirmation?: string;
 }
+
+export class InviteUserDto {
+  @IsEmail()
+  @IsNotEmpty()
+  @IsString()
+  readonly email: string;
+
+  @IsString()
+  @IsNotEmpty()
+  readonly password: string;
+}

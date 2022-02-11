@@ -2,7 +2,6 @@ import { MailerModule } from '@nestjs-modules/mailer';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 import { BullModule } from '@nestjs/bull';
 import { Module } from '@nestjs/common';
-import { MailController } from './mail.controller';
 import { MailProcessor } from './mail.processor';
 import { MailService } from './mail.service';
 
@@ -41,7 +40,7 @@ import { MailService } from './mail.service';
       }),
     }),
   ],
-  controllers: [MailController],
   providers: [MailService, MailProcessor],
+  exports: [MailService],
 })
 export class MailModule {}

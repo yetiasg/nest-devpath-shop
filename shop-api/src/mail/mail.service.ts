@@ -21,12 +21,12 @@ export class MailService {
       return false;
     }
   }
-  public sendMail() {
+  public sendMail(to: string) {
     this.mailerService
       .sendMail({
-        to: 'yetiasg@gmail.com',
+        to,
         from: 'yetiasgii@gmail.com',
-        subject: 'Elo elo z backendu XDDD. Selleo pozdrawia',
+        subject: 'Shop - testing invitation mail',
         text: 'EloElo',
         html: '<b>EloElo</b>',
       })

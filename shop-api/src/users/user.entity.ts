@@ -14,6 +14,9 @@ export class UserEntity extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
+  @Column({ type: 'boolean', nullable: false, default: false })
+  active: boolean;
+
   @Column({ unique: true })
   email: string;
 
