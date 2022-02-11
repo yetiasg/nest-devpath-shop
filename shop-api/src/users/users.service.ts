@@ -44,7 +44,9 @@ export class UsersService {
   async createUser({ email, password }: CreateUserDto | InviteUserDto) {
     const user = await this.getUserByEmail(email);
     if (user) throw new BadRequestException();
-    return await this.userRepository.insert({ email, password });
+    return await (
+      await this.userRepository.insert({ email, password })
+    ).raw;
   }
 
   async inviteUserByEmail(email: string) {
@@ -59,7 +61,8 @@ export class UsersService {
   }
 
   async updateUser(id: string, user: UpdateUserDto) {
-    const updatedUser = await this.userRepository.update(id, user);
+    if (!(await this.getUserById(id))) throw new NotFoundException();
+    const updatedUser = await (await this.userRepository.update(id, user)).raw;
     if (!updatedUser) return;
     return updatedUser;
   }

@@ -19,16 +19,13 @@ export class OrderEntity extends BaseEntity {
   @OneToMany(() => UserEntity, (customer) => customer.id)
   customer: UserEntity;
 
-  @Column('jsonb')
+  @Column('json')
   productName: OrderI[];
-
-  @Column()
-  amount: string;
 
   @Column()
   totalPrice: number;
 
-  @Column()
+  @Column({ default: 'pending' })
   status: string;
 
   @CreateDateColumn()

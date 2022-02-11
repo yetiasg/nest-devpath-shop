@@ -11,6 +11,7 @@ import {
 
 @Entity({ name: 'User' })
 export class UserEntity extends BaseEntity {
+  @Exclude()
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -25,6 +26,9 @@ export class UserEntity extends BaseEntity {
 
   @Column({ nullable: true })
   lastName?: string;
+
+  @Column({ type: 'json', nullable: true })
+  address: unknown;
 
   @Exclude()
   @Column()

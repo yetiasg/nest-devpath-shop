@@ -51,7 +51,7 @@ export class CategoriesService {
     ).raw;
   }
 
-  async removeCategory(id) {
+  async removeCategory(id: string) {
     return await this.categoryRepository.delete(id);
   }
 }
