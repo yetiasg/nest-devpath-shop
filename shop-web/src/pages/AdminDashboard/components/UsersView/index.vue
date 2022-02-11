@@ -15,21 +15,20 @@ export default {
   components: { TheUser },
   data(){
     return {
-      names: ['id', 'email', 'fullname', 'address', 'options'],
+      names: ['id', 'email', 'active', 'fullname', 'address', 'options'],
       users: [
-        {id: 123, email: 'yetiasg@gmail.com', fullname:'Mateusz Żupa', address: '43-211 Piasek, Al. Dębowa 22'},
-        {id: 65, email: 'yetiasg@gmail.com', fullname:'Mateusz Żupa', address: '43-211 Piasek, Al. Dębowa 22'},
-        {id: 13423, email: 'yetiasg@gmail.com', fullname:'Mateusz Żupa', address: '43-211 Piasek, Al. Dębowa 22'},
-        {id: 14263, email: 'yetiasg@gmail.com', fullname:'Mateusz Żupa', address: '43-211 Piasek, Al. Dębowa 22'},
-        {id: 1243, email: 'yetiasg@gmail.com', fullname:'Mateusz Żupa', address: '43-211 Piasek, Al. Dębowa 22'},
-        {id: 12343, email: 'yetiasg@gmail.com', fullname:'Mateusz Żupa', address: '43-211 Piasek, Al. Dębowa 22'},
-        {id: 16323, email: 'yetiasg@gmail.com', fullname:'Mateusz Żupa', address: '43-211 Piasek, Al. Dębowa 22'},
+        {id: 123, email: 'yetiasg@gmail.com', active: true, fullname:'Mateusz Żupa', address: '43-211 Piasek, Al. Dębowa 22'},
+        {id: 65, email: 'yetiasg@gmail.com', active: true, fullname:'Mateusz Żupa', address: '43-211 Piasek, Al. Dębowa 22'},
+        {id: 13423, email: 'yetiasg@gmail.com', active: true, fullname:'Mateusz Żupa', address: '43-211 Piasek, Al. Dębowa 22'},
+        {id: 14263, email: 'yetiasg@gmail.com', active: true, fullname:'Mateusz Żupa', address: '43-211 Piasek, Al. Dębowa 22'},
+        {id: 1243, email: 'yetiasg@gmail.com', active: true, fullname:'Mateusz Żupa', address: '43-211 Piasek, Al. Dębowa 22'},
+        {id: 12343, email: 'yetiasg@gmail.com', active: true, fullname:'Mateusz Żupa', address: '43-211 Piasek, Al. Dębowa 22'},
+        {id: 16323, email: 'yetiasg@gmail.com', active: true, fullname:'Mateusz Żupa', address: '43-211 Piasek, Al. Dębowa 22'},
       ]
     }
   }
 }
 </script>
-
 
 <style scoped>
   .names{
@@ -41,7 +40,7 @@ export default {
   }
 
   .names > p{
-    width: calc(100%/5);
+    width: calc(100%/6);
     padding: 1rem;
   }
 
