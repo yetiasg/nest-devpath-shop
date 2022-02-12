@@ -3,29 +3,29 @@
     <p v-for="name in names" :key="name">{{name}}</p>
   </div>
   <div class="list-view">
-    <the-category  he-category v-for="category in categories" :key="category.id" :category="category"></the-category>
+    <div class="details" v-for="category in categories" :key="category.id">
+      <p>{{category.id}}</p>
+      <p>{{category.name}}</p>
+      <p>{{category.description}}</p>
+      <p></p>
+    </div>
   </div>
 </template>
 
 <script>
-
-import TheCategory from '../TheCategory'
-
 export default {
-  components: { TheCategory },
   data(){
     return {
       names: ['id', 'name', 'description', 'options'],
-      categories: [
-        {id: 123, name: 'shoes', description:"swefioswhgfoaqiwhgoiawrhbgo wroi whgfhweirghoqiwregho"},
-        {id: 1253, name: 'shoes', description:"swefioswhgfoaqiwhgoiawrhbgo wroi whgfhweirghoqiwregho"},
-        {id: 12453, name: 'shoes', description:"swefioswhgfoaqiwhgoiawrhbgo wroi whgfhweirghoqiwregho"},
-        {id: 17423, name: 'shoes', description:"swefioswhgfoaqiwhgoiawrhbgo wroi whgfhweirghoqiwregho"},
-        {id: 1243, name: 'shoes', description:"swefioswhgfoaqiwhgoiawrhbgo wroi whgfhweirghoqiwregho"},
-        {id: 127643, name: 'shoes', description:"swefioswhgfoaqiwhgoiawrhbgo wroi whgfhweirghoqiwregho"},
-        {id: 1523, name: 'shoes', description:"swefioswhgfoaqiwhgoiawrhbgo wroi whgfhweirghoqiwregho"}
-      ]
     }
+  },
+  computed:{
+    categories(){
+      return this.$store.state.requests.categories;
+    }
+  },
+  mounted(){
+     this.$store.dispatch('fetchCategories');
   }
 }
 </script>
@@ -48,6 +48,21 @@ export default {
   .list-view{
     height: calc(100% - 4.72rem);
     overflow-y: scroll;
+  }
+
+  .details{
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    background-color: #F5F5F5;
+    border-radius: 10px;
+    margin: 0.5rem 0;
+  }
+
+  .details > p{
+    width: calc(100%/4);
+    padding: 1rem;
+    word-wrap: break-word;
   }
   
 </style>

@@ -33,12 +33,14 @@ export class AuthService {
   }
 
   async register({ email, password }: CreateUserDto) {
+    const user = await this.usersService.getUserByEmail(email);
+    if (user) throw new BadRequestException('User already exists');
     const hashedPassword: string = await this.hashPassword(password);
     const newUser = this.usersService.createUser({
       email,
       password: hashedPassword,
     } as CreateUserDto);
-    if (!newUser) throw new BadRequestException('User already exists');
+    if (!newUser) throw new BadRequestException();
     return await this.login({ email } as LoginDto);
   }
 

@@ -1,4 +1,13 @@
 export default{
+  setProducts(state, payload){
+    state.products = payload
+  },
+  setUsers(state, payload){
+    state.users = payload
+  },
+  setOrders(state, payload){
+    state.orders = payload
+  },
   setAmountOfProducts(state, payload){
     state.amountOfProducts = payload;
   },

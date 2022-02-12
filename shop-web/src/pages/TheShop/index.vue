@@ -30,6 +30,7 @@ export default {
     },
     mounted(){
         this.$store.dispatch('loadProducts');
+        this.$store.dispatch('fetchProducts');
     },
     computed: {
         selectedProduct(){

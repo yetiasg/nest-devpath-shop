@@ -3,29 +3,33 @@
     <p v-for="name in names" :key="name">{{name}}</p>
   </div>
   <div class="list-view">
-    <the-user v-for="user in users" :key="user.id" :user="user"></the-user>
+    <div class="details" v-for="user in users" :key="user.id">
+      <p>{{user.id}}</p>
+      <p>{{user.active}}</p>
+      <p>{{user.email}}</p>
+      <p>{{user.firstName + user.lastName || '--- ---'}}</p>
+      <p>{{user.address || '--- ---'}}</p>
+      <p>{{}}</p>
+  </div>
   </div>
 </template>
 
 <script>
 
-import TheUser from '../TheUser'
 
 export default {
-  components: { TheUser },
   data(){
     return {
-      names: ['id', 'email', 'active', 'fullname', 'address', 'options'],
-      users: [
-        {id: 123, email: 'yetiasg@gmail.com', active: true, fullname:'Mateusz Żupa', address: '43-211 Piasek, Al. Dębowa 22'},
-        {id: 65, email: 'yetiasg@gmail.com', active: true, fullname:'Mateusz Żupa', address: '43-211 Piasek, Al. Dębowa 22'},
-        {id: 13423, email: 'yetiasg@gmail.com', active: true, fullname:'Mateusz Żupa', address: '43-211 Piasek, Al. Dębowa 22'},
-        {id: 14263, email: 'yetiasg@gmail.com', active: true, fullname:'Mateusz Żupa', address: '43-211 Piasek, Al. Dębowa 22'},
-        {id: 1243, email: 'yetiasg@gmail.com', active: true, fullname:'Mateusz Żupa', address: '43-211 Piasek, Al. Dębowa 22'},
-        {id: 12343, email: 'yetiasg@gmail.com', active: true, fullname:'Mateusz Żupa', address: '43-211 Piasek, Al. Dębowa 22'},
-        {id: 16323, email: 'yetiasg@gmail.com', active: true, fullname:'Mateusz Żupa', address: '43-211 Piasek, Al. Dębowa 22'},
-      ]
+      names: ['id', 'active', 'email',  'fullname', 'address', 'options'],
     }
+  },
+  computed:{
+    users(){
+      return this.$store.state.requests.users;
+    }
+  },
+  mounted(){
+     this.$store.dispatch('fetchUsers');
   }
 }
 </script>
@@ -47,5 +51,20 @@ export default {
   .list-view{
     height: calc(100% - 4.72rem);
     overflow-y: scroll;
+  }
+
+  .details{
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    background-color: #F5F5F5;
+    border-radius: 10px;
+    margin: 0.5rem 0;
+  }
+
+  .details > p{
+    width: calc(100%/6);
+    padding: 1rem;
+    word-wrap: break-word;
   }
 </style>

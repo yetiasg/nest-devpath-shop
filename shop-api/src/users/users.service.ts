@@ -44,9 +44,13 @@ export class UsersService {
   async createUser({ email, password }: CreateUserDto | InviteUserDto) {
     const user = await this.getUserByEmail(email);
     if (user) throw new BadRequestException();
-    return await (
+
+    const newUser = await (
       await this.userRepository.insert({ email, password })
     ).raw;
+    if (!newUser) throw new InternalServerErrorException();
+    this.mailService.sendMail(email);
+    return newUser;
   }
 
   async inviteUserByEmail(email: string) {

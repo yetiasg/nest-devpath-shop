@@ -1,13 +1,16 @@
 import mutations from './mutations.js'
 import actions from './actions.js'
 import getters from './getters.js'
-import { products } from './productsMock'
 
 
 export default{
     state(){
         return{
-            products,
+            products: [],
+            users: [],
+            orders: [],
+            categories: [],
+            statistics: {},
             currentPage: 1,
             perPage: 20,
             amountOfPages: null,
