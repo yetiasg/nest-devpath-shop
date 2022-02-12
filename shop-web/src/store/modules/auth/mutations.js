@@ -1,8 +1,7 @@
 export default{
-setUserData(state, payload){
+  setUserData(state, payload){
     state.access_token = payload.access_token
     state.userId = payload.userId
-    state.expiresIn = payload.expiresIn
     state.isAuth = true
   },
 
@@ -11,8 +10,4 @@ setUserData(state, payload){
     state.userId = null
     state.isAuth = false
   },
-
-  setAutoLogout(state){
-    state.didAutoLogout = true;
-  }
 }

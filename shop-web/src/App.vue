@@ -2,6 +2,13 @@
     <router-view></router-view>
 </template>
 
+<script>
+export default {
+    created(){
+        this.$store.dispatch('tryLogin')
+    }
+}
+</script>
 
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Khand:wght@300;500&display=swap');

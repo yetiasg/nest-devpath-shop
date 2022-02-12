@@ -8,6 +8,9 @@ export default{
   setOrders(state, payload){
     state.orders = payload
   },
+  setCategories(state, payload){
+    state.categories = payload
+  },
   setAmountOfProducts(state, payload){
     state.amountOfProducts = payload;
   },

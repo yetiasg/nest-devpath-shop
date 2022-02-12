@@ -45,38 +45,53 @@ export default{
       },
 
     async register(context, payload){
-        const {email, password, passwordConfirmation} = payload;
-        try{
-            const resData = await getJSON(`${config.BASE_URL}/auth/register`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    email: email,
-                    password,
-                    passwordConfirmation
-                })
-            })
+      const {email, password, passwordConfirmation} = payload;
+      try{
+        const resData = await getJSON(`${config.BASE_URL}/auth/register`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            email: email,
+            password,
+            passwordConfirmation
+          })
+        })
 
-            const {access_token, role, userId} = resData;
+        const {access_token, role, userId} = resData;
 
-            const userPayload = {
-              access_token,
-              userId,
-              role
-            }
-      
-            context.commit('setUserData', userPayload);
-            localStorage.setItem('access_token', access_token);
-            localStorage.setItem('role', role);
-            localStorage.setItem('userId', userId);
-
-            router.replace('/shop')
-
-        }catch (error){
-            console.log("Can not register now")
+        const userPayload = {
+          access_token,
+          userId,
+          role
         }
+    
+        context.commit('setUserData', userPayload);
+        localStorage.setItem('access_token', access_token);
+        localStorage.setItem('role', role);
+        localStorage.setItem('userId', userId);
+
+        router.replace('/shop')
+
+      }catch (error){
+        console.log("Can not register now")
+      }
+    },
+
+    async tryLogin(context){
+      const access_token = localStorage.getItem('access_token')
+      const role = localStorage.getItem('role')
+      const userId = localStorage.getItem('userId')
+      if(!access_token || !role || !userId) return context.dispatch('logout');
+
+      const userPayload = {
+        access_token,
+        userId,
+        role
+      }
+
+      context.commit('setUserData', userPayload);
     },
     
     logout: (context) =>{
