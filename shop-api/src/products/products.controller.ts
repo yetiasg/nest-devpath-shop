@@ -6,8 +6,11 @@ import {
   Param,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
 import { Public } from 'src/common/decorators/public.decorator';
+import { RoleGuard } from 'src/role/role.guard';
+import { Role } from 'src/role/role.type';
 import { CreateProductDto, UpdateProductDto } from './dto/product.dto';
 import { ProductEntity } from './product.entity';
 import { ProductsService } from './products.service';
@@ -29,6 +32,7 @@ export class ProductsController {
   }
 
   @Post()
+  @UseGuards(RoleGuard([Role.ADMIN]))
   async createProduct(
     @Body() product: CreateProductDto,
   ): Promise<ProductEntity> {
@@ -36,6 +40,7 @@ export class ProductsController {
   }
 
   @Patch(':id')
+  @UseGuards(RoleGuard([Role.ADMIN]))
   async updateProductById(
     @Param('id') productId: string,
     @Body() product: UpdateProductDto,
@@ -44,6 +49,7 @@ export class ProductsController {
   }
 
   @Delete(':id')
+  @UseGuards(RoleGuard([Role.ADMIN]))
   async removeProductById(@Param('id') productId: string) {
     return await this.productsService.removeProductById(productId);
   }

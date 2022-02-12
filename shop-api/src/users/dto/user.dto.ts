@@ -1,4 +1,10 @@
-import { IsEmail, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import {
+  IsBoolean,
+  IsEmail,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 import { Match } from 'src/util/match.decorator';
 
 export class UpdateUserDto {
@@ -12,6 +18,11 @@ export class UpdateUserDto {
   @IsString()
   @IsOptional()
   readonly firstName?: string;
+
+  @IsNotEmpty()
+  @IsBoolean()
+  @IsOptional()
+  readonly active?: boolean;
 
   @IsNotEmpty()
   @IsString()

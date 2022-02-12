@@ -6,8 +6,11 @@ import {
   Param,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
 import { CurrentUserId } from 'src/common/decorators/currentUserId.decorator';
+import { RoleGuard } from 'src/role/role.guard';
+import { Role } from 'src/role/role.type';
 import { OrderItemI } from './interfaces/order.interface';
 import { OrderStatus } from './order-status.type';
 import { OrderEntity } from './order.entity';
@@ -18,21 +21,25 @@ export class OrdersController {
   constructor(private readonly ordersService: OrdersService) {}
 
   @Get()
+  @UseGuards(RoleGuard([Role.ADMIN, Role.USER]))
   async getAllOrders(): Promise<OrderEntity[]> {
     return await this.ordersService.getAllOrders();
   }
 
   @Get(':id')
+  @UseGuards(RoleGuard([Role.ADMIN, Role.USER]))
   async getOrderById(@Param('id') id: string) {
     return await this.ordersService.getOrderById(id);
   }
 
   @Post()
+  @UseGuards(RoleGuard([Role.ADMIN, Role.USER]))
   async createOrder(@CurrentUserId() id: string, @Body('items') items) {
     return await this.ordersService.createOrder(id, items);
   }
 
   @Patch(':id')
+  @UseGuards(RoleGuard([Role.ADMIN]))
   async updateOrderById(
     @Param('id') id: string,
     @Body() order: OrderItemI,
@@ -41,6 +48,7 @@ export class OrdersController {
   }
 
   @Patch('/status/:id')
+  @UseGuards(RoleGuard([Role.ADMIN]))
   async updateOrderStatusById(
     @Param('id') orderId: string,
     @Body('status') status: OrderStatus,
@@ -49,6 +57,7 @@ export class OrdersController {
   }
 
   @Delete(':id')
+  @UseGuards(RoleGuard([Role.ADMIN]))
   async removeOrderById(@Param('id') id: string) {
     return await this.ordersService.removeOrderById(id);
   }

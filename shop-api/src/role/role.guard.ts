@@ -1,4 +1,10 @@
-import { CanActivate, ExecutionContext, mixin, Type } from '@nestjs/common';
+import {
+  CanActivate,
+  ExecutionContext,
+  mixin,
+  Type,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { Role } from 'src/role/role.type';
 
 export const RoleGuard = (
@@ -8,6 +14,9 @@ export const RoleGuard = (
   class RoleGuardMixin implements CanActivate {
     canActivate(context: ExecutionContext) {
       const { user } = context.switchToHttp().getRequest();
+      if (!user?.active) {
+        throw new UnauthorizedException('You have to activate accoun first');
+      }
       return (
         roles.includes(user?.role) ||
         (user?.role === Role.ADMIN && canSuperAdmin)

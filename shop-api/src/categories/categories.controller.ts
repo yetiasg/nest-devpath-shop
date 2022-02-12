@@ -1,4 +1,15 @@
-import { Controller } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
+import { RoleGuard } from 'src/role/role.guard';
+import { Role } from 'src/role/role.type';
 import { CategoriesService } from './categories.service';
 import { CategoryEntity } from './category.entity';
 import { CreateCategoryDto, UpdateCategoryDto } from './dto/category.dto';
@@ -7,26 +18,39 @@ import { CreateCategoryDto, UpdateCategoryDto } from './dto/category.dto';
 export class CategoriesController {
   constructor(private readonly categoriesService: CategoriesService) {}
 
+  @Get()
+  @UseGuards(RoleGuard([Role.ADMIN]))
   async getAllCategories(): Promise<CategoryEntity[]> {
     return await this.categoriesService.getAllCategories();
   }
 
-  async getCategoryById(id: string): Promise<CategoryEntity> {
+  @Get(':id')
+  @UseGuards(RoleGuard([Role.ADMIN]))
+  async getCategoryById(@Param('id') id: string): Promise<CategoryEntity> {
     return await this.categoriesService.getCategoryById(id);
   }
 
-  async createCategory(category: CreateCategoryDto): Promise<CategoryEntity> {
+  @Post()
+  @UseGuards(RoleGuard([Role.ADMIN]))
+  async createCategory(
+    @Param('id') id: string,
+    @Body() category: CreateCategoryDto,
+  ): Promise<CategoryEntity> {
     return await this.categoriesService.createCategory(category);
   }
 
+  @Patch(':id')
+  @UseGuards(RoleGuard([Role.ADMIN]))
   async updateCategory(
-    id: string,
-    category: UpdateCategoryDto,
+    @Param('id') id: string,
+    @Body() category: UpdateCategoryDto,
   ): Promise<CategoryEntity> {
     return await this.categoriesService.updateCategory(id, category);
   }
 
-  async removeCategory(id) {
+  @Delete(':id')
+  @UseGuards(RoleGuard([Role.ADMIN]))
+  async removeCategory(@Param('id') id: string) {
     return await this.categoriesService.removeCategory(id);
   }
 }
