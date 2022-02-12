@@ -4,7 +4,8 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  OneToOne,
+  ManyToMany,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -16,11 +17,11 @@ export class OrderItemsEntity extends BaseEntity {
   id: string;
 
   @Column()
-  @OneToOne(() => OrderEntity, (order) => order.id)
+  @ManyToOne(() => OrderEntity, (order) => order.id)
   orderId: string;
 
   @Column()
-  @OneToOne(() => ProductEntity, (product) => product.id)
+  @ManyToMany(() => ProductEntity, (product) => product.id)
   productId: string;
 
   @Column()

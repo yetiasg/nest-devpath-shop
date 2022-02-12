@@ -5,7 +5,7 @@
   <div class="list-view">
     <div class="details" v-for="order in orders" :key="order.id">
       <p>{{order.id}}</p>
-      <p>{{order.customer}}</p>
+      <p>{{order.userId}}</p>
       <p>{{order.amount}}</p>
       <p>{{order.totalPrice}}</p>
       <p>{{order.status}}</p>
