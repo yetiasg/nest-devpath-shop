@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from 'src/auth/auth.module';
+import { MailModule } from 'src/mail/mail.module';
 import { ProductsModule } from 'src/products/products.module';
 import { UsersModule } from 'src/users/users.module';
 import { OrderItemsEntity } from './order-items.entity';
@@ -17,6 +18,7 @@ import { OrdersService } from './orders.service';
     ConfigModule,
     ProductsModule,
     UsersModule,
+    MailModule,
   ],
   controllers: [OrdersController],
   providers: [OrdersService, OrderItemsService],

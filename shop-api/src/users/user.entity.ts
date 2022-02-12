@@ -30,6 +30,9 @@ export class UserEntity extends BaseEntity {
   @Column({ type: 'json', nullable: true })
   address: unknown;
 
+  @Column({ default: '' })
+  activationToken: string;
+
   @Exclude()
   @Column()
   password: string;

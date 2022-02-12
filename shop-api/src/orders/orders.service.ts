@@ -4,6 +4,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { MailService } from 'src/mail/mail.service';
 import { ProductsService } from 'src/products/products.service';
 import { UsersService } from 'src/users/users.service';
 import { Repository } from 'typeorm';
@@ -19,6 +20,7 @@ export class OrdersService {
     private readonly ordersRepository: Repository<OrderEntity>,
     private readonly orderItemsService: OrderItemsService,
     private readonly productsService: ProductsService,
+    private readonly mailService: MailService,
     private readonly usersService: UsersService,
   ) {}
 
@@ -81,7 +83,15 @@ export class OrdersService {
   async updateOrderStatusById(orderId: string, status: OrderStatus) {
     const orderExists = await this.getOrderById(orderId);
     if (!orderExists) throw new NotFoundException();
-    return await this.ordersRepository.update({ id: orderId }, { status });
+    const updatedOrder = await this.ordersRepository.update(
+      { id: orderId },
+      { status },
+    );
+    if (!updatedOrder) throw new InternalServerErrorException();
+    const user = await this.usersService.getUserById(orderExists.order.userId);
+    if (!user) throw new NotFoundException();
+    this.mailService.onChangeOrderStatus(user.email, status);
+    return updatedOrder.raw;
   }
 
   async removeOrderById(id: string) {

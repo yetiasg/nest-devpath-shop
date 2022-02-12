@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { CurrentUserId } from 'src/common/decorators/currentUserId.decorator';
 import { Public } from 'src/common/decorators/public.decorator';
 import { CreateUserDto } from 'src/users/dto/user.dto';
@@ -31,5 +31,11 @@ export class AuthController {
   @Get('profile')
   async getUserProfile(@CurrentUserId() userId: string) {
     return await this.usersService.getUserProfile(userId);
+  }
+
+  @Post('activate/:token')
+  @Public()
+  async activateAccaout(@Param('token') token: string) {
+    return await this.usersService.activateAccount(token);
   }
 }

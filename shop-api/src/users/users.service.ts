@@ -31,26 +31,50 @@ export class UsersService {
     return await this.userRepository.findOne({ email });
   }
 
+  async getUserByActivationToken(token: string) {
+    return await this.userRepository.findOne({ activationToken: token });
+  }
+
   async getUserProfile(userId: string): Promise<UserProfileI> {
     const user = await this.getUserById(userId);
     if (!user) throw new NotFoundException();
     const profile: UserProfileI = {
       userId: user.id,
       role: user.role,
+      active: user.active,
     };
     return profile;
+  }
+
+  async generateActivationToken() {
+    return await this.genPassword();
   }
 
   async createUser({ email, password }: CreateUserDto | InviteUserDto) {
     const user = await this.getUserByEmail(email);
     if (user) throw new BadRequestException();
 
+    const activationToken = await this.generateActivationToken();
+
     const newUser = await (
-      await this.userRepository.insert({ email, password })
+      await this.userRepository.insert({
+        email,
+        password,
+        activationToken,
+      })
     ).raw;
     if (!newUser) throw new InternalServerErrorException();
-    this.mailService.sendMail(email);
+    this.mailService.newAccount(email, activationToken);
     return newUser;
+  }
+
+  async activateAccount(token: string) {
+    const user = await this.getUserByActivationToken(token);
+    if (!user) throw new NotFoundException();
+
+    (user.activationToken = ''), (user.active = true);
+    await user.save();
+    return await this.getUserProfile(user.id);
   }
 
   async inviteUserByEmail(email: string) {
@@ -60,7 +84,7 @@ export class UsersService {
     const user = { email, password: await this.genPassword() };
     const newUser = await this.createUser(user);
     if (!newUser) throw new InternalServerErrorException();
-    this.mailService.sendMail(email);
+    this.mailService.newAccount(email, newUser.activationToken);
     return newUser.raw;
   }
 
