@@ -7,7 +7,8 @@
       <p>{{category.id}}</p>
       <p>{{category.name}}</p>
       <p>{{category.description}}</p>
-      <p></p>
+      <p><span class="remove">X</span></p>
+      <p><span class="update" @click="uodateProduct(product.id)">U</span></p>
     </div>
   </div>
 </template>
@@ -64,5 +65,21 @@ export default {
     padding: 1rem;
     word-wrap: break-word;
   }
-  
+
+  .remove{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width:1.6rem;
+    height: 1.6rem;
+    font-size: 1rem;
+    border-radius: 50px;
+    background-color: rgb(201, 43, 43);
+    color: white;
+  }
+
+  .remove:hover{
+    background-color: rgb(228, 57, 57);
+    cursor: pointer;
+  }
 </style>

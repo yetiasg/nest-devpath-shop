@@ -29,11 +29,14 @@ export default{
   handleImportProductsModal(state, payload){
     state.importProductsModal = payload
   },
-  handleExportProductsModal(state, payload){
-    state.exportProductsModal = payload
+  handleExportOrdersModal(state, payload){
+    state.exportOrdersModal = payload
   },
   handleAddUserModal(state, payload){
     state.addUserModal = payload
+  },
+  handleAddCategoryModal(state, payload){
+    state.addCategoryModal = payload
   }
 }
 

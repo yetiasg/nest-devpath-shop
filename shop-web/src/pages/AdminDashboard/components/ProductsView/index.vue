@@ -12,7 +12,8 @@
       <p>{{product.categories}}</p>
       <p>{{product.stock}}</p>
       <p>{{product.archived}}</p>
-      <p></p>
+      <p><span class="remove" @click="removeProduct(product.id)">X</span>
+      <span class="update" @click="uodateProduct(product.id)">U</span></p>
     </div>
   </div>
 </template>
@@ -27,6 +28,11 @@ export default {
   computed:{
     products(){
       return this.$store.getters.getProducts;
+    }
+  },
+  methods:{
+    removeProduct(id){
+      this.$store.dispatch('removeProductById', id)
     }
   },
   mounted(){
@@ -70,4 +76,20 @@ export default {
     word-wrap: break-word;
   }
 
+  .remove{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width:1.6rem;
+    height: 1.6rem;
+    font-size: 1rem;
+    border-radius: 50px;
+    background-color: rgb(201, 43, 43);
+    color: white;
+  }
+
+  .remove:hover{
+    background-color: rgb(228, 57, 57);
+    cursor: pointer;
+  }
 </style>

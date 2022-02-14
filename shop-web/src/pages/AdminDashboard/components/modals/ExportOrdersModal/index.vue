@@ -1,30 +1,33 @@
 <template>
-   <teleport to="body">
+  <teleport to="body">
 
    <div class="modalView">
-      <div class="import-products">
+      <div class="export-orders">
         <header>
-          <p>Export products</p>
+          <p>Export orders</p>
           <span @click="closeModal">X</span>
         </header>
 
-        <div class="footer-options">
-          <div class="option-buttons">
-            <base-button mode="clearBtn" class="cancelBtn btn">Cancel</base-button>
-            <base-button mode="clearBtn" class="importProductsBtn btn">Export products</base-button>
-          </div>
+        <label for="name">from</label>
+        <input type="date" id="name">
+
+        <label for="name">to</label>
+        <input type="date" id="name">
+
+        <div class="option-buttons">
+          <base-button mode="clearBtn" class="cancelBtn btn">Cancel</base-button>
+          <base-button mode="clearBtn" class="exportOrdersBtn btn">Export orders</base-button>
         </div>
       </div>
-      </div>
-    </teleport>
-
+    </div>
+  </teleport>
 </template>
 
 <script>
 export default {
   methods: {
     closeModal(){
-      this.$store.commit('handleExportProductsModal', false)
+      this.$store.commit('handleExportOrdersModal', false)
     },
   }
 }
@@ -64,14 +67,12 @@ export default {
     color: white;
   }
 
-    header span:hover{
+  header span:hover{
     background-color: rgb(57, 145, 228);
     cursor: pointer;
   }
 
-  .import-products{
-    width: 40rem;
-    min-height: 35rem;
+  .export-orders{
     background-color:#F5F5F5;
     border-radius: 10px;
     padding: 1rem;
@@ -90,7 +91,7 @@ export default {
     width: 48%;
   }
 
-  .footer-options{
+  .option-buttons{
     display: flex;
     justify-content: space-between;
   }
@@ -101,11 +102,11 @@ export default {
   }
 
 
-  .importProductsBtn{
+  .exportOrdersBtn{
     background-color: #CB8845;
   }
 
-  .importProductsBtn:hover{
+  .exportOrdersBtn:hover{
     background-color: #ae7033;
   }
 

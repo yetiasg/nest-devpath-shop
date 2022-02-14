@@ -2,16 +2,16 @@
 import config from '../../../config.js';
 
 // // helpers----------------------------------------------
-const getJSON = async(url, options = {}) =>{
+const getJSON = async(url, options = {}, context) =>{
     const response = await fetch(`${config.BASE_URL}${url}`, options);
-    if (!response.ok) throw new Error(response.message);
+    if (!response.ok) {
+      console.log(context.dispatch('logout'))
+      // context.rootState.auth.dispatch('logout')
+      throw new Error(response.message);
+    }
     const data = await response.json();
     return data;
 };
-
-// let  access_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InlldGlhc2dAZ21haWwuY29tIiwic3ViIjoiOWY5YmE5MmItNmVhNS00ZDdmLTkyNjMtZDlhMTgwMWMzNzVkIiwiaWF0IjoxNjQ0NjczNDc4LCJleHAiOjE2NDQ2NzcwNzh9.E43d-WKSofJjux2vQ1ewgqI7gaOee1_toU64oYfaRtg"
-
-
 
 export default{
   async loadProducts(context){
@@ -30,7 +30,7 @@ export default{
   async fetchUsers(context){
     const users = await getJSON('/users', {headers: {
       'Authorization': `Bearer ${context.rootState.auth.access_token}`
-    }})
+    }}, context)
     context.commit('setUsers', users)
   },
 
@@ -54,4 +54,14 @@ export default{
     }})
     context.commit('setStatistics', statistics)
   },
+
+  async removeProductById(context, payload){
+    await fetch(`${config.BASE_URL}/products/${payload}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${context.rootState.auth.access_token}`
+      }
+    })
+    await context.dispatch('fetchProducts')
+  }
 }

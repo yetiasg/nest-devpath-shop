@@ -18,9 +18,9 @@ export default{
             selectedProduct: null,
             addProductModal: false,
             importProductsModal: false,
-            exportProductsModal: false,
+            exportOrdersModal: false,
             addUserModal: false,
-            addCategoryModal: false
+            addCategoryModal: false,
         }
     },
     mutations,

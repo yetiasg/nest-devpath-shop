@@ -7,16 +7,12 @@
           <p>Import products</p>
           <span @click="closeModal">X</span>
         </header>
-        <label for="file">file</label>
         <input type="file" id="file">
 
-        <div class="footer-options">
           <div class="option-buttons">
-            <base-button mode="clearBtn" class="cancelBtn btn">Cancel</base-button>
             <base-button mode="clearBtn" class="importProductsBtn btn">+ Add product</base-button>
           </div>
         </div>
-      </div>
       </div>
     </teleport>
 
@@ -66,14 +62,12 @@ export default {
     color: white;
   }
 
-    header span:hover{
+  header span:hover{
     background-color: rgb(57, 145, 228);
     cursor: pointer;
   }
 
   .import-products{
-    width: 40rem;
-    min-height: 35rem;
     background-color:#F5F5F5;
     border-radius: 10px;
     padding: 1rem;
@@ -92,12 +86,14 @@ export default {
     width: 48%;
   }
 
-  .footer-options{
+  .option-buttons{
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    width: 100%;
   }
 
   .btn{
+    width: 100%;
     border-radius: 10px;
     color: white;
   }

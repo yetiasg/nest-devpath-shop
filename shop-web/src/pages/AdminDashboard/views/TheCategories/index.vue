@@ -29,7 +29,7 @@ export default {
     },
     methods:{
         openAddCategoryModal(){
-            this.$store.commit('handleAddUserModal', true)
+            this.$store.commit('handleAddCategoryModal', true)
             this.addCategoryModal = !this.addCategoryModal
         },
     },

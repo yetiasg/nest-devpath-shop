@@ -9,7 +9,7 @@
       <p>{{order.amount}}</p>
       <p>{{order.totalPrice}}</p>
       <p>{{order.status}}</p>
-      <p></p>
+      <p><span class="remove" title="change status">s</span></p>
     </div>
   </div>
 </template>
@@ -66,5 +66,22 @@ export default {
     width: calc(100%/6);
     padding: 1rem;
     word-wrap: break-word;
+  }
+
+  .remove{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width:1.6rem;
+    height: 1.6rem;
+    font-size: 1rem;
+    border-radius: 50px;
+    background-color:  rgb(108, 61, 202);
+    color: white;
+  }
+
+  .remove:hover{
+    background-color: rgb(141, 90, 242);
+    cursor: pointer;
   }
 </style>

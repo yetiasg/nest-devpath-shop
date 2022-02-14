@@ -5,12 +5,10 @@
             <div class="creation-options">
                 <base-button mode="filledBtn" @click="openAddProductModal" class="add-product-btn">+ Add product</base-button>
                 <base-button mode="filledBtn" @click="openImportProductsModal" class="import-products-btn">Import products</base-button>
-                <base-button mode="filledBtn" @click="openExportProductsModal" class="export-products-btn">Export products</base-button>
             </div>
         </div>
         <add-product-modal v-if="showAddProductModal"></add-product-modal>
         <import-products-modal v-if="showImportProductsModal"></import-products-modal>
-        <export-products-modal v-if="showExportProductsModal"></export-products-modal>
         <products-view></products-view>
     </section>
 </template>
@@ -20,7 +18,6 @@ import BaseButton from '../../../../components/baseComponents/BaseButton.vue'
 import ProductsView from '../../components/ProductsView'
 import AddProductModal from '../../components/modals/AddProductModal'
 import ImportProductsModal from '../../components/modals/ImportProductsModal'
-import ExportProductsModal from '../../components/modals/ExportProductsModal'
 
 export default {
     components:{
@@ -28,7 +25,6 @@ export default {
         BaseButton,
         AddProductModal,
         ImportProductsModal,
-        ExportProductsModal        
     },
     data(){
       return {

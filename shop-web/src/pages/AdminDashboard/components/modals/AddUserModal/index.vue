@@ -8,15 +8,12 @@
           <span @click="closeModal">X</span>
         </header>
         <label for="email">email</label>
-        <input type="text" id="name">
+        <input type="email" id="email">
 
-        <div class="footer-options">
           <div class="option-buttons">
-            <base-button mode="clearBtn" class="cancelBtn btn">Cancel</base-button>
             <base-button mode="clearBtn" class="addUserBtn btn">+ Add User</base-button>
           </div>
         </div>
-      </div>
       </div>
     </teleport>
 
@@ -72,8 +69,7 @@ export default {
   }
 
   .add-user{
-    width: 40rem;
-    min-height: 35rem;
+    width: 25rem;
     background-color:#F5F5F5;
     border-radius: 10px;
     padding: 1rem;
@@ -96,9 +92,9 @@ export default {
     width: 10%
   }
 
-  .footer-options{
+  .option-buttons{
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
   }
 
   .btn{
@@ -109,6 +105,7 @@ export default {
 
   .addUserBtn{
     background-color: #45CB45;
+    width: 100%;
   }
 
   .addUserBtn:hover{
