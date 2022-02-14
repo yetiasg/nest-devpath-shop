@@ -1,3 +1,4 @@
+import { MailerService } from '@nestjs-modules/mailer';
 import {
   OnQueueActive,
   OnQueueCompleted,
@@ -5,15 +6,14 @@ import {
   Process,
   Processor,
 } from '@nestjs/bull';
-import { Logger } from '@nestjs/common';
+import { InternalServerErrorException, Logger } from '@nestjs/common';
 import { Job } from 'bull';
-import { MailService } from './mail.service';
 
 @Processor('mailsend')
 export class MailProcessor {
   private readonly logger = new Logger(this.constructor.name);
 
-  constructor(private readonly mailService: MailService) {}
+  constructor(private readonly mailerService: MailerService) {}
 
   @OnQueueActive()
   onActive(job: Job) {
@@ -25,30 +25,54 @@ export class MailProcessor {
   }
 
   @OnQueueCompleted()
-  onComplete(job: Job) {
+  onComplete(job: Job, result: any) {
     this.logger.log(
-      `Processor:@OnQueueCompleted - Completed job ${job.id} of type ${job.name}.`,
+      `Processor:@OnQueueCompleted - Completed job ${job.id} of type ${
+        job.name
+      }. Result: ${JSON.stringify(result)}`,
     );
   }
 
   @OnQueueFailed()
-  onError(job: Job<any>, error) {
-    this.logger.log(
-      `Processor:@OnQueueFailed - Failed job ${job.id} of type ${job.name}: ${error.message}`,
+  onError(job: Job<any>, error: any) {
+    this.logger.error(
+      `Processor:@OnQueueFailed - Failed job ${job.id} of type ${job.name}: ${error.stack}`,
       error.stack,
     );
   }
 
-  @Process('confirmation')
-  async sendWelcomeEmail(): Promise<any> {
-    this.logger.log('Processor:@Process - Sending confirmation email.');
-
+  @Process('activation')
+  async newAccount(job: Job) {
     try {
-      const result = this.mailService.sendConfirmationEmail();
-      return result;
+      const success = await this.mailerService.sendMail({
+        to: job.data.to,
+        from: 'yetiasgii@gmail.com',
+        subject: 'Shop - testing invitation mail',
+        text: `Activate account`,
+        html: `
+          <p>activation url for web: http://localhost:8080/activate?token=${job.data.activationToken}</p>
+          <p>activation url for web: http://localhost:3005/activate/${job.data.activationToken}</p>
+          `,
+      });
+      return success;
     } catch (error) {
-      this.logger.error('Failed to send confirmation email.', error.stack);
-      throw error;
+      throw new InternalServerErrorException(error);
+    }
+  }
+
+  @Process('changing-status')
+  async onChangeOrderStatus(job: Job) {
+    try {
+      const success = this.mailerService.sendMail({
+        to: job.data.to,
+        from: 'yetiasgii@gmail.com',
+        subject: 'Shop - testing invitation mail',
+        text: `Activate account`,
+        html: `<b>Order status has changed: ${job.data.status}</b>`,
+      });
+      return success;
+    } catch (error) {
+      throw new InternalServerErrorException(error);
     }
   }
 }

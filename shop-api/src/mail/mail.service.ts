@@ -1,6 +1,5 @@
-import { MailerService } from '@nestjs-modules/mailer';
 import { InjectQueue } from '@nestjs/bull';
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Queue } from 'bull';
 import { OrderStatus } from 'src/orders/order-status.type';
 
@@ -9,67 +8,26 @@ export interface User {
 }
 @Injectable()
 export class MailService {
-  constructor(
-    @InjectQueue('mailsend') private mailQueue: Queue,
-    private readonly mailerService: MailerService,
-  ) {}
+  constructor(@InjectQueue('mailsend') private mailQueue: Queue) {}
 
-  async sendConfirmationEmail(): Promise<boolean> {
+  async newAccount(to: string, activationToken: string): Promise<boolean> {
     try {
-      this.mailQueue.add('confirmation', {});
+      this.mailQueue.add('activation', {
+        to,
+        activationToken,
+      });
       return true;
-    } catch (err) {
+    } catch (errot) {
       return false;
     }
   }
-  // public sendMail(to: string, activationToken: string) {
-  //   this.mailerService
-  //     .sendMail({
-  //       to,
-  //       from: 'yetiasgii@gmail.com',
-  //       subject: 'Shop - testing invitation mail',
-  //       text: `Activate account`,
-  //       html: `<b>: http://localhost:8080/activate?token=${activationToken}</b>`,
-  //     })
-  //     .then((success) => {
-  //       return success;
-  //     })
-  //     .catch((err) => {
-  //       throw new InternalServerErrorException(err);
-  //     });
-  // }
 
-  public newAccount(to: string, activationToken: string) {
-    this.mailerService
-      .sendMail({
-        to,
-        from: 'yetiasgii@gmail.com',
-        subject: 'Shop - testing invitation mail',
-        text: `Activate account`,
-        html: `<b>: http://localhost:8080/activate?token=${activationToken}</b>`,
-      })
-      .then((success) => {
-        return success;
-      })
-      .catch((err) => {
-        throw new InternalServerErrorException(err);
-      });
-  }
-
-  public onChangeOrderStatus(to: string, status: OrderStatus) {
-    this.mailerService
-      .sendMail({
-        to,
-        from: 'yetiasgii@gmail.com',
-        subject: 'Shop - testing invitation mail',
-        text: `Activate account`,
-        html: `<b>Order status has changed: ${status}</b>`,
-      })
-      .then((success) => {
-        return success;
-      })
-      .catch((err) => {
-        throw new InternalServerErrorException(err);
-      });
+  async onChangeOrderStatus(to: string, status: OrderStatus) {
+    try {
+      this.mailQueue.add('changing-status', { to, status });
+      return true;
+    } catch (error) {
+      return false;
+    }
   }
 }
