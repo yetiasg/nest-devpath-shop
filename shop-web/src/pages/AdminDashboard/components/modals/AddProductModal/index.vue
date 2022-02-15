@@ -4,7 +4,7 @@
    <div class="modalView">
       <div class="add-product">
         <header>
-          <p>Add product</p>
+          <p>Add product {{file}}</p>
           <span @click="closeModal">X</span>
         </header>
         <label for="name">name</label>
@@ -25,6 +25,10 @@
 
           <label for="price">price
             <input type="number" min="0" id="price" v-model="price">
+          </label>
+
+          <label for="price">photo/image
+            <input type="file" id="file" ref="file">
           </label>
         </div>
 
@@ -54,6 +58,7 @@ export default {
         {id: 127643, name: 'shergeoes', description:"swefioswhgfoaqiwhgoiawrhbgo wroi whgfhweirghoqiwregho"},
         {id: 1523, name: 'shoergers', description:"swefioswhgfoaqiwhgoiawrhbgo wroi whgfhweirghoqiwregho"}
       ],
+      file: '',
       name: '',
       description: '',
       categoriesSelected: '',
@@ -67,7 +72,6 @@ export default {
     },
     createProduct(){
       const product = {name: this.name, description: this.description, categories: this.categoriesSelected, stock: Number(this.stock), price: parseInt(this.price, 10), archived: false}
-
       this.$store.dispatch('createProduct', product)
     }
   }

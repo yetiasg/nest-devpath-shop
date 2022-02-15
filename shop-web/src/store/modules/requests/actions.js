@@ -85,7 +85,6 @@ export default{
   },
 
   async updateProduct(context, product){
-    console.log(product)
     const headers = {
       Authorization: `Bearer ${context.rootState.auth.access_token}`
     }
@@ -96,5 +95,27 @@ export default{
     )
     await context.dispatch('fetchProducts')
     context.commit('handleUpdateProductModal', false)
+  },
+
+  async createCategory(context, category){
+    const headers = {
+      Authorization: `Bearer ${context.rootState.auth.access_token}`
+    }
+
+    const config = { headers }
+    await axios.post('http://localhost:3005/v1/categories', category, 
+      config
+    )
+    await context.dispatch('fetchCategories')
+    context.commit('handleAddCategoryModal', false)
+  },
+
+  async removeCategory(context, id){
+    const headers = {
+      Authorization: `Bearer ${context.rootState.auth.access_token}`
+    }
+    const config = { headers }
+    await axios.delete(`http://localhost:3005/v1/categories/${id}`, config)
+    await context.dispatch('fetchCategories')
   }
 }

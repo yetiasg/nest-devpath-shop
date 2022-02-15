@@ -33,7 +33,6 @@ export class CategoriesController {
   @Post()
   @UseGuards(RoleGuard([Role.ADMIN]))
   async createCategory(
-    @Param('id') id: string,
     @Body() category: CreateCategoryDto,
   ): Promise<CategoryEntity> {
     return await this.categoriesService.createCategory(category);

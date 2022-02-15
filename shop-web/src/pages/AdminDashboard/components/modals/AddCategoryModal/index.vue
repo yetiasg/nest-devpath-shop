@@ -8,15 +8,14 @@
           <span @click="closeModal">X</span>
         </header>
         <label for="name">name</label>
-        <input type="text" id="name">
+        <input type="text" id="name" v-model="name">
 
         <label for="description">description</label>
-        <textarea type="text" id="description"></textarea>
+        <textarea type="text" id="description" v-model="description"></textarea>
 
         <div class="footer-options">
           <div class="option-buttons">
-            <base-button mode="clearBtn" class="cancelBtn btn">Cancel</base-button>
-            <base-button mode="clearBtn" class="addCategoryBtn btn">+ Add Category</base-button>
+            <base-button mode="clearBtn" @click.prevent="createProduct" class="addCategoryBtn btn">+ Add Category</base-button>
           </div>
         </div>
       </div>
@@ -27,10 +26,20 @@
 
 <script>
 export default {
+  data(){
+    return {
+      name: '',
+      description: '',
+    }
+  },
   methods: {
     closeModal(){
       this.$store.commit('handleAddCategoryModal', false)
-    },
+    }, 
+    createProduct(){
+      const category = {name: this.name, description: this.description}
+      this.$store.dispatch('createCategory', category)
+    }
   }
 }
 </script>

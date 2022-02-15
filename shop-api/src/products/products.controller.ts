@@ -6,8 +6,11 @@ import {
   Param,
   Patch,
   Post,
+  UploadedFiles,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { Public } from 'src/common/decorators/public.decorator';
 import { RoleGuard } from 'src/role/role.guard';
 import { Role } from 'src/role/role.type';
@@ -45,7 +48,6 @@ export class ProductsController {
     @Param('id') productId: string,
     @Body() product: UpdateProductDto,
   ): Promise<ProductEntity> {
-    console.log(productId, product);
     return await this.productsService.updateProductById(productId, product);
   }
 
@@ -53,5 +55,11 @@ export class ProductsController {
   @UseGuards(RoleGuard([Role.ADMIN]))
   async removeProductById(@Param('id') productId: string) {
     return await this.productsService.removeProductById(productId);
+  }
+
+  @Post('file')
+  @UseInterceptors(FileInterceptor('file'))
+  uploadFile(@UploadedFiles() file: Express.Multer.File) {
+    return { file: file.buffer.toString() };
   }
 }

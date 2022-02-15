@@ -27,7 +27,7 @@ export class CategoriesService {
 
   async getCategoryByName(name: string): Promise<CategoryEntity> {
     const category = await this.categoryRepository.findOne({ name });
-    if (!category) throw new NotFoundException();
+    if (!category) return;
     return category;
   }
 
