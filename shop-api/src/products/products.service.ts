@@ -10,6 +10,10 @@ export class ProductsService {
     @InjectRepository(ProductEntity)
     private readonly productRepository: Repository<ProductEntity>,
   ) {}
+  async getAllAvaliableProducts(): Promise<ProductEntity[]> {
+    return await this.productRepository.find({ archived: false });
+  }
+
   async getAllProducts(): Promise<ProductEntity[]> {
     return await this.productRepository.find();
   }

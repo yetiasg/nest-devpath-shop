@@ -11,6 +11,7 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { CurrentUserRole } from 'src/common/decorators/currentUserRole.decorator';
 import { Public } from 'src/common/decorators/public.decorator';
 import { RoleGuard } from 'src/role/role.guard';
 import { Role } from 'src/role/role.type';
@@ -24,6 +25,12 @@ export class ProductsController {
 
   @Get()
   @Public()
+  async getAllAvaliableProducts(): Promise<ProductEntity[]> {
+    return await this.productsService.getAllAvaliableProducts();
+  }
+
+  @Get('all')
+  @UseGuards(RoleGuard([Role.ADMIN]))
   async getAllProducts(): Promise<ProductEntity[]> {
     return await this.productsService.getAllProducts();
   }

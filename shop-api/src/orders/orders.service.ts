@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Injectable,
   InternalServerErrorException,
   NotFoundException,
@@ -29,7 +30,7 @@ export class OrdersService {
   }
 
   async getOrderById(id: string) {
-    const order = await this.ordersRepository.findOne(id);
+    const order = await this.ordersRepository.findOne({ id });
     if (!order) throw new NotFoundException();
     const orderItems = await this.orderItemsService.getOrderItemsByOrderId(
       order.id,
@@ -52,6 +53,11 @@ export class OrdersService {
   }
 
   async createOrder(userId: string, items: OrderItemI[]) {
+    items.forEach(async (item) => {
+      const product = await this.productsService.getProductById(item.productId);
+      if (product.archived)
+        throw new BadRequestException('This product is not avaliable');
+    });
     const totalPrice = await this.getTotalPrice(items);
 
     if (!totalPrice) throw new InternalServerErrorException();

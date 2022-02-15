@@ -2,11 +2,13 @@ import { MailerModule } from '@nestjs-modules/mailer';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 import { BullModule } from '@nestjs/bull';
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { MailProcessor } from './mail.processor';
 import { MailService } from './mail.service';
 
 @Module({
   imports: [
+    ConfigModule,
     MailerModule.forRootAsync({
       useFactory: () => ({
         transport: {

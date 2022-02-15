@@ -17,12 +17,16 @@ export class OrderItemsEntity extends BaseEntity {
   id: string;
 
   @Column()
-  @ManyToOne(() => OrderEntity, (order) => order.id)
   orderId: string;
 
+  @ManyToOne(() => OrderEntity, (order) => order.id)
+  orders: OrderEntity[];
+
   @Column()
-  @ManyToMany(() => ProductEntity, (product) => product.id)
   productId: string;
+
+  @ManyToMany(() => ProductEntity, (product) => product.id)
+  products: ProductEntity[];
 
   @Column()
   amount: number;
