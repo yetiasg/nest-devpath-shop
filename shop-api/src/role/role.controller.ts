@@ -12,7 +12,7 @@ export class RoleController {
   constructor(private readonly roleService: RoleService) {}
   @Patch()
   @Public()
-  // @UseGuards(RoleGuard([Role.ADMIN]))
+  @UseGuards(RoleGuard([Role.ADMIN]))
   async changeUserRole(@Body() { userId, role }: ChangeRoleDto) {
     return await this.roleService.changeUserRole(userId, role);
   }

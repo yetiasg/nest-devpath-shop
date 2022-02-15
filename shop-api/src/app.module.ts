@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { UsersModule } from './users/users.module';
-import { AdminModule } from './admin/admin.module';
 import { AuthModule } from './auth/auth.module';
 import { CategoriesModule } from './categories/categories.module';
 import { MailModule } from './mail/mail.module';
@@ -29,7 +28,6 @@ const ENV = process.env.NODE_ENV;
     }),
     DatabaseModle,
     UsersModule,
-    AdminModule,
     AuthModule,
     CategoriesModule,
     MailModule,
