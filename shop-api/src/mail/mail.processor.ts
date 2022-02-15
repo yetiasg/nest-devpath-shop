@@ -51,7 +51,7 @@ export class MailProcessor {
         text: `Activate account`,
         html: `
           <p>activation url for web: http://localhost:8080/activate?token=${job.data.activationToken}</p>
-          <p>activation url for web: http://localhost:3005/activate/${job.data.activationToken}</p>
+          <p>activation url for web: http://localhost:3005/v1/auth/activate/${job.data.activationToken}</p>
           `,
       });
       return success;

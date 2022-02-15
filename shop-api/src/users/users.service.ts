@@ -52,8 +52,6 @@ export class UsersService {
 
   async createUser({ email, password }: CreateUserDto | InviteUserDto) {
     const user = await this.getUserByEmail(email);
-    console.log(user);
-
     if (user) throw new BadRequestException();
 
     const activationToken = await this.generateActivationToken();
