@@ -90,7 +90,7 @@ export class OrdersService {
     if (!updatedOrder) throw new InternalServerErrorException();
     const user = await this.usersService.getUserById(orderExists.order.userId);
     if (!user) throw new NotFoundException();
-    this.mailService.onChangeOrderStatus(user.email, status);
+    this.mailService.onChangeOrderStatusMail(user.email, status);
     return updatedOrder.raw;
   }
 

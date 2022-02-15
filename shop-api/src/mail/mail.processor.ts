@@ -42,7 +42,7 @@ export class MailProcessor {
   }
 
   @Process('activation')
-  async newAccount(job: Job) {
+  async newAccountMail(job: Job) {
     try {
       const success = await this.mailerService.sendMail({
         to: job.data.to,
@@ -50,8 +50,8 @@ export class MailProcessor {
         subject: 'Shop - testing invitation mail',
         text: `Activate account`,
         html: `
-          <p>activation url for web: http://localhost:8080/activate?token=${job.data.activationToken}</p>
-          <p>activation url for web: http://localhost:3005/v1/auth/activate/${job.data.activationToken}</p>
+          <p>activation url for web: http://localhost:8080/activation/${job.data.activationToken}</p>
+          <p>activation url for backend: http://localhost:3005/v1/auth/activate/${job.data.activationToken}</p>
           `,
       });
       return success;
@@ -60,8 +60,27 @@ export class MailProcessor {
     }
   }
 
-  @Process('changing-status')
-  async onChangeOrderStatus(job: Job) {
+  @Process('reset-password')
+  async resetPasswordMail(job: Job) {
+    try {
+      const success = await this.mailerService.sendMail({
+        to: job.data.to,
+        from: 'yetiasgii@gmail.com',
+        subject: 'Shop - reset password',
+        text: `Reset password`,
+        html: `
+          <p>Reset password: http://localhost:8080/reset/${job.data.resetPasswordToken}</p>
+          <p>activation url for web: http://localhost:3005/v1/auth/activate/${job.data.resetPasswordToken}</p>
+          `,
+      });
+      return success;
+    } catch (error) {
+      throw new InternalServerErrorException(error);
+    }
+  }
+
+  @Process('change-status')
+  async onChangeOrderStatusMail(job: Job) {
     try {
       const success = this.mailerService.sendMail({
         to: job.data.to,

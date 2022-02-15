@@ -13,7 +13,7 @@ import { LocalStrategy } from './strategies/local.strategy';
 
 @Module({
   imports: [
-    UsersModule,
+    forwardRef(() => UsersModule),
     PassportModule,
     forwardRef(() => UsersModule),
     ConfigModule.forFeature(AuthConfig),

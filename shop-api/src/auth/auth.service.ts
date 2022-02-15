@@ -1,5 +1,6 @@
 import {
   BadRequestException,
+  forwardRef,
   HttpException,
   Inject,
   Injectable,
@@ -8,7 +9,6 @@ import {
 } from '@nestjs/common';
 import { LoginDto } from './dto/auth.dto';
 import * as bcrypt from 'bcrypt';
-import { AuthConfig, AuthConfigType } from './auth.config';
 import { UserEntity } from 'src/users/user.entity';
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from 'src/users/users.service';
@@ -18,8 +18,8 @@ import { UserProfileI } from 'src/users/interfaces/user.interface';
 @Injectable()
 export class AuthService {
   constructor(
-    @Inject(AuthConfig.KEY) private readonly authConfig: AuthConfigType,
     private readonly jwtService: JwtService,
+    @Inject(forwardRef(() => UsersService))
     private readonly usersService: UsersService,
   ) {}
 

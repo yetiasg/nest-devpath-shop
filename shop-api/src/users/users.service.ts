@@ -3,11 +3,18 @@ import {
   Injectable,
   InternalServerErrorException,
   NotFoundException,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { AuthService } from 'src/auth/auth.service';
 import { MailService } from 'src/mail/mail.service';
 import { Repository } from 'typeorm';
-import { CreateUserDto, InviteUserDto, UpdateUserDto } from './dto/user.dto';
+import {
+  CreateUserDto,
+  InviteUserDto,
+  UpdatePasswordDto,
+  UpdateUserDto,
+} from './dto/user.dto';
 import { UserProfileI } from './interfaces/user.interface';
 import { UserEntity } from './user.entity';
 
@@ -17,6 +24,7 @@ export class UsersService {
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
     private readonly mailService: MailService,
+    private readonly authService: AuthService,
   ) {}
 
   async getAllUsers() {
@@ -35,6 +43,10 @@ export class UsersService {
     return await this.userRepository.findOne({ activationToken: token });
   }
 
+  async getUserByResetPasswordToken(token: string) {
+    return await this.userRepository.findOne({ resetPasswordToken: token });
+  }
+
   async getUserProfile(userId: string): Promise<UserProfileI> {
     const user = await this.getUserById(userId);
     if (!user) throw new NotFoundException();
@@ -44,10 +56,6 @@ export class UsersService {
       active: user.active,
     };
     return profile;
-  }
-
-  async generateActivationToken() {
-    return await this.genPassword();
   }
 
   async createUser({ email, password }: CreateUserDto | InviteUserDto) {
@@ -64,7 +72,7 @@ export class UsersService {
       })
     ).raw;
     if (!newUser) throw new InternalServerErrorException();
-    this.mailService.newAccount(email, activationToken);
+    this.mailService.newAccountMail(email, activationToken);
     return newUser;
   }
 
@@ -84,7 +92,7 @@ export class UsersService {
     const user = { email, password: await this.genPassword() };
     const newUser = await this.createUser(user);
     if (!newUser) throw new InternalServerErrorException();
-    this.mailService.newAccount(email, newUser.activationToken);
+    this.mailService.newAccountMail(email, newUser.activationToken);
     return newUser.raw;
   }
 
@@ -97,6 +105,41 @@ export class UsersService {
 
   async removeUserById(id: string) {
     return await this.userRepository.delete(id);
+  }
+
+  async forgotPasswordByEmail(email: string) {
+    const user = await this.getUserByEmail(email);
+    if (!user) throw new NotFoundException();
+    return await this.resetPassword(user.id);
+  }
+
+  async resetPassword(userId: string) {
+    const user = await this.getUserById(userId);
+    if (!user) throw new UnauthorizedException();
+    user.resetPasswordToken = await this.generateActivationToken();
+    const updatedUser = await user.save();
+    if (!updatedUser) throw new InternalServerErrorException();
+    this.mailService.resetPasswordMail(
+      updatedUser.email,
+      updatedUser.resetPasswordToken,
+    );
+    return true;
+  }
+
+  async handleResettingPassword(token: string, passwordDto: UpdatePasswordDto) {
+    const user = await this.getUserByResetPasswordToken(token);
+    if (!user) throw new NotFoundException();
+    const hashedPassword: string = await this.authService.hashPassword(
+      passwordDto.password,
+    );
+    user.password = hashedPassword;
+    user.resetPasswordToken = '';
+    await user.save();
+    return await this.getUserProfile(user.id);
+  }
+
+  async generateActivationToken() {
+    return await this.genPassword();
   }
 
   async genPassword(): Promise<string> {

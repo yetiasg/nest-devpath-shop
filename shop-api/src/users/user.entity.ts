@@ -33,6 +33,9 @@ export class UserEntity extends BaseEntity {
   @Column({ default: '' })
   activationToken: string;
 
+  @Column({ default: '' })
+  resetPasswordToken: string;
+
   @Exclude()
   @Column()
   password: string;

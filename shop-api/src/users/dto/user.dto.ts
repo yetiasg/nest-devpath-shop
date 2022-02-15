@@ -50,13 +50,13 @@ export class UpdatePasswordDto {
   @IsString()
   @IsNotEmpty()
   @IsOptional()
-  readonly password?: string;
+  readonly password: string;
 
   @IsString()
   @IsNotEmpty()
   @IsOptional()
   @Match('password')
-  readonly passwordConfirmation?: string;
+  readonly passwordConfirmation: string;
 }
 
 export class InviteUserDto {

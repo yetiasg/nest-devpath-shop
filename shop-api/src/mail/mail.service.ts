@@ -10,7 +10,7 @@ export interface User {
 export class MailService {
   constructor(@InjectQueue('mailsend') private mailQueue: Queue) {}
 
-  async newAccount(to: string, activationToken: string): Promise<boolean> {
+  async newAccountMail(to: string, activationToken: string): Promise<boolean> {
     try {
       this.mailQueue.add('activation', {
         to,
@@ -22,9 +22,24 @@ export class MailService {
     }
   }
 
-  async onChangeOrderStatus(to: string, status: OrderStatus) {
+  async resetPasswordMail(
+    to: string,
+    resetPasswordToken: string,
+  ): Promise<boolean> {
     try {
-      this.mailQueue.add('changing-status', { to, status });
+      this.mailQueue.add('reset-password', {
+        to,
+        resetPasswordToken,
+      });
+      return true;
+    } catch (errot) {
+      return false;
+    }
+  }
+
+  async onChangeOrderStatusMail(to: string, status: OrderStatus) {
+    try {
+      this.mailQueue.add('change-status', { to, status });
       return true;
     } catch (error) {
       return false;
