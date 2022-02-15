@@ -1,11 +1,12 @@
 import { Exclude } from 'class-transformer';
 import {
   IsBoolean,
+  IsInt,
   IsNotEmpty,
   IsNumber,
   IsOptional,
   IsString,
-  ValidateNested,
+  Min,
 } from 'class-validator';
 
 export class CreateProductDto {
@@ -17,6 +18,7 @@ export class CreateProductDto {
   name: string;
 
   @IsNumber()
+  @Min(0)
   @IsNotEmpty()
   price: number;
 
@@ -24,12 +26,13 @@ export class CreateProductDto {
   @IsNotEmpty()
   description: string;
 
-  @ValidateNested()
   @IsOptional()
   categories: string;
 
   @IsNumber()
+  @Min(0)
   @IsNotEmpty()
+  @IsInt()
   stock: number;
 
   @IsNotEmpty()

@@ -13,7 +13,7 @@
       <p>{{product.stock}}</p>
       <p>{{product.archived}}</p>
       <p><span class="remove" @click="removeProduct(product.id)">X</span>
-      <span class="update" @click="uodateProduct(product.id)">U</span></p>
+      <span class="update" @click="openUpdateProductModal(product)">U</span></p>
     </div>
   </div>
 </template>
@@ -33,7 +33,13 @@ export default {
   methods:{
     removeProduct(id){
       this.$store.dispatch('removeProductById', id)
-    }
+    },
+    openUpdateProductModal(product){
+      this.$store.commit('handleUpdateProductModal', true)
+      this.$store.commit('productToUpdate', product)
+      this.updateProductModal = !this.updateProductModal
+    },
+    
   },
   mounted(){
      this.$store.dispatch('fetchProducts');
@@ -89,7 +95,24 @@ export default {
   }
 
   .remove:hover{
-    background-color: rgb(228, 57, 57);
+    background-color: rgb(225, 73, 73);
+    cursor: pointer;
+  }
+
+  .update{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width:1.6rem;
+    height: 1.6rem;
+    font-size: 1rem;
+    border-radius: 50px;
+    background-color: rgb(201, 138, 43);
+    color: white;
+  }
+
+  .update:hover{
+    background-color: rgb(226, 159, 58);
     cursor: pointer;
   }
 </style>

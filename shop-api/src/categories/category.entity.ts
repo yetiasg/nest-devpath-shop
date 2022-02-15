@@ -1,10 +1,8 @@
-import { ProductEntity } from 'src/products/product.entity';
 import {
   BaseEntity,
   Column,
   CreateDateColumn,
   Entity,
-  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -13,10 +11,6 @@ import {
 export class CategoryEntity extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
-
-  @Column('text', { array: true, default: [] })
-  @OneToMany(() => ProductEntity, (product) => product.categories)
-  product: ProductEntity[];
 
   @Column('text')
   name: string;

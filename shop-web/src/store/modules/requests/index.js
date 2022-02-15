@@ -21,6 +21,8 @@ export default{
             exportOrdersModal: false,
             addUserModal: false,
             addCategoryModal: false,
+            updateProductModal: false,
+            productToUpdate: {},
         }
     },
     mutations,

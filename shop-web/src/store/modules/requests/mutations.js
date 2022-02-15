@@ -37,6 +37,12 @@ export default{
   },
   handleAddCategoryModal(state, payload){
     state.addCategoryModal = payload
+  },
+  handleUpdateProductModal(state, payload){
+    state.updateProductModal = payload
+  },
+  productToUpdate(state, payload){
+    state.productToUpdate = payload
   }
 }
 

@@ -99,7 +99,7 @@ export default{
         localStorage.removeItem('role');
         localStorage.removeItem('access_token');
         localStorage.removeItem('userId');
-        router.replace('/shop');
+        // router.replace('/shop');
     },
 
     autoLogout: (context) => {

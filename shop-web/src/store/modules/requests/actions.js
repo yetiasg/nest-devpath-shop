@@ -1,5 +1,6 @@
-// import router from '../../../router';
+import router from '../../../router';
 import config from '../../../config.js';
+import axios from 'axios'
 
 // // helpers----------------------------------------------
 const getJSON = async(url, options = {}, context) =>{
@@ -48,6 +49,11 @@ export default{
     context.commit('setCategories', categories)
   },
 
+  async activateAccount(context, payload){
+    await axios.post(`http://localhost:3005/v1/auth/activate/${payload.token}`)
+    router.replace('/shop')
+  },
+
   async fetchStatistics(context){
     const statistics = await getJSON('/statistics', {headers: {
       'Authorization': `Bearer ${context.rootState.auth.access_token}`
@@ -63,5 +69,32 @@ export default{
       }
     })
     await context.dispatch('fetchProducts')
+  },
+  
+  async createProduct(context, product){
+    const headers = {
+      Authorization: `Bearer ${context.rootState.auth.access_token}`
+    }
+
+    const config = { headers }
+    await axios.post('http://localhost:3005/v1/products', product, 
+      config
+    )
+    await context.dispatch('fetchProducts')
+    context.commit('handleAddProductModal', false)
+  },
+
+  async updateProduct(context, product){
+    console.log(product)
+    const headers = {
+      Authorization: `Bearer ${context.rootState.auth.access_token}`
+    }
+
+    const config = { headers }
+    await axios.patch(`http://localhost:3005/v1/products/${product.id}`, product, 
+      config
+    )
+    await context.dispatch('fetchProducts')
+    context.commit('handleUpdateProductModal', false)
   }
 }

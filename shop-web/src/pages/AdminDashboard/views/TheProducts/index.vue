@@ -9,6 +9,7 @@
         </div>
         <add-product-modal v-if="showAddProductModal"></add-product-modal>
         <import-products-modal v-if="showImportProductsModal"></import-products-modal>
+        <update-product-modal v-if="showUpdateProductModal"></update-product-modal>
         <products-view></products-view>
     </section>
 </template>
@@ -18,6 +19,7 @@ import BaseButton from '../../../../components/baseComponents/BaseButton.vue'
 import ProductsView from '../../components/ProductsView'
 import AddProductModal from '../../components/modals/AddProductModal'
 import ImportProductsModal from '../../components/modals/ImportProductsModal'
+import UpdateProductModal from '../../components/modals/UpdateProductModal'
 
 export default {
     components:{
@@ -25,6 +27,7 @@ export default {
         BaseButton,
         AddProductModal,
         ImportProductsModal,
+        UpdateProductModal,
     },
     data(){
       return {
@@ -32,6 +35,7 @@ export default {
         addProductModal:  this.$store.state.requests.addProductModal,
         importProductsModal:  this.$store.state.requests.importProductsModal,
         exportProductsModal:  this.$store.state.requests.exportProductsModal,
+        updateProductModal: this.$store.state.requests.updateProductModal,
       }
     },
     methods: {
@@ -45,10 +49,6 @@ export default {
             this.importProductsModal = !this.importProductsModal
         },
 
-        openExportProductsModal(){
-            this.$store.commit('handleExportProductsModal', true)
-            this.exportProductsModal = !this.exportProductsModal
-        },
     },
     computed: {
         showAddProductModal(){
@@ -59,6 +59,9 @@ export default {
         },
         showExportProductsModal(){
             return this.$store.state.requests.exportProductsModal
+        },
+        showUpdateProductModal(){
+            return this.$store.state.requests.updateProductModal
         }
     }
 }

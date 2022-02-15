@@ -4,7 +4,7 @@
    <div class="modalView">
       <div class="add-product">
         <header>
-          <p>Add product</p>
+          <p>Update product</p>
           <span @click="closeModal">X</span>
         </header>
         <label for="name">name</label>
@@ -31,8 +31,7 @@
         <div class="footer-options">
           <div class="publicTrigger">Yes/No</div>
           <div class="option-buttons">
-            <base-button mode="clearBtn" @click.prevent class="cancelBtn btn">Cancel</base-button>
-            <base-button mode="clearBtn" @click.prevent="createProduct" class="addProductBtn btn">+ Add product</base-button>
+            <base-button mode="clearBtn" @click.prevent="updateProduct" class="addProductBtn btn">Update product</base-button>
           </div>
         </div>
       </div>
@@ -45,31 +44,21 @@
 export default {
   data(){
     return{
-        categories: [
-        {id: 123, name: 'shoes', description:"swefioswhgfoaqiwhgoiawrhbgo wroi whgfhweirghoqiwregho"},
-        {id: 1253, name: 'shetretoes', description:"swefioswhgfoaqiwhgoiawrhbgo wroi whgfhweirghoqiwregho"},
-        {id: 12453, name: 'shostges', description:"swefioswhgfoaqiwhgoiawrhbgo wroi whgfhweirghoqiwregho"},
-        {id: 17423, name: 'shrgergaeoes', description:"swefioswhgfoaqiwhgoiawrhbgo wroi whgfhweirghoqiwregho"},
-        {id: 1243, name: 'shgergqewrtgewrgwergqwertgqw4etgfoes', description:"swefioswhgfoaqiwhgoiawrhbgo wroi whgfhweirghoqiwregho"},
-        {id: 127643, name: 'shergeoes', description:"swefioswhgfoaqiwhgoiawrhbgo wroi whgfhweirghoqiwregho"},
-        {id: 1523, name: 'shoergers', description:"swefioswhgfoaqiwhgoiawrhbgo wroi whgfhweirghoqiwregho"}
-      ],
-      name: '',
-      description: '',
-      categoriesSelected: '',
-      stock: null,
-      price: null
+      name: this.$store.state.requests.productToUpdate.name,
+      description: this.$store.state.requests.productToUpdate.description,
+      categoriesSelected: this.$store.state.requests.productToUpdate.categories,
+      stock: this.$store.state.requests.productToUpdate.stock,
+      price: this.$store.state.requests.productToUpdate.price,
     }
   },
   methods: {
     closeModal(){
-      this.$store.commit('handleAddProductModal', false)
+      this.$store.commit('handleUpdateProductModal', false)
     },
-    createProduct(){
-      const product = {name: this.name, description: this.description, categories: this.categoriesSelected, stock: Number(this.stock), price: parseInt(this.price, 10), archived: false}
-
-      this.$store.dispatch('createProduct', product)
-    }
+    updateProduct(){
+      const product = {name: this.name, description: this.description, categories: this.categoriesSelected, stock: Number(this.stock), price: parseInt(this.price, 10), archived: false, id:this.$store.state.requests.productToUpdate.id, }
+      this.$store.dispatch('updateProduct', product)
+    },
   }
 }
 </script>

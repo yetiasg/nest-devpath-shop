@@ -45,6 +45,7 @@ export class ProductsController {
     @Param('id') productId: string,
     @Body() product: UpdateProductDto,
   ): Promise<ProductEntity> {
+    console.log(productId, product);
     return await this.productsService.updateProductById(productId, product);
   }
 

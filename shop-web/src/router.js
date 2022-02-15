@@ -15,6 +15,7 @@ import TheUsers from './pages/AdminDashboard/views/TheUsers'
 
 import UserOrders from './pages/UserDashboard/views/UserOrders'
 import UserDetails from './pages/UserDashboard/views/UserDetails'
+import AccountActivation from './pages/AccountActivation'
 
 
 const router = createRouter({
@@ -24,6 +25,7 @@ const router = createRouter({
         {path: '/shop', name: 'shop', component: TheShop, meta: {requireUnAuth: true}},
         {path: '/auth', name: 'auth', component: TheAuth, meta: {requireUnAuth: true}},
         {path: '/cart', name: 'cart', component: TheCart, meta: {requireUnAuth: true}},
+        {path: '/activation/:id', name: 'activation', component: AccountActivation, meta: {requireUnAuth: true}},
         {path: '/user/dashboard', name: 'userDashboard', component: UserDashboard, meta: {requireAuth: true, role: 'USER'}, children: [
             {path: '/user/dashboard/user-orders', name: 'UserOrders', component: UserOrders, meta: {requireAuth: true, role: 'USER'}},
             {path: '/user/dashboard/user-details', name: 'UserDetails', component: UserDetails, meta: {requireAuth: true, role: 'USER'}},
@@ -35,6 +37,7 @@ const router = createRouter({
             {path: '/admin/dashboard/orders', name: 'Orders', component: TheOrders, meta: {requireAuth: true, role: 'ADMIN'}},
             {path: '/admin/dashboard/users', name: 'Users', component: TheUsers, meta: {requireAuth: true, role: 'ADMIN'}},
         ]},
+      
         {path: '/:notFound(.*)', name: 'NotFoundRoute', redirect: '/'}
     ],
     scrollBehavior(){
