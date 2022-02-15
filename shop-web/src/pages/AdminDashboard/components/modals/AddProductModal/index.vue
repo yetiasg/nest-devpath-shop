@@ -33,7 +33,10 @@
         </div>
 
         <div class="footer-options">
-          <div class="publicTrigger">Yes/No</div>
+          <div class="archivedTrigger">
+            <input type="checkbox" id="archivde" v-model="archived">
+            <label for="archived">archived (make not public)</label>
+          </div>
           <div class="option-buttons">
             <base-button mode="clearBtn" @click.prevent class="cancelBtn btn">Cancel</base-button>
             <base-button mode="clearBtn" @click.prevent="createProduct" class="addProductBtn btn">+ Add product</base-button>
@@ -63,7 +66,8 @@ export default {
       description: '',
       categoriesSelected: '',
       stock: null,
-      price: null
+      price: null,
+      archived: false
     }
   },
   methods: {
@@ -71,7 +75,7 @@ export default {
       this.$store.commit('handleAddProductModal', false)
     },
     createProduct(){
-      const product = {name: this.name, description: this.description, categories: this.categoriesSelected, stock: Number(this.stock), price: parseInt(this.price, 10), archived: false}
+      const product = {name: this.name, description: this.description, categories: this.categoriesSelected, stock: Number(this.stock), price: parseInt(this.price, 10), archived: Boolean(this.archived)}
       this.$store.dispatch('createProduct', product)
     }
   }

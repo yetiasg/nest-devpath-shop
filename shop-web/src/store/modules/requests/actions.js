@@ -1,10 +1,11 @@
 import router from '../../../router';
-import config from '../../../config.js';
 import axios from 'axios'
+
+const BASE_URL = 'http://localhost:3000/v1'
 
 // // helpers----------------------------------------------
 const getJSON = async(url, options = {}, context) =>{
-    const response = await fetch(`${config.BASE_URL}${url}`, options);
+    const response = await fetch(`${BASE_URL}${url}`, options);
     if (!response.ok) {
       console.log(context.dispatch('logout'))
       // context.rootState.auth.dispatch('logout')
@@ -25,6 +26,14 @@ export default{
 
   async fetchProducts(context){
     const products = await getJSON('/products')
+    context.commit('setProducts', products)
+  },
+
+  async fetchAllProducts(context){
+    const headers = {
+      Authorization: `Bearer ${context.rootState.auth.access_token}`
+    }
+    const products = await getJSON('/products/all', {headers})
     context.commit('setProducts', products)
   },
 
@@ -50,8 +59,8 @@ export default{
   },
 
   async activateAccount(context, payload){
-    await axios.post(`http://localhost:3005/v1/auth/activate/${payload.token}`)
-    router.replace('/shop')
+    await axios.post(`${BASE_URL}/auth/activate/${payload.token}`)
+    router.replace('/')
   },
 
   async fetchStatistics(context){
@@ -62,13 +71,13 @@ export default{
   },
 
   async removeProductById(context, payload){
-    await fetch(`${config.BASE_URL}/products/${payload}`, {
+    await fetch(`${BASE_URL}/products/${payload}`, {
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${context.rootState.auth.access_token}`
       }
     })
-    await context.dispatch('fetchProducts')
+    await context.dispatch('fetchAllProducts')
   },
   
   async createProduct(context, product){
@@ -77,10 +86,10 @@ export default{
     }
 
     const config = { headers }
-    await axios.post('http://localhost:3005/v1/products', product, 
+    await axios.post(`${BASE_URL}/products`, product, 
       config
     )
-    await context.dispatch('fetchProducts')
+    await context.dispatch('fetchAllProducts')
     context.commit('handleAddProductModal', false)
   },
 
@@ -90,10 +99,10 @@ export default{
     }
 
     const config = { headers }
-    await axios.patch(`http://localhost:3005/v1/products/${product.id}`, product, 
+    await axios.patch(`${BASE_URL}/products/${product.id}`, product, 
       config
     )
-    await context.dispatch('fetchProducts')
+    await context.dispatch('fetchAllProducts')
     context.commit('handleUpdateProductModal', false)
   },
 
@@ -103,7 +112,7 @@ export default{
     }
 
     const config = { headers }
-    await axios.post('http://localhost:3005/v1/categories', category, 
+    await axios.post(`${BASE_URL}/categories`, category, 
       config
     )
     await context.dispatch('fetchCategories')
@@ -115,7 +124,17 @@ export default{
       Authorization: `Bearer ${context.rootState.auth.access_token}`
     }
     const config = { headers }
-    await axios.delete(`http://localhost:3005/v1/categories/${id}`, config)
+    await axios.delete(`${BASE_URL}/categories/${id}`, config)
     await context.dispatch('fetchCategories')
+  },
+  
+  async getOrderItems(context, id){
+    const headers = {
+      Authorization: `Bearer ${context.rootState.auth.access_token}`
+    }
+    const config = { headers }
+    const orderItems = await axios.get(`${BASE_URL}/orders/${id}`, config)
+    context.commit('setOrderItema', orderItems.data.orderItems)
+    await context.dispatch('fetchOrders')
   }
 }

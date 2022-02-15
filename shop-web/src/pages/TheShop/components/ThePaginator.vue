@@ -21,9 +21,10 @@ export default {
   },
   methods:{
     nextPage(){
-      if(this.currentPage >= this.$store.state.requests.amountOfPages) return
-      this.currentPage++
-      this.setCurrentPage()
+      if(this.currentPage <= this.$store.state.requests.products.length / this.$store.state.requests.perPage) {
+        this.currentPage++
+        this.setCurrentPage()
+      }
     },
     previousPage(){
       if(this.currentPage <= 1) return

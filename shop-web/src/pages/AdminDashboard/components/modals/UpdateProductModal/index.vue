@@ -28,8 +28,11 @@
           </label>
         </div>
 
-        <div class="footer-options">
-          <div class="publicTrigger">Yes/No</div>
+        <div class="footer-options">{{archived}}
+          <div class="archivedTrigger">
+            <input type="checkbox" id="archived" v-model="archived">
+            <label for="archived">archived (make not public)</label>
+          </div>
           <div class="option-buttons">
             <base-button mode="clearBtn" @click.prevent="updateProduct" class="addProductBtn btn">Update product</base-button>
           </div>
@@ -49,6 +52,7 @@ export default {
       categoriesSelected: this.$store.state.requests.productToUpdate.categories,
       stock: this.$store.state.requests.productToUpdate.stock,
       price: this.$store.state.requests.productToUpdate.price,
+      archived: Boolean(this.$store.state.requests.productToUpdate.archived)
     }
   },
   methods: {
@@ -56,7 +60,7 @@ export default {
       this.$store.commit('handleUpdateProductModal', false)
     },
     updateProduct(){
-      const product = {name: this.name, description: this.description, categories: this.categoriesSelected, stock: Number(this.stock), price: parseInt(this.price, 10), archived: false, id:this.$store.state.requests.productToUpdate.id, }
+      const product = {name: this.name, description: this.description, categories: this.categoriesSelected, stock: Number(this.stock), price: parseInt(this.price, 10), archived: Boolean(this.archived), id:this.$store.state.requests.productToUpdate.id, }
       this.$store.dispatch('updateProduct', product)
     },
   }

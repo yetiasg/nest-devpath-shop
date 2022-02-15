@@ -3,13 +3,19 @@
     <p v-for="name in names" :key="name">{{name}}</p>
   </div>
   <div class="list-view">
-    <div class="details" v-for="order in orders" :key="order.id">
+    <div class="details" @click.prevent="getOrderItems(order.id)" v-for="order in orders" :key="order.id">
       <p>{{order.id}}</p>
       <p>{{order.userId}}</p>
       <p>{{order.amount}}</p>
       <p>{{order.totalPrice}}</p>
       <p>{{order.status}}</p>
-      <p><span class="remove" title="change status">s</span></p>
+      <p><span class="remove" title="change status" @click="changeStatus">s</span></p>
+      <div class="items">
+        <ul>
+          <li v-for="item in orderItems" :key="item.id">{{item}}</li>
+            <p v-for="row in item" :key="row.id">{{row}}</p>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
@@ -25,6 +31,14 @@ export default {
   computed:{
     orders(){
       return this.$store.state.requests.orders;
+    },
+    orderItems(){
+      return this.$store.state.requests.orderItems
+    }
+  },
+  methods:{
+    getOrderItems(id){
+      this.$store.dispatch('getOrderItems', id)
     }
   },
   mounted(){

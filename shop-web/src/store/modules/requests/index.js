@@ -12,7 +12,7 @@ export default{
             categories: [],
             statistics: {},
             currentPage: 1,
-            perPage: 20,
+            perPage: 7,
             amountOfPages: null,
             amountOfProducts: null,
             selectedProduct: null,
@@ -23,6 +23,7 @@ export default{
             addCategoryModal: false,
             updateProductModal: false,
             productToUpdate: {},
+            orderItems: []
         }
     },
     mutations,

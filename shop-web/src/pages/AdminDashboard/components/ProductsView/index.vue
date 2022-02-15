@@ -27,7 +27,7 @@ export default {
   },
   computed:{
     products(){
-      return this.$store.getters.getProducts;
+      return this.$store.state.requests.products;
     }
   },
   methods:{
@@ -42,7 +42,7 @@ export default {
     
   },
   mounted(){
-     this.$store.dispatch('fetchProducts');
+     this.$store.dispatch('fetchAllProducts');
   }
 }
 </script>
