@@ -14,7 +14,7 @@ export default {
     data(){
         return{
             pages: [
-                {path: '/user/dashboard/orders', name: 'UserOrders', show: true},
+                {path: '/user/dashboard/user-orders', name: 'UserOrders', show: true},
                 {path: '/user/dashboard/user-details', name: 'UserDetails', show: true},
             ]
         }
@@ -41,38 +41,18 @@ export default {
 
 <style scoped>
     nav{
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        width:100%;
-        padding: 5rem 4rem 3rem 4rem;
+        position: fixed;
+        top:4.72rem;
+        left: 0;
+        width:18.14rem;
         box-sizing: border-box;
-    }
-
-    .lightFontMode{
-        color: white;
-    }
-
-    .lightFontMode .active::after,
-    .lightFontMode li a:hover > span::after,
-    .lightFontMode p a:hover>span::after{
-        content: '';
-        background-color: white;
-        height: 1px;
-        position: absolute;
-        bottom: -5px;
-        left: -3px;
-        width: calc(100% + 6px);
-        z-index: 100;
-    }
-
-    h1{
-        font-size: 1.4rem;
-        letter-spacing: 1px ;
+        height: 100vh;
+        background-color:#F5F5F5;
     }
 
     nav > ul{
         min-width: 40%;
+        margin-top:2rem;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -88,6 +68,10 @@ export default {
     }
 
     li, p{
+        font-weight: 400;
+    }
+
+    .active{
         font-weight: 700;
     }
 
@@ -107,7 +91,7 @@ export default {
     }
 
     li:hover a, p:hover{
-        transform: translateY(-5px);
+        transform: translateY(-3px);
         
     }
 
@@ -115,33 +99,4 @@ export default {
         position: relative;
         margin: 0 25px;
     }
-
-    /* .active::after{
-        content: '';
-        background-color: black;
-        height: 1px;
-        position: absolute;
-        bottom: -5px;
-        left: -3px;
-        width: calc(100% + 6px);
-        z-index: 100;
-    } */
-
-
-    /* li a:hover > span::after, p a:hover>span::after{
-        content: '';
-        background-color: black;
-        height: 1px;
-        position: absolute;
-        bottom: -5px;
-        left: -3px;
-        width: calc(100% + 6px);
-        z-index: 100;
-    } */
-
-    /* @media (max-width: 1024px){
-        nav > ul, p{
-            display: none;
-        }
-    } */
 </style>
