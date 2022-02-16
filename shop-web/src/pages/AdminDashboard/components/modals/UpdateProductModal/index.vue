@@ -60,7 +60,7 @@ export default {
       this.$store.commit('handleUpdateProductModal', false)
     },
     updateProduct(){
-      const product = {name: this.name, description: this.description, categories: this.categoriesSelected, stock: Number(this.stock), price: parseInt(this.price, 10), archived: Boolean(this.archived), id:this.$store.state.requests.productToUpdate.id, }
+      const product = {name: this.name, description: this.description, categories: this.categoriesSelected, stock: Number(this.stock), price: parseFloat(this.price), archived: Boolean(this.archived), id:this.$store.state.requests.productToUpdate.id, }
       this.$store.dispatch('updateProduct', product)
     },
   },

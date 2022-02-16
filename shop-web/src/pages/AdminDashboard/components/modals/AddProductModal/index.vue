@@ -69,7 +69,7 @@ export default {
       this.$store.commit('handleAddProductModal', false)
     },
     createProduct(){
-      const product = {name: this.name, description: this.description, categories: this.categoriesSelected, stock: Number(this.stock), price: parseInt(this.price, 10), archived: Boolean(this.archived)}
+      const product = {name: this.name, description: this.description, categories: this.categoriesSelected, stock: Number(this.stock), price: parseFloat(this.price), archived: Boolean(this.archived)}
       this.$store.dispatch('createProduct', product)
     }
   }
