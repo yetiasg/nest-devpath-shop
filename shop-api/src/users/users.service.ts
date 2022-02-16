@@ -3,7 +3,6 @@ import {
   Injectable,
   InternalServerErrorException,
   NotFoundException,
-  UnauthorizedException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { AuthService } from 'src/auth/auth.service';
@@ -95,16 +94,13 @@ export class UsersService {
     const user = { email, password: await this.genPassword() };
     const newUser = await this.createUser(user);
     if (!newUser) throw new InternalServerErrorException();
-    await this.resetPassword(newUser.id);
-    return true;
+    return await this.resetPassword(newUser[0].id);
   }
 
   async updateUser(id: string, user: UpdateUserDto) {
     const existingUser = await this.getUserById(id);
     if (!existingUser) throw new NotFoundException();
-    console.log(user, existingUser);
     const updatedUser = await (await this.userRepository.update(id, user)).raw;
-    console.log(updatedUser);
     if (!updatedUser) return 'aaa';
     return updatedUser;
   }
