@@ -8,6 +8,7 @@
             <the-categories v-show="whereAmI('/categories')"></the-categories>
             <the-orders v-show="whereAmI('/orders')"></the-orders>
             <the-users v-show="whereAmI('/users')"></the-users>
+            <user-details-admin v-show="whereAmI('/user-details')"></user-details-admin>
         </content-box>
     </section>
 </template>
@@ -20,6 +21,7 @@ import TheProducts from './views/TheProducts';
 import TheCategories from './views/TheCategories';
 import TheOrders from './views/TheOrders';
 import TheUsers from './views/TheUsers';
+import UserDetailsAdmin from './views/UserDetailsAdmin'
 
 import TheMenu from './components/TheMenu'
 
@@ -34,7 +36,8 @@ export default {
         TheOrders,
         TheUsers,
         ContentBox,
-        TheMenu
+        TheMenu,
+        UserDetailsAdmin
     },
     data(){
       return {

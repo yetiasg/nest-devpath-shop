@@ -19,6 +19,7 @@ export default {
                 {path: '/admin/dashboard/categories', name: 'Categories', show: true},
                 {path: '/admin/dashboard/orders', name: 'Orders', show: true},
                 {path: '/admin/dashboard/users', name: 'Users', show: true},
+                {path: '/admin/dashboard/user-details', name: 'UserDetails', show: true},
             ]
         }
     },
