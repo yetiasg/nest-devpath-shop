@@ -54,6 +54,9 @@ export class UsersService {
       userId: user.id,
       role: user.role,
       active: user.active,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
     };
     return profile;
   }
@@ -92,14 +95,17 @@ export class UsersService {
     const user = { email, password: await this.genPassword() };
     const newUser = await this.createUser(user);
     if (!newUser) throw new InternalServerErrorException();
-    this.mailService.newAccountMail(email, newUser.activationToken);
-    return newUser.raw;
+    await this.resetPassword(newUser.id);
+    return true;
   }
 
   async updateUser(id: string, user: UpdateUserDto) {
-    if (!(await this.getUserById(id))) throw new NotFoundException();
+    const existingUser = await this.getUserById(id);
+    if (!existingUser) throw new NotFoundException();
+    console.log(user, existingUser);
     const updatedUser = await (await this.userRepository.update(id, user)).raw;
-    if (!updatedUser) return;
+    console.log(updatedUser);
+    if (!updatedUser) return 'aaa';
     return updatedUser;
   }
 
@@ -115,11 +121,11 @@ export class UsersService {
 
   async resetPassword(userId: string) {
     const user = await this.getUserById(userId);
-    if (!user) throw new UnauthorizedException();
+    if (!user) return;
     user.resetPasswordToken = await this.generateActivationToken();
     const updatedUser = await user.save();
     if (!updatedUser) throw new InternalServerErrorException();
-    this.mailService.resetPasswordMail(
+    this.mailService.setNewPasswordPasswordMail(
       updatedUser.email,
       updatedUser.resetPasswordToken,
     );

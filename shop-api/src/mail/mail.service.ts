@@ -22,7 +22,7 @@ export class MailService {
     }
   }
 
-  async resetPasswordMail(
+  async setNewPasswordPasswordMail(
     to: string,
     resetPasswordToken: string,
   ): Promise<boolean> {

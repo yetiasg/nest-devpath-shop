@@ -26,6 +26,12 @@ export class OrdersController {
     return await this.ordersService.getAllOrders();
   }
 
+  @Get('user')
+  @UseGuards(RoleGuard([Role.USER]))
+  async getCurrentUserOrders(@CurrentUserId() userId: string) {
+    return await this.ordersService.getOrdersByUserId(userId);
+  }
+
   @Get(':id')
   @UseGuards(RoleGuard([Role.ADMIN, Role.USER]))
   async getOrderById(@Param('id') id: string) {

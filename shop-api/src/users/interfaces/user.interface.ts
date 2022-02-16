@@ -5,4 +5,7 @@ export interface UserProfileI {
   role: Role;
   active: boolean;
   access_token?: string;
+  firstName?: string;
+  lastName?: string;
+  email?: string;
 }

@@ -29,6 +29,14 @@ export class OrdersService {
     return await this.ordersRepository.find();
   }
 
+  async getOrdersByUserId(userId: string) {
+    const user = await this.usersService.getUserById(userId);
+    if (!user) throw new NotFoundException();
+    const orders = await this.ordersRepository.find({ userId });
+    if (!orders) throw new NotFoundException();
+    return orders;
+  }
+
   async getOrderById(id: string) {
     const order = await this.ordersRepository.findOne({ id });
     if (!order) throw new NotFoundException();

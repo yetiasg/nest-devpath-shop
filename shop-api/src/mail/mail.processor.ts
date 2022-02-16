@@ -50,7 +50,7 @@ export class MailProcessor {
       const success = await this.mailerService.sendMail({
         to: job.data.to,
         from: 'yetiasgii@gmail.com',
-        subject: 'Shop - testing invitation mail',
+        subject: 'Shop - testing activation mail',
         text: `Activate account`,
         html: `
           <p>activation url for web: ${this.configService.get<string>(
@@ -58,7 +58,7 @@ export class MailProcessor {
           )}/activation/${job.data.activationToken}</p>
           <p>activation url for backend: ${this.configService.get<string>(
             'BACKEND_BASE_URL',
-          )}/v1/auth/activate/${job.data.activationToken}</p>
+          )}/auth/activate/${job.data.activationToken}</p>
           `,
       });
       return success;
@@ -68,7 +68,7 @@ export class MailProcessor {
   }
 
   @Process('reset-password')
-  async resetPasswordMail(job: Job) {
+  async setNewPasswordPasswordMail(job: Job) {
     try {
       const success = await this.mailerService.sendMail({
         to: job.data.to,
@@ -81,7 +81,7 @@ export class MailProcessor {
           )}/reset/${job.data.resetPasswordToken}</p>
           <p>Reset password: ${this.configService.get<string>(
             'BACKEND_BASE_URL',
-          )}/v1/auth/reset/${job.data.resetPasswordToken}</p>
+          )}/auth/password/reset/${job.data.resetPasswordToken}</p>
           `,
       });
       return success;
@@ -96,8 +96,8 @@ export class MailProcessor {
       const success = this.mailerService.sendMail({
         to: job.data.to,
         from: 'yetiasgii@gmail.com',
-        subject: 'Shop - testing invitation mail',
-        text: `Activate account`,
+        subject: 'Shop - testing status mail',
+        text: `Order status has changed`,
         html: `<b>Order status has changed: ${job.data.status}</b>`,
       });
       return success;
