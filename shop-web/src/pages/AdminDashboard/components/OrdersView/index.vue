@@ -6,7 +6,6 @@
     <div class="details" @click.prevent="getOrderItems(order.id)" v-for="order in orders" :key="order.id">
       <p>{{order.id}}</p>
       <p>{{order.userId}}</p>
-      <p>{{order.amount}}</p>
       <p>{{order.totalPrice}}</p>
       <p>{{order.status}}</p>
       <p><span class="remove" title="change status" @click="changeStatus">s</span></p>
@@ -25,7 +24,7 @@ export default {
 
   data(){
     return {
-      names: ['id', 'customer', 'amount', 'total price', 'status', 'details'],
+      names: ['id', 'customer', 'total price', 'status', 'details'],
     }
   },
   computed:{
@@ -58,7 +57,7 @@ export default {
   }
 
   .names > p{
-    width: calc(100%/6);
+    width: calc(100%/5);
     padding: 1rem;
   }
 
@@ -77,7 +76,7 @@ export default {
   }
 
   .details > p{
-    width: calc(100%/6);
+    width: calc(100%/5);
     padding: 1rem;
     word-wrap: break-word;
   }

@@ -6,6 +6,9 @@ export default{
     state() {
       return {
         name: null,
+        firstName: null,
+        lastName: null,
+        email: null,
         access_token: null,
         userId: '',
         expiresIn: null,

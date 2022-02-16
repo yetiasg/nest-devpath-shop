@@ -5,11 +5,11 @@
   <div class="list-view">
     <div class="details" v-for="user in users" :key="user.id">
       <p>{{user.id}}</p>
-      <p>{{user.active}}</p>
       <p>{{user.email}}</p>
-      <p>{{user.firstName + user.lastName || '--- ---'}}</p>
-      <p>{{user.address || '--- ---'}}</p>
-      <p><span class="remove">X</span></p>
+      <p>{{user.role}}</p>
+      <p>{{user.active}}</p>
+      <p>{{user.firstName + ' ' + user.lastName || '--- ---'}}</p>
+      <p><span class="remove" @click.prevent="removeUser(user.id)">X</span></p>
   </div>
   </div>
 </template>
@@ -20,12 +20,17 @@
 export default {
   data(){
     return {
-      names: ['id', 'active', 'email',  'fullname', 'address', 'options'],
+      names: ['id', 'email', 'role', 'active',  'fullname',  'options'],
     }
   },
   computed:{
     users(){
       return this.$store.state.requests.users;
+    }
+  },
+  methods: {
+    removeUser(id){
+      this.$store.dispatch('removeUserById', id)
     }
   },
   mounted(){

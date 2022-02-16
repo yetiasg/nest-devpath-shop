@@ -44,8 +44,14 @@ export default{
   productToUpdate(state, payload){
     state.productToUpdate = payload
   },
-  setOrderItema(state, payload){
+  setOrderItems(state, payload){
     state.orderItems = payload
+  },
+  setCurrentUserOrders(state, payload){
+    state.currentUserOrders = payload
+  },
+  setCurrentUserOrderItems(state, payload){
+    state.currentUserOrderItems = payload
   }
 }
 

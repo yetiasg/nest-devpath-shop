@@ -23,7 +23,9 @@ export default{
             addCategoryModal: false,
             updateProductModal: false,
             productToUpdate: {},
-            orderItems: []
+            orderItems: [],
+            currentUserOrders: [],
+            currentUserOrderItems: []
         }
     },
     mutations,

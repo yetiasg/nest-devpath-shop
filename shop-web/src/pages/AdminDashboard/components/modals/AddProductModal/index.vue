@@ -38,14 +38,12 @@
             <label for="archived">archived (make not public)</label>
           </div>
           <div class="option-buttons">
-            <base-button mode="clearBtn" @click.prevent class="cancelBtn btn">Cancel</base-button>
             <base-button mode="clearBtn" @click.prevent="createProduct" class="addProductBtn btn">+ Add product</base-button>
           </div>
         </div>
       </div>
-      </div>
-    </teleport>
-
+    </div>
+  </teleport>
 </template>
 
 <script>

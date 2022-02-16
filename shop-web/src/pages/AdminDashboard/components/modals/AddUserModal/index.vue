@@ -8,10 +8,10 @@
           <span @click="closeModal">X</span>
         </header>
         <label for="email">email</label>
-        <input type="email" id="email">
+        <input type="email" id="email" v-model="email">
 
           <div class="option-buttons">
-            <base-button mode="clearBtn" class="addUserBtn btn">+ Add User</base-button>
+            <base-button mode="clearBtn" class="addUserBtn btn" @click.prevent="inviteUser">+ Add User</base-button>
           </div>
         </div>
       </div>
@@ -21,10 +21,20 @@
 
 <script>
 export default {
+  data(){
+    return {
+      email: ''
+    }
+  },
   methods: {
     closeModal(){
       this.$store.commit('handleAddUserModal', false)
     },
+    inviteUser(){
+      this.$store.dispatch('inviteUser', {email: this.email})
+      this.closeModal()
+      this.$store.dispatch('fetchUsers');
+    }
   }
 }
 </script>

@@ -4,18 +4,15 @@
   </div>
   <div class="list-view">
     <div class="details" @click.prevent="getOrderItems(order.id)" v-for="order in orders" :key="order.id">
-      <p>{{order.id}}</p>
-      <p>{{order.userId}}</p>
-      <p>{{order.amount}}</p>
-      <p>{{order.totalPrice}}</p>
+      <p>{{order.createdAt}}</p>
+      <p>{{order.totalPrice}} zł</p>
       <p>{{order.status}}</p>
-      <p><span class="remove" title="change status" @click="changeStatus">s</span></p>
-      <div class="items">
+      <p>
         <ul>
           <li v-for="item in orderItems" :key="item.id">{{item}}</li>
             <p v-for="row in item" :key="row.id">{{row}}</p>
         </ul>
-      </div>
+       </p>
     </div>
   </div>
 </template>
@@ -25,24 +22,24 @@ export default {
 
   data(){
     return {
-      names: ['id', 'customer', 'amount', 'total price', 'status', 'details'],
+      names: ['date', 'total price', 'status', 'details'],
     }
   },
   computed:{
     orders(){
-      return this.$store.state.requests.orders;
+      return this.$store.state.requests.currentUserOrders;
     },
     orderItems(){
-      return this.$store.state.requests.orderItems
+      return this.$store.state.requests.currentUserOrderItems
     }
   },
   methods:{
     getOrderItems(id){
-      this.$store.dispatch('getOrderItems', id)
+      this.$store.dispatch('getCurrentUserOrderItems', id)
     }
   },
   mounted(){
-     this.$store.dispatch('fetchOrders');
+     this.$store.dispatch('fetchCurrentUserOrders');
   }
 }
 </script>
@@ -58,7 +55,7 @@ export default {
   }
 
   .names > p{
-    width: calc(100%/6);
+    width: calc(100%/4);
     padding: 1rem;
   }
 
@@ -77,7 +74,7 @@ export default {
   }
 
   .details > p{
-    width: calc(100%/6);
+    width: calc(100%/4);
     padding: 1rem;
     word-wrap: break-word;
   }

@@ -24,12 +24,15 @@ export default{
               email, password
             })
           });
-          let {access_token, role, userId} = resData;
+          let {access_token, role, userId, firstName, lastName} = resData;
 
           const userPayload = {
             access_token,
             userId,
-            role
+            role,
+            firstName,
+            lastName,
+            email: resData.email
           }
     
           context.commit('setUserData', userPayload);

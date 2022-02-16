@@ -1,16 +1,16 @@
 <template>
     <section>
         {{viewName}}
-    <statistics-view></statistics-view>
+    <details-view></details-view>
     </section>
 </template>
 
 <script>
-import StatisticsView from '../../components/StatisticsView'
+import DetailsView from '../../components/DetailsView'
 
 export default {
     components: {
-        StatisticsView
+        DetailsView
     },
     data(){
       return {
