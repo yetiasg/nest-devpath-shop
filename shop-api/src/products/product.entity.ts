@@ -1,8 +1,11 @@
+import { CategoryEntity } from 'src/categories/category.entity';
 import {
   BaseEntity,
   Column,
   CreateDateColumn,
   Entity,
+  JoinTable,
+  ManyToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -21,8 +24,9 @@ export class ProductEntity extends BaseEntity {
   @Column({ type: 'text' })
   description: string;
 
-  @Column({ nullable: true })
-  categories?: string;
+  @ManyToMany(() => CategoryEntity, { cascade: true })
+  @JoinTable()
+  categories: CategoryEntity[];
 
   @Column()
   stock: number;

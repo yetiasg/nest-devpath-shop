@@ -14,7 +14,7 @@
         <textarea type="text" id="description" v-model="description"></textarea>
 
         <label for="category">categories {{categoriesSelected}}</label>
-        <select id="category" multiple v-bind="categories">
+        <select id="category" multiple v-model="categoriesSelected">
           <option v-for="category in categories" :key="category.id" :value="category.id">{{category.name}}</option>
         </select>
 
@@ -52,7 +52,7 @@ export default {
       categoriesSelected: this.$store.state.requests.productToUpdate.categories,
       stock: this.$store.state.requests.productToUpdate.stock,
       price: this.$store.state.requests.productToUpdate.price,
-      archived: Boolean(this.$store.state.requests.productToUpdate.archived)
+      archived: Boolean(this.$store.state.requests.productToUpdate.archived),
     }
   },
   methods: {
@@ -63,7 +63,12 @@ export default {
       const product = {name: this.name, description: this.description, categories: this.categoriesSelected, stock: Number(this.stock), price: parseInt(this.price, 10), archived: Boolean(this.archived), id:this.$store.state.requests.productToUpdate.id, }
       this.$store.dispatch('updateProduct', product)
     },
-  }
+  },
+  computed: {
+    categories(){
+      return this.$store.state.requests.categories
+    }
+  },
 }
 </script>
 

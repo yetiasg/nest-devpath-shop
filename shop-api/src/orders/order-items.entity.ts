@@ -19,11 +19,11 @@ export class OrderItemsEntity extends BaseEntity {
   @Column()
   orderId: string;
 
-  @ManyToOne(() => OrderEntity, (order) => order.id)
-  orders: OrderEntity[];
-
   @Column()
   productId: string;
+
+  @ManyToOne(() => OrderEntity, (order) => order.id)
+  orders: OrderEntity[];
 
   @ManyToMany(() => ProductEntity, (product) => product.id)
   products: ProductEntity[];

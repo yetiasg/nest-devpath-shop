@@ -27,7 +27,7 @@ export class CreateProductDto {
   description: string;
 
   @IsOptional()
-  categories: string;
+  categories: string[];
 
   @IsNumber()
   @Min(0)

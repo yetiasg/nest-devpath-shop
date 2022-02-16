@@ -11,7 +11,6 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { CurrentUserRole } from 'src/common/decorators/currentUserRole.decorator';
 import { Public } from 'src/common/decorators/public.decorator';
 import { RoleGuard } from 'src/role/role.guard';
 import { Role } from 'src/role/role.type';
@@ -43,9 +42,7 @@ export class ProductsController {
 
   @Post()
   @UseGuards(RoleGuard([Role.ADMIN]))
-  async createProduct(
-    @Body() product: CreateProductDto,
-  ): Promise<ProductEntity> {
+  async createProduct(@Body() product: CreateProductDto) {
     return await this.productsService.createProduct(product);
   }
 
@@ -54,7 +51,7 @@ export class ProductsController {
   async updateProductById(
     @Param('id') productId: string,
     @Body() product: UpdateProductDto,
-  ): Promise<ProductEntity> {
+  ) {
     return await this.productsService.updateProductById(productId, product);
   }
 

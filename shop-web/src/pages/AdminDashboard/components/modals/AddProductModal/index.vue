@@ -13,8 +13,8 @@
         <label for="description">description</label>
         <textarea type="text" id="description" v-model="description"></textarea>
 
-        <label for="category">categories {{categoriesSelected}}</label>
-        <select id="category" multiple v-bind="categories">
+        <label for="category">categories</label>
+        <select id="category" multiple v-model="categoriesSelected">
           <option v-for="category in categories" :key="category.id" :value="category.id">{{category.name}}</option>
         </select>
 
@@ -50,22 +50,18 @@
 export default {
   data(){
     return{
-        categories: [
-        {id: 123, name: 'shoes', description:"swefioswhgfoaqiwhgoiawrhbgo wroi whgfhweirghoqiwregho"},
-        {id: 1253, name: 'shetretoes', description:"swefioswhgfoaqiwhgoiawrhbgo wroi whgfhweirghoqiwregho"},
-        {id: 12453, name: 'shostges', description:"swefioswhgfoaqiwhgoiawrhbgo wroi whgfhweirghoqiwregho"},
-        {id: 17423, name: 'shrgergaeoes', description:"swefioswhgfoaqiwhgoiawrhbgo wroi whgfhweirghoqiwregho"},
-        {id: 1243, name: 'shgergqewrtgewrgwergqwertgqw4etgfoes', description:"swefioswhgfoaqiwhgoiawrhbgo wroi whgfhweirghoqiwregho"},
-        {id: 127643, name: 'shergeoes', description:"swefioswhgfoaqiwhgoiawrhbgo wroi whgfhweirghoqiwregho"},
-        {id: 1523, name: 'shoergers', description:"swefioswhgfoaqiwhgoiawrhbgo wroi whgfhweirghoqiwregho"}
-      ],
       file: '',
       name: '',
       description: '',
-      categoriesSelected: '',
+      categoriesSelected: null,
       stock: null,
       price: null,
       archived: false
+    }
+  },
+  computed: {
+    categories(){
+      return this.$store.state.requests.categories
     }
   },
   methods: {
