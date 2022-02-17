@@ -1,5 +1,6 @@
 import {
   BadRequestException,
+  Inject,
   Injectable,
   InternalServerErrorException,
   NotFoundException,
@@ -23,7 +24,7 @@ export class UsersService {
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
     private readonly mailService: MailService,
-    private readonly authService: AuthService,
+    @Inject(AuthService) private readonly authService: AuthService,
   ) {}
 
   async getAllUsers() {

@@ -1,4 +1,3 @@
-import { Serialize } from '@App/common/decorators/serialize.decorator';
 import {
   Body,
   Controller,
@@ -12,11 +11,9 @@ import {
 import { RoleGuard } from 'src/role/role.guard';
 import { Role } from 'src/role/role.type';
 import { UpdateUserDto } from './dto/user.dto';
-import { UserEntity } from './user.entity';
 import { UsersService } from './users.service';
 
 @Controller({ path: 'users', version: '1' })
-@Serialize(UserEntity)
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
