@@ -14,7 +14,7 @@ export default {
     data(){
         return{
             pages: [
-                {path: '/admin/dashboard/statistics', name: 'Statistics', show: true},
+                {path: '/admin/dashboard/statistics', name: 'Statistics', false: true},
                 {path: '/admin/dashboard/products', name: 'Products', show: true},
                 {path: '/admin/dashboard/categories', name: 'Categories', show: true},
                 {path: '/admin/dashboard/orders', name: 'Orders', show: true},
