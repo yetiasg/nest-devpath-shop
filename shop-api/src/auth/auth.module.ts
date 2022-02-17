@@ -15,7 +15,6 @@ import { LocalStrategy } from './strategies/local.strategy';
   imports: [
     forwardRef(() => UsersModule),
     PassportModule,
-    forwardRef(() => UsersModule),
     ConfigModule.forFeature(AuthConfig),
     JwtModule.registerAsync({
       imports: [ConfigModule.forFeature(AuthConfig)],

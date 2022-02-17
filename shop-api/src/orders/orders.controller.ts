@@ -1,4 +1,4 @@
-import { Serialize } from '@App/common/decorators/serialize.decorator';
+import { Serialize } from '../common/decorators/serialize.decorator';
 import {
   Body,
   Controller,
