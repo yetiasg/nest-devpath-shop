@@ -1,3 +1,4 @@
+import { Serialize } from '@App/common/decorators/serialize.decorator';
 import {
   Body,
   Controller,
@@ -21,12 +22,14 @@ export class OrdersController {
   constructor(private readonly ordersService: OrdersService) {}
 
   @Get()
+  @Serialize(OrderEntity)
   @UseGuards(RoleGuard([Role.ADMIN, Role.USER]))
   async getAllOrders(): Promise<OrderEntity[]> {
     return await this.ordersService.getAllOrders();
   }
 
   @Get('user')
+  @Serialize(OrderEntity)
   @UseGuards(RoleGuard([Role.USER]))
   async getCurrentUserOrders(@CurrentUserId() userId: string) {
     return await this.ordersService.getOrdersByUserId(userId);
@@ -39,12 +42,14 @@ export class OrdersController {
   }
 
   @Post()
+  @Serialize(OrderEntity)
   @UseGuards(RoleGuard([Role.ADMIN, Role.USER]))
   async createOrder(@CurrentUserId() id: string, @Body('items') items) {
     return await this.ordersService.createOrder(id, items);
   }
 
   @Patch(':id')
+  @Serialize(OrderEntity)
   @UseGuards(RoleGuard([Role.ADMIN]))
   async updateOrderById(
     @Param('id') id: string,
@@ -54,6 +59,7 @@ export class OrdersController {
   }
 
   @Patch('/status/:id')
+  @Serialize(OrderEntity)
   @UseGuards(RoleGuard([Role.ADMIN]))
   async updateOrderStatusById(
     @Param('id') orderId: string,
@@ -63,6 +69,7 @@ export class OrdersController {
   }
 
   @Delete(':id')
+  @Serialize(OrderEntity)
   @UseGuards(RoleGuard([Role.ADMIN]))
   async removeOrderById(@Param('id') id: string) {
     return await this.ordersService.removeOrderById(id);

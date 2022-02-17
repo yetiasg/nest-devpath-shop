@@ -1,3 +1,4 @@
+import { Serialize } from '@App/common/decorators/serialize.decorator';
 import {
   Body,
   Controller,
@@ -15,6 +16,7 @@ import { CategoryEntity } from './category.entity';
 import { CreateCategoryDto, UpdateCategoryDto } from './dto/category.dto';
 
 @Controller({ path: 'categories', version: '1' })
+@Serialize(CategoryEntity)
 export class CategoriesController {
   constructor(private readonly categoriesService: CategoriesService) {}
 

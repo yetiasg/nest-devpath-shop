@@ -1,3 +1,4 @@
+import { Serialize } from '@App/common/decorators/serialize.decorator';
 import {
   Body,
   Controller,
@@ -19,6 +20,7 @@ import { ProductEntity } from './product.entity';
 import { ProductsService } from './products.service';
 
 @Controller({ path: 'products', version: '1' })
+@Serialize(ProductEntity)
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 

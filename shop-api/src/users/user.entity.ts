@@ -1,4 +1,4 @@
-import { Exclude } from 'class-transformer';
+import { Expose } from 'class-transformer';
 import { Role } from 'src/role/role.type';
 import {
   BaseEntity,
@@ -11,19 +11,23 @@ import {
 
 @Entity({ name: 'User' })
 export class UserEntity extends BaseEntity {
-  @Exclude()
+  @Expose()
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
+  @Expose()
   @Column({ type: 'boolean', nullable: false, default: false })
   active: boolean;
 
+  @Expose()
   @Column({ unique: true })
   email: string;
 
+  @Expose()
   @Column({ nullable: true })
   firstName?: string;
 
+  @Expose()
   @Column({ nullable: true })
   lastName?: string;
 
@@ -36,13 +40,14 @@ export class UserEntity extends BaseEntity {
   @Column({ default: '' })
   resetPasswordToken: string;
 
-  @Exclude()
   @Column()
   password: string;
 
+  @Expose()
   @Column({ type: 'enum', enum: Role, default: Role.USER })
   role: Role;
 
+  @Expose()
   @CreateDateColumn()
   createdAt: Date;
 
