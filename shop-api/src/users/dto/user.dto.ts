@@ -1,4 +1,3 @@
-import { Expose } from 'class-transformer';
 import {
   IsBoolean,
   IsEmail,
@@ -9,26 +8,22 @@ import {
 import { Match } from 'src/util/match.decorator';
 
 export class UpdateUserDto {
-  @Expose()
   @IsEmail()
   @IsNotEmpty()
   @IsString()
   @IsOptional()
   readonly email?: string;
 
-  @Expose()
   @IsNotEmpty()
   @IsString()
   @IsOptional()
   readonly firstName?: string;
 
-  @Expose()
   @IsNotEmpty()
   @IsBoolean()
   @IsOptional()
   readonly active?: boolean;
 
-  @Expose()
   @IsNotEmpty()
   @IsString()
   @IsOptional()

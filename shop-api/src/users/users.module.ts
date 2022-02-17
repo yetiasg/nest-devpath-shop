@@ -9,7 +9,7 @@ import { UsersService } from './users.service';
 @Module({
   imports: [
     TypeOrmModule.forFeature([UserEntity]),
-    forwardRef(() => MailModule),
+    MailModule,
     forwardRef(() => AuthModule),
   ],
   controllers: [UsersController],

@@ -1,5 +1,6 @@
 import {
   BadRequestException,
+  forwardRef,
   Inject,
   Injectable,
   InternalServerErrorException,
@@ -24,7 +25,8 @@ export class UsersService {
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
     private readonly mailService: MailService,
-    @Inject(AuthService) private readonly authService: AuthService,
+    @Inject(forwardRef(() => AuthService))
+    private readonly authService: AuthService,
   ) {}
 
   async getAllUsers() {
@@ -61,20 +63,22 @@ export class UsersService {
     return profile;
   }
 
-  async createUser({ email, password }: CreateUserDto | InviteUserDto) {
+  async createUser({
+    email,
+    password,
+  }: CreateUserDto | InviteUserDto): Promise<UserEntity> {
     const user = await this.getUserByEmail(email);
     if (user) throw new BadRequestException();
 
     const activationToken = await this.generateActivationToken();
 
-    const newUser = await (
-      await this.userRepository.insert({
-        email,
-        password,
-        activationToken,
-      })
-    ).raw;
-    if (!newUser) throw new InternalServerErrorException();
+    const newUser = this.userRepository.create({
+      email,
+      password,
+      activationToken,
+    });
+
+    await newUser.save();
     this.mailService.newAccountMail(email, activationToken);
     return newUser;
   }
@@ -94,16 +98,15 @@ export class UsersService {
 
     const user = { email, password: await this.genPassword() };
     const newUser = await this.createUser(user);
+
     if (!newUser) throw new InternalServerErrorException();
-    return await this.resetPassword(newUser[0].id);
+    return await this.resetPassword(newUser.id);
   }
 
   async updateUser(id: string, user: UpdateUserDto) {
     const existingUser = await this.getUserById(id);
     if (!existingUser) throw new NotFoundException();
-    const updatedUser = await (await this.userRepository.update(id, user)).raw;
-    if (!updatedUser) return 'aaa';
-    return updatedUser;
+    return await this.userRepository.save(Object.assign(existingUser, user));
   }
 
   async removeUserById(id: string) {
@@ -118,9 +121,9 @@ export class UsersService {
 
   async resetPassword(userId: string) {
     const user = await this.getUserById(userId);
-    if (!user) return;
+    if (!user) throw new NotFoundException('User was not found');
     user.resetPasswordToken = await this.generateActivationToken();
-    const updatedUser = await user.save();
+    const updatedUser = await this.userRepository.save(user);
     if (!updatedUser) throw new InternalServerErrorException();
     this.mailService.setNewPasswordPasswordMail(
       updatedUser.email,
