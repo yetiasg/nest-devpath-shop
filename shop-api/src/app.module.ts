@@ -7,7 +7,7 @@ import { ConfigModule } from '@nestjs/config';
 import { OrdersModule } from './orders/orders.module';
 import { ProductsModule } from './products/products.module';
 import { StatisticsModule } from './statistics/statistics.module';
-import { DatabaseModle } from './database/database.module';
+import { DatabaseModule } from './database/database.module';
 import { BullModule } from '@nestjs/bull';
 import { RoleModule } from './role/role.module';
 
@@ -26,7 +26,7 @@ const ENV = process.env.NODE_ENV;
         port: 6379,
       },
     }),
-    DatabaseModle,
+    DatabaseModule,
     UsersModule,
     AuthModule,
     CategoriesModule,

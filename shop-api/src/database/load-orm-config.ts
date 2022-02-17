@@ -8,7 +8,7 @@ export async function loadOrmConfig(
   return {
     type: 'postgres',
     host: databaseConfig.host,
-    port: databaseConfig.port,
+    port: databaseConfig.port ?? 3000,
     username: databaseConfig.username,
     password: databaseConfig.password,
     database: databaseConfig.database,
