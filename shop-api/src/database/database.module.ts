@@ -15,4 +15,4 @@ import { loadOrmConfig } from './load-orm-config';
     }),
   ],
 })
-export class DatabaseModle {}
+export class DatabaseModule {}
