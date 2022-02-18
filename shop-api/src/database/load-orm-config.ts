@@ -14,7 +14,7 @@ export async function loadOrmConfig(
     database: databaseConfig.database,
     entities: [__dirname + '/../**/*.entity{.ts,.js}'],
     migrations: [__dirname + '/../database/migrations/*{.ts,.js}'],
-    synchronize: false,
+    synchronize: true,
     migrationsRun: process.env.TYPEORM_MIGRATIONS_RUN === 'true',
     retryAttempts: 1,
     retryDelay: 3000,

@@ -71,7 +71,7 @@ export class ProductsService {
   }
 
   async updateProductById(id: string, product: UpdateProductDto) {
-    const productExists = await this.productRepository.findOne({ id });
+    const productExists = await this.productRepository.findOne(id);
     if (!productExists) throw new NotFoundException();
 
     const categories = await this.getCategoryEntitiesByCategoryId(
