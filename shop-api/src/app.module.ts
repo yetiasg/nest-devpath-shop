@@ -11,11 +11,13 @@ import { DatabaseModule } from './database/database.module';
 import { BullModule } from '@nestjs/bull';
 import { RoleModule } from './role/role.module';
 
-const ENV = process.env.NODE_ENV;
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: ENV ? `${ENV}.env` : `development.env`,
+      envFilePath:
+        process.env.NODE_ENV === 'production'
+          ? `production.env`
+          : `development.env`,
       validationOptions: {
         abortEarly: true,
       },

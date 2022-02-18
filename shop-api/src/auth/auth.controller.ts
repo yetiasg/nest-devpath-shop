@@ -15,15 +15,15 @@ export class AuthController {
     private readonly usersService: UsersService,
   ) {}
 
-  @Post('login')
   @Public()
+  @Post('login')
   @UseGuards(LocalAuthGuard)
   async login(@Body() loginDto: LoginDto): Promise<UserProfileI> {
     return await this.authService.login(loginDto);
   }
 
-  @Post('register')
   @Public()
+  @Post('register')
   async register(@Body() userDto: CreateUserDto) {
     return await this.authService.register(userDto);
   }
@@ -33,8 +33,8 @@ export class AuthController {
     return await this.usersService.getUserProfile(userId);
   }
 
-  @Post('activate/:token')
   @Public()
+  @Post('activate/:token')
   async activateAccaout(@Param('token') token: string) {
     return await this.usersService.activateAccount(token);
   }
@@ -44,8 +44,8 @@ export class AuthController {
     return await this.usersService.resetPassword(userId);
   }
 
-  @Post('password/reset/:token')
   @Public()
+  @Post('password/reset/:token')
   async handleResettingPassword(
     @Param('token') token: string,
     @Body() passwordDto: UpdatePasswordDto,
