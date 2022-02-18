@@ -26,8 +26,8 @@ describe('Authentication system (e2e)', () => {
     await app.init();
   });
 
-  it('POST /auth/register - handles registering', () => {
-    return request(app.getHttpServer())
+  it('POST /auth/register - handles registering', async () => {
+    return await request(app.getHttpServer())
       .post('/auth/register')
       .send({
         email: mockUser.email,
