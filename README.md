@@ -3,7 +3,7 @@
 
 ## backend
 
-### env filr
+### env file
 ### create ```development.emv``` file and copy all things from ```example.env```
 
 ### mailer config
