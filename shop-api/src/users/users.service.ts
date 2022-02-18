@@ -29,7 +29,7 @@ export class UsersService {
     private readonly authService: AuthService,
   ) {}
 
-  async getAllUsers() {
+  async getAllUsers(): Promise<UserEntity[]> {
     return await this.userRepository.find();
   }
 
@@ -41,11 +41,11 @@ export class UsersService {
     return await this.userRepository.findOne({ email });
   }
 
-  async getUserByActivationToken(token: string) {
+  async getUserByActivationToken(token: string): Promise<UserEntity> {
     return await this.userRepository.findOne({ activationToken: token });
   }
 
-  async getUserByResetPasswordToken(token: string) {
+  async getUserByResetPasswordToken(token: string): Promise<UserEntity> {
     return await this.userRepository.findOne({ resetPasswordToken: token });
   }
 
@@ -83,7 +83,7 @@ export class UsersService {
     return newUser;
   }
 
-  async activateAccount(token: string) {
+  async activateAccount(token: string): Promise<UserProfileI> {
     const user = await this.getUserByActivationToken(token);
     if (!user) throw new NotFoundException();
 
@@ -92,7 +92,7 @@ export class UsersService {
     return await this.getUserProfile(user.id);
   }
 
-  async inviteUserByEmail(email: string) {
+  async inviteUserByEmail(email: string): Promise<boolean> {
     const userExists = await this.getUserByEmail(email);
     if (userExists) throw new BadRequestException('User already exists');
 
@@ -103,7 +103,7 @@ export class UsersService {
     return await this.resetPassword(newUser.id);
   }
 
-  async updateUser(id: string, user: UpdateUserDto) {
+  async updateUser(id: string, user: UpdateUserDto): Promise<UserEntity> {
     const existingUser = await this.getUserById(id);
     if (!existingUser) throw new NotFoundException();
     return await this.userRepository.save(Object.assign(existingUser, user));
@@ -113,13 +113,13 @@ export class UsersService {
     return await this.userRepository.delete(id);
   }
 
-  async forgotPasswordByEmail(email: string) {
+  async forgotPasswordByEmail(email: string): Promise<boolean> {
     const user = await this.getUserByEmail(email);
     if (!user) throw new NotFoundException();
     return await this.resetPassword(user.id);
   }
 
-  async resetPassword(userId: string) {
+  async resetPassword(userId: string): Promise<boolean> {
     const user = await this.getUserById(userId);
     if (!user) throw new NotFoundException('User was not found');
     user.resetPasswordToken = await this.generateActivationToken();
@@ -132,7 +132,10 @@ export class UsersService {
     return true;
   }
 
-  async handleResettingPassword(token: string, passwordDto: UpdatePasswordDto) {
+  async handleResettingPassword(
+    token: string,
+    passwordDto: UpdatePasswordDto,
+  ): Promise<UserProfileI> {
     const user = await this.getUserByResetPasswordToken(token);
     if (!user) throw new NotFoundException();
     const hashedPassword: string = await this.authService.hashPassword(
