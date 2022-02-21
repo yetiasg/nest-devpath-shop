@@ -6,9 +6,12 @@ import {
   InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { InjectRepository } from '@nestjs/typeorm';
 import { AuthService } from 'src/auth/auth.service';
 import { MailService } from 'src/mail/mail.service';
+import { RoleService } from 'src/role/role.service';
+import { Role } from 'src/role/role.type';
 import { Repository } from 'typeorm';
 import {
   CreateUserDto,
@@ -27,6 +30,8 @@ export class UsersService {
     private readonly mailService: MailService,
     @Inject(forwardRef(() => AuthService))
     private readonly authService: AuthService,
+    private readonly configService: ConfigService,
+    private readonly roleService: RoleService,
   ) {}
 
   async getAllUsers(): Promise<UserEntity[]> {
@@ -81,6 +86,28 @@ export class UsersService {
     await newUser.save();
     this.mailService.newAccountMail(email, activationToken);
     return newUser;
+  }
+
+  async createAdminOnAppBootstrap() {
+    const adminEmail = this.configService.get<string>('ADMIN_EMAIL');
+    const adminPassword = this.configService.get<string>('ADMIN_PASSWORD');
+
+    const userExists = await this.getUserByEmail(adminEmail);
+    if (userExists) return;
+
+    const { userId }: UserProfileI = await this.authService.register({
+      email: adminEmail,
+      password: adminPassword,
+      passwordConfirmation: adminPassword,
+    });
+
+    const updatedUser = await this.roleService.changeUserRole(
+      userId,
+      Role.ADMIN,
+    );
+
+    if (!updatedUser) return new InternalServerErrorException();
+    return true;
   }
 
   async activateAccount(token: string): Promise<UserProfileI> {
