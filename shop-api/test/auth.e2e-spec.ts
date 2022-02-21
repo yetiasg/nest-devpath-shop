@@ -47,7 +47,6 @@ describe('Authentication system (e2e)', () => {
       })
       .expect(201)
       .then((res) => {
-        console.log(res.body);
         const {
           userId,
           role,
