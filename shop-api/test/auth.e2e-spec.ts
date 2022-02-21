@@ -46,7 +46,7 @@ describe('Authentication system (e2e)', () => {
         passwordConfirmation: mockUser.passwordConfirmation,
       })
       .expect(201)
-      .then((res) => {
+      .then(async (res) => {
         const {
           userId,
           role,
