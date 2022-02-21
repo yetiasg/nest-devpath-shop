@@ -29,9 +29,9 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document);
 
   const port = app.get(ConfigService).get('PORT') || 3000;
-  await app.listen(port);
-
-  const usersService = app.get(UsersService);
-  await usersService.createAdminOnAppBootstrap();
+  await app.listen(port, async () => {
+    const usersService = app.get(UsersService);
+    await usersService.createAdminOnAppBootstrap();
+  });
 }
 bootstrap();
