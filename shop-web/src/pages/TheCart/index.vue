@@ -33,8 +33,11 @@ export default {
         }
     },
     methods: {
-        buy(){
+        buy() {
             this.$store.dispatch('buy')
+        },
+        clearCart() {
+            this.$store.commit('clearCart')
         }
     }
 }

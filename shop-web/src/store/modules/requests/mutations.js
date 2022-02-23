@@ -70,6 +70,9 @@ export default{
       currentCart.push(payload)
     }
     state.cart = currentCart
+  },
+  clearCart(state){
+    state.cart = []
   }
 }
 
