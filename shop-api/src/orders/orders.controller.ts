@@ -45,7 +45,6 @@ export class OrdersController {
   @Serialize(OrderEntity)
   @UseGuards(RoleGuard([Role.ADMIN, Role.USER]))
   async createOrder(@CurrentUserId() id: string, @Body('items') items) {
-    console.log(items);
     return await this.ordersService.createOrder(id, items);
   }
 

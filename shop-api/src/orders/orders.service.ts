@@ -80,6 +80,14 @@ export class OrdersService {
       const product = await this.productsService.getProductById(
         item?.productId,
       );
+      product.stock -= item.amount;
+      await product.save();
+    });
+
+    items.forEach(async (item) => {
+      const product = await this.productsService.getProductById(
+        item?.productId,
+      );
       await this.orderItemsService.createOrderItem(item, newOrder.id, product);
     });
 
