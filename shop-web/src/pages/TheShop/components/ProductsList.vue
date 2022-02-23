@@ -19,6 +19,7 @@ export default {
   methods: {
     selectProduct(id){
       this.$store.commit('setSelectedProduct', id);
+      this.$store.dispatch('fetchProductById', id)
     }
   },
   computed:{

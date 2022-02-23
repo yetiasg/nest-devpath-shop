@@ -1,7 +1,12 @@
 <template>
     <div class="details-container" @click.stop>
       <span class="closeModal" @click="backToProducts">x</span>
-      <h3>{{selectedProduct}}</h3>
+      <h3>{{currentProduct?.name}}</h3>
+      <p>Description: {{currentProduct?.description}}</p>
+      <p>Price: {{currentProduct?.price}} zł</p>
+      <label>Amount: </label>
+      <input type="number" name="amount" id="amount" v-model="amount">
+      <base-button @click.prevent="addProductToCart(currentProduct?.id)">Add to cart</base-button>
     </div>
 </template>
 
@@ -11,14 +16,23 @@
 export default {
   data(){
     return{
+      amount: 1,
       selectedProduct: this.$store.state.requests.selectedProduct
     }
   },
   methods:{
     backToProducts(){
       this.$store.commit('setSelectedProduct', null);
+    },
+    addProductToCart(id){
+      this.$store.commit('updateCart', {id, amount: this.amount})
     }
   },  
+  computed: {
+    currentProduct() {
+      return this.$store.state.requests.currentProduct
+    }
+  }
 
 }
 </script>

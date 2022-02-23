@@ -52,6 +52,24 @@ export default{
   },
   setCurrentUserOrderItems(state, payload){
     state.currentUserOrderItems = payload
+  },
+  setCurrentProduct(state, payload){
+    state.currentProduct = payload
+  },
+  updateCart(state, payload){
+    if(payload.amount <=0) return
+    const currentCart = [...state.cart]
+
+    if(currentCart.some(el => el.id === payload.id)){
+      let id
+      currentCart.forEach((el, i) => {
+        if(el.id === payload.id) id = i
+      })
+      currentCart[id]=payload
+    }else {
+      currentCart.push(payload)
+    }
+    state.cart = currentCart
   }
 }
 

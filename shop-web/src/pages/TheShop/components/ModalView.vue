@@ -18,8 +18,6 @@ export default {
   methods:{
     backToProducts(){
       this.$store.commit('setSelectedProduct', null);
-      this.$store.commit('setSortingModalMode', 'closed')
-
     }
   }
 }

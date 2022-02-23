@@ -25,7 +25,9 @@ export default{
             productToUpdate: {},
             orderItems: [],
             currentUserOrders: [],
-            currentUserOrderItems: []
+            currentUserOrderItems: [],
+            currentProduct: null,
+            cart: []
         }
     },
     mutations,

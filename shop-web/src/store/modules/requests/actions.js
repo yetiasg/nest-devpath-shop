@@ -75,6 +75,30 @@ export default{
     context.commit('handleUpdateProductModal', false)
   },
 
+  async fetchProductById(context, id) {
+    const res = await axios.get(`${BASE_URL}/products/${id}`)
+    context.commit('setCurrentProduct', res.data)
+  },
+
+  async buy(context) {
+    const headers = {
+      Authorization: `Bearer ${context.rootState.auth.access_token}`
+    }
+
+    const config = { headers }
+
+    const cart = context.rootState.requests.cart
+
+    const items = cart.map(el => {
+      return {
+        productId: el.id,
+        amount: el.amount
+      }
+    })
+
+    await axios.post(`${BASE_URL}/orders`, {items}, config )
+  },
+
 
 // Users -----------------------
 

@@ -3,7 +3,10 @@
         <the-ellipse class="ellipseTop"></the-ellipse>
         <the-header></the-header>
         <div class="infoBox">
-          {{message}}
+          {{cart.length > 0 ? cart : ''}}
+        </div>
+        <div class="buyBtn">
+            <base-button class="buyBtn" v-if="cart.length > 0" @click.prevent="buy">Buy</base-button>
         </div>
         <the-footer></the-footer>
         <the-ellipse class="ellipseBottom"></the-ellipse>
@@ -24,6 +27,16 @@ export default {
         message: 'Cart'
       }
     },
+    computed: {
+        cart(){
+            return this.$store.state.requests.cart
+        }
+    },
+    methods: {
+        buy(){
+            this.$store.dispatch('buy')
+        }
+    }
 }
 </script>
 
@@ -32,7 +45,7 @@ export default {
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: space-between;
+        justify-content: space-around;
     }
 
     .ellipseBottom, .ellipseTop{
