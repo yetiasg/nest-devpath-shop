@@ -5,14 +5,19 @@ import { AppModule } from './../src/app.module';
 import { Role } from 'src/role/role.type';
 import { UserProfileI } from 'src/users/interfaces/user.interface';
 import { DatabaseModule } from 'src/database/database.module';
-import { getRepositoryToken, TypeOrmModule } from '@nestjs/typeorm';
+import {
+  getConnectionToken,
+  getRepositoryToken,
+  TypeOrmModule,
+} from '@nestjs/typeorm';
 import { UserEntity } from 'src/users/user.entity';
-import { Repository } from 'typeorm';
+import { Connection, Repository } from 'typeorm';
 import { UpdatePasswordDto } from 'src/users/dto/user.dto';
 
 describe('Authentication system (e2e)', () => {
   let app: INestApplication;
   let userRepository: Repository<UserEntity>;
+  let connection: Connection;
 
   const mockUser = {
     email: 'mateuszzupa22@gmail.com',
@@ -23,7 +28,7 @@ describe('Authentication system (e2e)', () => {
     lastName: 'Zimmer',
   };
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [
         AppModule,
@@ -33,8 +38,14 @@ describe('Authentication system (e2e)', () => {
     }).compile();
 
     app = moduleFixture.createNestApplication();
+    connection = await moduleFixture.get(getConnectionToken());
     userRepository = moduleFixture.get(getRepositoryToken(UserEntity));
     await app.init();
+  });
+
+  afterAll(async () => {
+    await connection.dropDatabase();
+    await app.close();
   });
 
   it('POST /auth/register - handles registering', async () => {
@@ -56,6 +67,7 @@ describe('Authentication system (e2e)', () => {
           email,
           access_token,
         }: UserProfileI = res.body;
+
         expect(userId).toBeDefined();
         expect(role).toBe(Role.USER);
         expect(active).toBe(false);
@@ -228,9 +240,5 @@ describe('Authentication system (e2e)', () => {
       .then((res) => {
         expect(Boolean(res.text)).toBe(true);
       });
-  });
-
-  afterEach(async () => {
-    await app.close();
   });
 });
