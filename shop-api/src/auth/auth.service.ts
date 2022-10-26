@@ -4,6 +4,7 @@ import {
   HttpException,
   Inject,
   Injectable,
+  InternalServerErrorException,
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
@@ -72,24 +73,16 @@ export class AuthService {
 
   async hashPassword(password: string): Promise<string> {
     const salt = await this.generateSalt();
+    if (!password || !salt)
+      throw new InternalServerErrorException('Data and/or salt is required');
 
-    return new Promise((resolve, reject) => {
-      bcrypt.hash(password, salt, (err, encrypted) => {
-        if (err) reject(err);
-        else resolve(encrypted);
-      });
-    });
+    return bcrypt.hash(password, salt || 12);
   }
 
   async comparePassword(
     password: string,
     hashedPassword: string,
-  ): Promise<string> {
-    return new Promise((resolve, reject) => {
-      bcrypt.compare(password, hashedPassword, (err, same) => {
-        if (err) reject(err);
-        else resolve(same);
-      });
-    });
+  ): Promise<boolean> {
+    return bcrypt.compare(password, hashedPassword);
   }
 }
