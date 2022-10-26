@@ -16,6 +16,8 @@ import {
   InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { RoleService } from 'src/role/role.service';
 
 describe('UsersService', () => {
   let usersService: UsersService;
@@ -54,13 +56,20 @@ describe('UsersService', () => {
     },
   ];
 
-  const mockUserProfile = (mockUser): UserProfileI => ({
-    userId: mockUser.id,
-    role: mockUser.role,
-    active: mockUser.active,
-    firstName: mockUser.firstName,
-    lastName: mockUser.lastName,
-    email: mockUser.email,
+  const mockUserProfile = ({
+    id,
+    role,
+    active,
+    firstName,
+    lastName,
+    email,
+  }): UserProfileI => ({
+    userId: id,
+    role,
+    active,
+    firstName,
+    lastName,
+    email,
   });
 
   beforeEach(async () => {
@@ -134,6 +143,8 @@ describe('UsersService', () => {
           useValue: mockMailService,
         },
         { provide: getRepositoryToken(UserEntity), useClass: mockRepository },
+        { provide: ConfigService, useValue: {} },
+        { provide: RoleService, useValue: {} },
       ],
     }).compile();
 
